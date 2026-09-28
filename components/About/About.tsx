@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useCounterAnimation } from '@/hooks/useCounterAnimation';
 import TimelineSVG from './TimelineSVG';
+import VerticalTimeline from './VerticalTimeline';
 import styles from './About.module.css';
 
 /**
@@ -294,7 +295,12 @@ export default function About() {
         <h2 className={styles.timelineHeading}>{t('about.timeline.heading')}</h2>
         <p className={styles.timelineSubtitle}>{t('about.timeline.subtitle')}</p>
         <div className={styles.timelineWrapper}>
-          <TimelineSVG branches={timelineBranches} />
+          <div className={styles.desktopTimeline}>
+            <VerticalTimeline />
+          </div>
+          <div className={styles.mobileTimeline}>
+            <TimelineSVG branches={timelineBranches} />
+          </div>
         </div>
       </div>
     </section>
