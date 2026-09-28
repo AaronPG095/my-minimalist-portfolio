@@ -10,6 +10,12 @@ export default function Profile() {
   const nameText = t('profile.name');
   const titleText = t('profile.title');
   const cvFile = language === 'de' ? '/assets/Aaron_Greyling_CV_Technical_DE.pdf' : '/assets/Aaron_Greyling_CV_Technical_EN.pdf';
+  const fluentStudioUrl = language === 'de'
+    ? 'https://www.fluent-studio.com/de'
+    : 'https://www.fluent-studio.com/en';
+  const fluentStudioLabel = language === 'de'
+    ? 'Fluent Studio besuchen'
+    : 'Visit Fluent Studio';
 
   const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -85,6 +91,24 @@ export default function Profile() {
               src="/assets/github.png"
               alt="GitHub icon"
               className={styles.icon}
+              width={32}
+              height={32}
+              quality={90}
+              sizes="32px"
+            />
+          </a>
+          <a
+            href={fluentStudioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={fluentStudioLabel}
+            className={styles.socialLink}
+            data-tooltip="Fluent Studio"
+          >
+            <OptimizedImage
+              src="/assets/fluent-studio-icon.png"
+              alt=""
+              className={`${styles.icon} ${styles.fluentStudioIcon}`}
               width={32}
               height={32}
               quality={90}

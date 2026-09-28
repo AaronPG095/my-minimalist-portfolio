@@ -151,6 +151,16 @@
   position: relative;
 }
 
+.socialLink:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}
+
+:global([data-theme="dark"]) .socialLink:focus-visible {
+  outline-color: var(--color-white);
+}
+
 /* Tooltip styling */
 .socialLink::before {
   content: attr(data-tooltip);
@@ -213,6 +223,10 @@
   height: 2rem;
   width: auto;
   transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease), filter var(--transition-speed) var(--transition-ease);
+}
+
+.fluentStudioIcon {
+  filter: brightness(0);
 }
 
 :global([data-theme="dark"]) .icon {
