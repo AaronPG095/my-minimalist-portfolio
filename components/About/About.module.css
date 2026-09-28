@@ -394,42 +394,46 @@
   min-height: 500px;
 }
 
-.desktopTimeline {
-  display: block;
+.verticalTimelineShell {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.mobileTimeline {
+.verticalTimelineViewport {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+}
+
+.verticalTimelineViewport::-webkit-scrollbar {
   display: none;
+}
+
+.verticalTimelineViewport:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 .verticalTimeline {
   --lane-chef: #e74c3c;
   --lane-education: #3498db;
   --lane-experience: #2ecc71;
-  width: min(100%, 1120px);
+  width: 100%;
+  min-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
-}
-
-.verticalTimelineLabels {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 0 3rem 1rem 5rem;
-  text-align: center;
-  font-size: clamp(0.78rem, 1.1vw, 0.95rem);
-  font-weight: 600;
-}
-
-.verticalTimelineLabels span {
-  min-width: 0;
-  padding: 0 0.75rem;
-  line-height: 1.25;
-  text-wrap: balance;
 }
 
 .verticalTimelinePlot {
   position: relative;
-  height: 980px;
+  height: 1000px;
   margin: 0 auto;
+  overflow: hidden;
   border-radius: 12px;
   background: #f8f9fa;
   transition: background-color var(--transition-speed) var(--transition-ease);
@@ -443,7 +447,7 @@
 .verticalEventList,
 .verticalYearMarkers {
   position: absolute;
-  inset: 0 3rem 0 5rem;
+  inset: 0 80px 0 120px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -452,88 +456,155 @@
 .verticalYearMarkers::before {
   content: '';
   position: absolute;
-  top: 8%;
+  top: 6%;
   bottom: 2%;
   left: 0;
   width: 2px;
   transform: translateX(-50%);
   background: #95a5a6;
   opacity: 0.55;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
 }
 
-.verticalTrack {
+.verticalYearMarker {
   position: absolute;
-  top: var(--track-start);
-  left: var(--lane-position);
-  width: 3px;
-  transform: translateX(-50%);
-  background: currentColor;
-}
-
-.verticalTrackSolid {
-  height: calc(var(--track-end) - var(--track-start));
-}
-
-.verticalTrackFuture {
-  bottom: 2%;
+  top: var(--marker-position);
+  left: 0;
   width: 0;
-  border-left: 3px dashed currentColor;
-  background: none;
-  opacity: 0.45;
+  height: 0;
+}
+
+.verticalYearLabel {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  transform: translateY(-50%);
+  color: var(--color-medium-grey);
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color var(--transition-speed) var(--transition-ease);
+}
+
+.verticalYearDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--color-bg-light);
+  border-radius: 50%;
+  background: #95a5a6;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease);
 }
 
 .verticalLaneChef {
-  --lane-position: 16.666%;
   color: var(--lane-chef);
 }
 
 .verticalLaneEducation {
-  --lane-position: 50%;
   color: var(--lane-education);
 }
 
 .verticalLaneExperience {
-  --lane-position: 83.333%;
   color: var(--lane-experience);
+}
+
+.verticalLaneLabel {
+  position: absolute;
+  top: var(--lane-start);
+  left: var(--lane-position);
+  width: 180px;
+  transform: translate(-50%, calc(-100% - 14px));
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  transition: color var(--transition-speed) var(--transition-ease);
+}
+
+.verticalTrack {
+  position: absolute;
+  left: var(--lane-position);
+  width: 3px;
+  transform: translateX(-50%);
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
+}
+
+.verticalTrackSolid {
+  top: var(--lane-start);
+  height: calc(var(--lane-solid-end) - var(--lane-start));
+  background: currentColor;
+}
+
+.verticalTrackFuture {
+  top: var(--lane-solid-end);
+  height: calc(var(--lane-future-end) - var(--lane-solid-end));
+  width: 0;
+  border-left: 3px dashed currentColor;
+  opacity: 0.4;
+}
+
+.verticalFutureBoundaryMarker {
+  position: absolute;
+  top: var(--lane-solid-end);
+  left: var(--lane-position);
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
 }
 
 .verticalConnector {
   position: absolute;
-  left: 16.666%;
-  width: 33.334%;
-  height: 2px;
+  top: var(--connector-position);
+  left: var(--connector-start);
+  width: var(--connector-width);
+  height: 0;
   border-top: 2px dashed #95a5a6;
-  opacity: 0.75;
-}
-
-.verticalConnector2022 {
-  top: 24%;
-}
-
-.verticalConnector2023 {
-  top: 39%;
-  left: 50%;
+  opacity: 0.65;
+  transition: border-color var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
 }
 
 .verticalEvent {
   position: absolute;
   top: var(--event-position);
   left: var(--lane-position);
+  z-index: 3;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  transform-origin: 0 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .verticalEventDot {
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 3px solid var(--bg-color);
+  border: 3px solid var(--color-bg-light);
   border-radius: 50%;
   background: currentColor;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 1px currentColor;
-}
-
-[data-theme="dark"] .verticalEventDot {
-  border-color: var(--color-bg-light);
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease),
+    filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .verticalEventTransition .verticalEventDot {
@@ -543,16 +614,27 @@
   box-shadow: 0 0 0 5px color-mix(in srgb, #95a5a6 22%, transparent);
 }
 
+.verticalEventTransition .verticalEventDot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 2px solid #95a5a6;
+  border-radius: 50%;
+  opacity: 0.3;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color var(--transition-speed) var(--transition-ease);
+}
+
 .verticalEventFuture .verticalEventDot {
-  background: var(--color-bg-light);
   border-style: dashed;
+  background: var(--color-bg-light);
 }
 
 .verticalEventContent {
   position: absolute;
-  top: 50%;
+  top: 0;
   display: flex;
-  width: clamp(150px, 17vw, 220px);
+  width: clamp(150px, 16vw, 220px);
   transform: translateY(-50%);
   flex-direction: column;
   gap: 0.2rem;
@@ -563,12 +645,17 @@
   color: var(--text-color);
   font-size: 0.82rem;
   font-weight: 600;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .verticalEventContent small {
   color: var(--color-medium-grey);
   font-size: 0.7rem;
   font-style: italic;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .verticalLabelRight .verticalEventContent {
@@ -581,239 +668,118 @@
   text-align: right;
 }
 
-.verticalEvent[data-event-id='release-product'] .verticalEventContent {
-  right: auto;
-  left: 18px;
-  width: clamp(110px, 10vw, 135px);
-  text-align: left;
+.verticalEvent:hover,
+.verticalEvent:focus-visible {
+  z-index: 4;
+  transform: scale(1.15);
+  outline: none;
 }
 
-.verticalYearMarkers span {
-  position: absolute;
-  top: var(--marker-position);
-  left: 0;
-  transform: translate(-4rem, -50%);
-  color: var(--color-medium-grey);
-  font-size: 0.75rem;
-  font-style: italic;
-  font-weight: 500;
-  white-space: nowrap;
+.verticalEvent:hover .verticalEventDot,
+.verticalEvent:focus-visible .verticalEventDot {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+  box-shadow: 0 0 0 2px currentColor;
 }
 
-.verticalYearMarkers span::after {
+[data-theme="dark"] .verticalEvent:hover .verticalEventDot,
+[data-theme="dark"] .verticalEvent:focus-visible .verticalEventDot {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.verticalEventTransition:hover .verticalEventDot,
+.verticalEventTransition:focus-visible .verticalEventDot {
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(149, 165, 166, 0.4));
+}
+
+[data-theme="dark"] .verticalEventTransition:hover .verticalEventDot,
+[data-theme="dark"] .verticalEventTransition:focus-visible .verticalEventDot {
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+}
+
+.verticalEventTransition:hover .verticalEventDot::after,
+.verticalEventTransition:focus-visible .verticalEventDot::after {
+  opacity: 0.5;
+}
+
+.verticalEvent:hover .verticalEventContent strong,
+.verticalEvent:focus-visible .verticalEventContent strong {
+  color: #2c3e50;
+}
+
+.verticalEvent:hover .verticalEventContent small,
+.verticalEvent:focus-visible .verticalEventContent small {
+  color: #5a6c7d;
+  opacity: 1;
+}
+
+[data-theme="dark"] .verticalEvent:hover .verticalEventContent strong,
+[data-theme="dark"] .verticalEvent:focus-visible .verticalEventContent strong,
+[data-theme="dark"] .verticalEvent:hover .verticalEventContent small,
+[data-theme="dark"] .verticalEvent:focus-visible .verticalEventContent small {
+  filter: brightness(1.1);
+}
+
+.verticalEvent:focus-visible .verticalEventDot::before {
   content: '';
   position: absolute;
-  top: 50%;
-  right: -1.15rem;
-  width: 9px;
-  height: 9px;
-  transform: translateY(-50%);
-  border: 2px solid var(--color-bg-light);
+  inset: -13px;
+  border: 2px solid var(--text-color);
   border-radius: 50%;
-  background: #95a5a6;
 }
 
-@media screen and (max-width: 900px) {
-  .verticalTimelineLabels {
-    padding-right: 1rem;
-    padding-left: 4rem;
-    font-size: 0.82rem;
-  }
-
-  .verticalTracks,
-  .verticalEventList,
-  .verticalYearMarkers {
-    right: 1rem;
-    left: 4rem;
-  }
-
-  .verticalTimelinePlot {
-    height: 1000px;
-  }
-
-  .verticalEventContent {
-    width: clamp(115px, 18vw, 160px);
-  }
-
-  .verticalEventContent strong {
-    font-size: 0.74rem;
-  }
-
-  .verticalEventContent small {
-    font-size: 0.64rem;
-  }
+.verticalEvent:active {
+  transform: scale(1.1);
 }
 
-.timelineAxis {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 2rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  color: var(--color-medium-grey);
-  font-weight: 500;
-}
-
-.axisLabel {
-  font-weight: 500;
-}
-
-.timelineBranch {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  min-height: 120px;
-  gap: 2rem;
-}
-
-.branchPast .branchLine {
-  border-top: 2px dashed var(--color-medium-grey);
-  background: transparent;
-}
-
-.branchLabel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 120px;
-  gap: 0.25rem;
-}
-
-.branchName {
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text-color);
-  transition: color var(--transition-speed) var(--transition-ease);
-}
-
-.branchTitle {
-  font-weight: 500;
-  font-size: 0.875rem;
-  color: var(--color-medium-grey);
-  transition: color var(--transition-speed) var(--transition-ease);
-}
-
-.branchLineContainer {
-  position: relative;
-  flex: 1;
-  height: 2px;
-  margin: 0 1rem;
-}
-
-.branchLine {
+.timelineScrollHint {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 2px;
-  background: var(--text-color);
-  z-index: 1;
-  transition: background-color var(--transition-speed) var(--transition-ease);
-}
-
-.branchNodes {
-  position: relative;
-  width: 100%;
-  height: 100px;
-}
-
-.node {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  z-index: 6;
   display: flex;
-  flex-direction: column;
+  width: 50px;
   align-items: center;
-  z-index: 2;
-  transition: transform 0.2s ease;
-}
-
-.node:hover {
-  transform: translate(-50%, -52%);
-}
-
-.nodeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--text-color);
-  border: 2px solid var(--bg-color);
-  position: relative;
-  z-index: 3;
-  margin-bottom: 0.5rem;
-  flex-shrink: 0;
-}
-
-[data-theme="dark"] .nodeDot {
-  border-color: var(--color-bg-light);
-}
-
-.nodeTransition .nodeDot {
-  background: var(--color-medium-grey);
-  border-color: var(--text-color);
-}
-
-.nodeCurrent .nodeDot {
-  width: 14px;
-  height: 14px;
-  background: var(--text-color);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .nodeCurrent .nodeDot {
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-}
-
-.nodeFuture .nodeDot {
-  border-style: dashed;
-}
-
-.currentMarker {
-  font-size: 0.75rem;
-  font-weight: 600;
   color: var(--text-color);
-  margin-bottom: 0.25rem;
-  white-space: nowrap;
-}
-
-.nodeContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.25rem;
-  padding: 0.5rem;
-  min-width: 150px;
-  max-width: 200px;
-}
-
-.nodeTitle {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-color);
-  line-height: 1.3;
-  transition: color var(--transition-speed) var(--transition-ease);
-}
-
-.nodeDescription {
-  font-size: 0.75rem;
-  color: var(--color-medium-grey);
-  transition: color var(--transition-speed) var(--transition-ease);
-  font-style: italic;
-}
-
-.transitionLine {
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: calc(4rem + 60px);
-  border-left: 2px dotted var(--color-medium-grey);
-  z-index: 1;
+  font-size: 2rem;
+  font-weight: 300;
   pointer-events: none;
+  transition: color var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
+}
+
+.timelineScrollHintLeft {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 8px;
+  background: linear-gradient(90deg, var(--bg-color) 0%, transparent 100%);
+}
+
+.timelineScrollHintRight {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 8px;
+  background: linear-gradient(270deg, var(--bg-color) 0%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verticalEvent,
+  .verticalEventDot,
+  .verticalEventDot::after,
+  .verticalEventContent strong,
+  .verticalEventContent small {
+    transition-duration: 0s;
+  }
+
+  .verticalEvent:hover,
+  .verticalEvent:focus-visible,
+  .verticalEvent:active {
+    transform: none;
+  }
+
+  .verticalEvent:hover .verticalEventDot,
+  .verticalEvent:focus-visible .verticalEventDot {
+    filter: none;
+  }
 }
 
 /* Responsive styles for timeline */
@@ -827,14 +793,6 @@
     gap: 3rem;
   }
 
-  .branchLabel {
-    min-width: 100px;
-  }
-
-  .nodeContent {
-    min-width: 120px;
-    max-width: 150px;
-  }
 }
 
 @media screen and (max-width: 600px) {
@@ -859,57 +817,6 @@
     padding: 2rem 0 1rem 0;
   }
 
-  .desktopTimeline {
-    display: none;
-  }
-
-  .mobileTimeline {
-    display: block;
-  }
-
-  .timelineAxis {
-    padding: 0 1rem;
-    font-size: 0.75rem;
-  }
-
-  .timelineBranch {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    min-height: auto;
-  }
-
-  .branchLabel {
-    min-width: auto;
-  }
-
-  .branchLineContainer {
-    width: 100%;
-    margin: 0;
-    height: 60px;
-  }
-
-  .branchNodes {
-    height: 60px;
-  }
-
-  .nodeContent {
-    min-width: 100px;
-    max-width: 120px;
-    font-size: 0.75rem;
-  }
-
-  .nodeTitle {
-    font-size: 0.75rem;
-  }
-
-  .nodeDescription {
-    font-size: 0.625rem;
-  }
-
-  .transitionLine {
-    height: 60px;
-  }
 }
 
 /* Reduced motion support for timeline */
