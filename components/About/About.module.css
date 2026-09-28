@@ -394,6 +394,256 @@
   min-height: 500px;
 }
 
+.desktopTimeline {
+  display: block;
+}
+
+.mobileTimeline {
+  display: none;
+}
+
+.verticalTimeline {
+  --lane-chef: #e74c3c;
+  --lane-education: #3498db;
+  --lane-experience: #2ecc71;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.verticalTimelineLabels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 3rem 1rem 5rem;
+  text-align: center;
+  font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+  font-weight: 600;
+}
+
+.verticalTimelineLabels span {
+  min-width: 0;
+  padding: 0 0.75rem;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.verticalTimelinePlot {
+  position: relative;
+  height: 980px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: background-color var(--transition-speed) var(--transition-ease);
+}
+
+[data-theme="dark"] .verticalTimelinePlot {
+  background: var(--color-bg-light);
+}
+
+.verticalTracks,
+.verticalEventList,
+.verticalYearMarkers {
+  position: absolute;
+  inset: 0 3rem 0 5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verticalYearMarkers::before {
+  content: '';
+  position: absolute;
+  top: 8%;
+  bottom: 2%;
+  left: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: #95a5a6;
+  opacity: 0.55;
+}
+
+.verticalTrack {
+  position: absolute;
+  top: var(--track-start);
+  left: var(--lane-position);
+  width: 3px;
+  transform: translateX(-50%);
+  background: currentColor;
+}
+
+.verticalTrackSolid {
+  height: calc(var(--track-end) - var(--track-start));
+}
+
+.verticalTrackFuture {
+  bottom: 2%;
+  width: 0;
+  border-left: 3px dashed currentColor;
+  background: none;
+  opacity: 0.45;
+}
+
+.verticalLaneChef {
+  --lane-position: 16.666%;
+  color: var(--lane-chef);
+}
+
+.verticalLaneEducation {
+  --lane-position: 50%;
+  color: var(--lane-education);
+}
+
+.verticalLaneExperience {
+  --lane-position: 83.333%;
+  color: var(--lane-experience);
+}
+
+.verticalConnector {
+  position: absolute;
+  left: 16.666%;
+  width: 33.334%;
+  height: 2px;
+  border-top: 2px dashed #95a5a6;
+  opacity: 0.75;
+}
+
+.verticalConnector2022 {
+  top: 24%;
+}
+
+.verticalConnector2023 {
+  top: 39%;
+  left: 50%;
+}
+
+.verticalEvent {
+  position: absolute;
+  top: var(--event-position);
+  left: var(--lane-position);
+}
+
+.verticalEventDot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--bg-color);
+  border-radius: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 1px currentColor;
+}
+
+[data-theme="dark"] .verticalEventDot {
+  border-color: var(--color-bg-light);
+}
+
+.verticalEventTransition .verticalEventDot {
+  width: 22px;
+  height: 22px;
+  background: #95a5a6;
+  box-shadow: 0 0 0 5px color-mix(in srgb, #95a5a6 22%, transparent);
+}
+
+.verticalEventFuture .verticalEventDot {
+  background: var(--color-bg-light);
+  border-style: dashed;
+}
+
+.verticalEventContent {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  width: clamp(150px, 17vw, 220px);
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 0.2rem;
+  line-height: 1.3;
+}
+
+.verticalEventContent strong {
+  color: var(--text-color);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.verticalEventContent small {
+  color: var(--color-medium-grey);
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
+.verticalLabelRight .verticalEventContent {
+  left: 18px;
+  text-align: left;
+}
+
+.verticalLabelLeft .verticalEventContent {
+  right: 18px;
+  text-align: right;
+}
+
+.verticalEvent[data-event-id='release-product'] .verticalEventContent {
+  right: auto;
+  left: 18px;
+  width: clamp(110px, 10vw, 135px);
+  text-align: left;
+}
+
+.verticalYearMarkers span {
+  position: absolute;
+  top: var(--marker-position);
+  left: 0;
+  transform: translate(-4rem, -50%);
+  color: var(--color-medium-grey);
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.verticalYearMarkers span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -1.15rem;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%);
+  border: 2px solid var(--color-bg-light);
+  border-radius: 50%;
+  background: #95a5a6;
+}
+
+@media screen and (max-width: 900px) {
+  .verticalTimelineLabels {
+    padding-right: 1rem;
+    padding-left: 4rem;
+    font-size: 0.82rem;
+  }
+
+  .verticalTracks,
+  .verticalEventList,
+  .verticalYearMarkers {
+    right: 1rem;
+    left: 4rem;
+  }
+
+  .verticalTimelinePlot {
+    height: 1000px;
+  }
+
+  .verticalEventContent {
+    width: clamp(115px, 18vw, 160px);
+  }
+
+  .verticalEventContent strong {
+    font-size: 0.74rem;
+  }
+
+  .verticalEventContent small {
+    font-size: 0.64rem;
+  }
+}
+
 .timelineAxis {
   display: flex;
   justify-content: space-between;
@@ -607,6 +857,14 @@
   .timelineWrapper {
     gap: 3rem;
     padding: 2rem 0 1rem 0;
+  }
+
+  .desktopTimeline {
+    display: none;
+  }
+
+  .mobileTimeline {
+    display: block;
   }
 
   .timelineAxis {

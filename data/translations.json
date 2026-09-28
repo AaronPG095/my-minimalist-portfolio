@@ -33,16 +33,19 @@
           "future": "Future →"
         },
         "futureNode": {
+          "title": "Digital Humanities B.Sc. planned",
           "titleLine1": "Digital Humanities",
           "titleLine2": "B.Sc. planned",
           "description": "After Studienkolleg"
         },
         "futureGreenNode": {
+          "title": "Grow Fluent Studio into a software company",
           "titleLine1": "Grow Fluent Studio",
           "titleLine2": "into a software company",
           "description": "Planned"
         },
         "futureProductNode": {
+          "title": "Release own software product",
           "titleLine1": "Release own",
           "titleLine2": "software product",
           "description": "Planned"
@@ -228,16 +231,19 @@
           "future": "Zukunft →"
         },
         "futureNode": {
+          "title": "Digital Humanities B.Sc. geplant",
           "titleLine1": "Digital Humanities",
           "titleLine2": "B.Sc. geplant",
           "description": "Nach dem Studienkolleg"
         },
         "futureGreenNode": {
+          "title": "Fluent Studio zum Softwareunternehmen ausbauen",
           "titleLine1": "Fluent Studio zum",
           "titleLine2": "Softwareunternehmen ausbauen",
           "description": "Geplant"
         },
         "futureProductNode": {
+          "title": "Eigenes Softwareprodukt veröffentlichen",
           "titleLine1": "Eigenes Softwareprodukt",
           "titleLine2": "veröffentlichen",
           "description": "Geplant"
