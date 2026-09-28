@@ -1,0 +1,96 @@
+export type CareerLanguage = 'en' | 'de';
+
+export const careerContent = {
+  en: {
+    profileSummary: 'I build web and Windows software, from product interfaces to the testing and workflows that keep them reliable.',
+    about: {
+      subtitle: 'Development, product work and study',
+      title: 'About my work',
+      intro: 'I am a software developer based in Leipzig and the founder of Fluent Studio. I build web applications and native Windows software, taking responsibility for implementation, testing and documentation.',
+      background: 'My earlier work in hospitality and festival operations taught me to coordinate people, solve problems under pressure and make systems work in practice. I bring that experience into software projects without treating it as a substitute for technical work.',
+      experienceTitle: 'Current work',
+      experience: 'Since April 2026, I have developed Fluent Studio’s website and FluentOverlay, a Windows application for app-specific shortcuts and workflows.',
+      educationTitle: 'Training and study',
+      education: 'I completed full-time web development training at DCI in 2023. Since September 2026, I have attended the G-Kurs at Studienkolleg Sachsen, with a Digital Humanities degree at Leipzig University planned afterward.',
+      pathTitle: 'Career path',
+      path: [
+        { date: '2022–2023', title: 'Web development training', detail: 'Full-time MERN training at DCI and a Laravel development internship at ECommeleon.' },
+        { date: '2025', title: 'Kollektiv Spinnen', detail: 'Built a festival platform with a timetable, administration, ticketing and live data.' },
+        { date: '2026–present', title: 'Fluent Studio', detail: 'Developing web and Windows software, supported by testing and AI-assisted development workflows.' },
+        { date: '2026–present', title: 'Studienkolleg Sachsen', detail: 'G-Kurs in preparation for planned Digital Humanities study.' },
+      ],
+    },
+    skills: {
+      subtitle: 'Technologies used in my work',
+      title: 'Technical skills',
+      groups: [
+        { title: 'Web applications', items: ['TypeScript', 'React', 'Next.js', 'CSS', 'Tailwind'] },
+        { title: 'Data and backend', items: ['Supabase', 'PostgreSQL', 'Node.js', 'Express', 'MySQL', 'Laravel'] },
+        { title: 'Windows and quality', items: ['C#', 'WinUI 3', 'Vitest', 'ESLint', 'Git'] },
+        { title: 'Development workflows', items: ['AI-assisted development', 'MCP', 'Testing', 'Documentation'] },
+      ],
+    },
+    projects: {
+      subtitle: 'Selected development work',
+      title: 'Projects',
+      role: 'My contribution',
+      stack: 'Technology',
+      viewSite: 'Visit website',
+      viewProduct: 'View product page',
+      viewCode: 'View code',
+      earlier: 'Earlier projects',
+      earlierIntro: 'Smaller projects from my earlier web development work.',
+      items: [
+        { id: 'studio', title: 'Fluent Studio', category: 'Independent software work', summary: 'Built and published the studio website, connecting a Next.js interface to Supabase. I also run the technical and organizational work of the studio.', contribution: 'Architecture, implementation, deployment and ongoing maintenance.', technologies: ['Next.js', 'React', 'TypeScript', 'Supabase'], site: 'https://www.fluent-studio.com/en', linkLabel: 'viewSite', image: '/assets/fluent-studio-project.png' },
+        { id: 'overlay', title: 'FluentOverlay', category: 'Windows software · current work', summary: 'A native Windows overlay for app-specific shortcuts and workflows. The product page describes the work currently in development.', contribution: 'Windows application development and product design.', technologies: ['C#', 'WinUI 3'], site: 'https://www.fluent-studio.com/en/fluentoverlay', linkLabel: 'viewProduct', image: '/assets/fluentoverlay-project.png' },
+        { id: 'kollektiv', title: 'Kollektiv Spinnen', category: 'Festival platform · 2025', summary: 'Developed a platform for a festival of approximately 200 guests, with an interactive timetable, event filters, multilingual content, administration, ticketing and live data.', contribution: 'Application development across interface and data features.', technologies: ['React', 'TypeScript', 'Supabase', 'PostgreSQL'], site: 'https://kollektiv-spinnen-festival.vercel.app/', code: 'https://github.com/AaronPG095/kollektiv-spinnen-timetable', linkLabel: 'viewSite', image: '/assets/Screenshot 2025-11-12 203334.png' },
+      ],
+    },
+  },
+  de: {
+    profileSummary: 'Ich entwickle Web- und Windows-Software, von Produktoberflächen bis zu Tests und Abläufen, die sie zuverlässig machen.',
+    about: {
+      subtitle: 'Entwicklung, Produktarbeit und Studium',
+      title: 'Über meine Arbeit',
+      intro: 'Ich bin Softwareentwickler in Leipzig und Gründer von Fluent Studio. Ich entwickle Webanwendungen und native Windows-Software und übernehme Verantwortung für Implementierung, Tests und Dokumentation.',
+      background: 'Meine frühere Arbeit in der Gastronomie und Festivalorganisation hat mich gelehrt, Menschen zu koordinieren, unter Druck Probleme zu lösen und Abläufe praxistauglich zu gestalten. Diese Erfahrung bringe ich in Softwareprojekte ein.',
+      experienceTitle: 'Aktuelle Arbeit',
+      experience: 'Seit April 2026 entwickle ich die Website von Fluent Studio und FluentOverlay, eine Windows-Anwendung für appbezogene Shortcuts und Workflows.',
+      educationTitle: 'Ausbildung und Studium',
+      education: 'Meine Vollzeitausbildung in Webentwicklung am DCI habe ich 2023 abgeschlossen. Seit September 2026 besuche ich den G-Kurs am Studienkolleg Sachsen. Anschließend plane ich ein Studium der Digital Humanities an der Universität Leipzig.',
+      pathTitle: 'Beruflicher Weg',
+      path: [
+        { date: '2022–2023', title: 'Webentwicklung', detail: 'Vollzeitausbildung am DCI mit MERN und Entwicklungspraktikum mit Laravel bei ECommeleon.' },
+        { date: '2025', title: 'Kollektiv Spinnen', detail: 'Festivalplattform mit Timetable, Administration, Ticketing und Echtzeitdaten entwickelt.' },
+        { date: '2026–heute', title: 'Fluent Studio', detail: 'Entwicklung von Web- und Windows-Software mit Tests und KI-gestützten Entwicklungsabläufen.' },
+        { date: '2026–heute', title: 'Studienkolleg Sachsen', detail: 'G-Kurs als Vorbereitung auf ein geplantes Studium der Digital Humanities.' },
+      ],
+    },
+    skills: {
+      subtitle: 'Technologien aus meiner Arbeit',
+      title: 'Technische Kenntnisse',
+      groups: [
+        { title: 'Webanwendungen', items: ['TypeScript', 'React', 'Next.js', 'CSS', 'Tailwind'] },
+        { title: 'Daten und Backend', items: ['Supabase', 'PostgreSQL', 'Node.js', 'Express', 'MySQL', 'Laravel'] },
+        { title: 'Windows und Qualität', items: ['C#', 'WinUI 3', 'Vitest', 'ESLint', 'Git'] },
+        { title: 'Entwicklungsabläufe', items: ['KI-gestützte Entwicklung', 'MCP', 'Tests', 'Dokumentation'] },
+      ],
+    },
+    projects: {
+      subtitle: 'Ausgewählte Entwicklungsarbeit',
+      title: 'Projekte',
+      role: 'Mein Beitrag',
+      stack: 'Technologien',
+      viewSite: 'Website besuchen',
+      viewProduct: 'Produktseite ansehen',
+      viewCode: 'Code ansehen',
+      earlier: 'Frühere Projekte',
+      earlierIntro: 'Kleinere Projekte aus meiner früheren Arbeit in der Webentwicklung.',
+      items: [
+        { id: 'studio', title: 'Fluent Studio', category: 'Selbstständige Softwarearbeit', summary: 'Die Studio-Website entwickelt und veröffentlicht, mit einer Next.js-Oberfläche und Supabase-Anbindung. Dazu verantworte ich die technische und organisatorische Arbeit des Studios.', contribution: 'Architektur, Implementierung, Deployment und laufende Pflege.', technologies: ['Next.js', 'React', 'TypeScript', 'Supabase'], site: 'https://www.fluent-studio.com/de', linkLabel: 'viewSite', image: '/assets/fluent-studio-project.png' },
+        { id: 'overlay', title: 'FluentOverlay', category: 'Windows-Software · aktuelle Arbeit', summary: 'Ein natives Windows-Overlay für appbezogene Shortcuts und Workflows. Die Produktseite beschreibt die laufende Entwicklung.', contribution: 'Entwicklung der Windows-Anwendung und Produktgestaltung.', technologies: ['C#', 'WinUI 3'], site: 'https://www.fluent-studio.com/de/fluentoverlay', linkLabel: 'viewProduct', image: '/assets/fluentoverlay-project.png' },
+        { id: 'kollektiv', title: 'Kollektiv Spinnen', category: 'Festivalplattform · 2025', summary: 'Festivalplattform für etwa 200 Gäste mit interaktivem Timetable, Event-Filtern, mehrsprachigen Inhalten, Administration, Ticketing und Echtzeitdaten entwickelt.', contribution: 'Anwendungsentwicklung für Oberfläche und Datenfunktionen.', technologies: ['React', 'TypeScript', 'Supabase', 'PostgreSQL'], site: 'https://kollektiv-spinnen-festival.vercel.app/', code: 'https://github.com/AaronPG095/kollektiv-spinnen-timetable', linkLabel: 'viewSite', image: '/assets/Screenshot 2025-11-12 203334.png' },
+      ],
+    },
+  },
+} as const;

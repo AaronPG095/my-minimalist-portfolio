@@ -8,22 +8,22 @@
     },
     "profile": {
       "greeting": "Hey, I'm",
-      "name": "Aaron",
-      "title": "Fullstack Developer",
-      "downloadCV": "Download CV",
-      "contactInfo": "Contact Info"
+      "name": "Aaron Greyling",
+      "title": "Software Developer",
+      "downloadCV": "View CV",
+      "contactInfo": "Contact me"
     },
     "about": {
       "subtitle": "Get To Know More",
       "title": "About Me",
       "experience": "Experience",
-      "experienceYears": "3 Years Frontend",
-      "experienceMonths": "1 Year Backend",
+      "experienceYears": "Years Frontend",
+      "experienceMonths": "Years Backend",
       "education": "Education",
       "education1": "DCI (Digital Career Institue) Web Development Bootcamp",
       "education2": "BTEC HNC4 General Engineering",
-      "description1": "Originally from South Africa and now over ten years in Germany, I'm a creative, team‑oriented Fullstack Web Developer with a background of nine years in professional kitchens. Currently at a vegan restaurant in Connewitz, Leipzig – an experience that has taught me patience, teamwork and attention to detail.",
-      "description2": "I received a comprehensive knowledge base in Fullstack Web Development through a 14‑month DCI Web Development Bootcamp and have been continuously developing my skills with private projects and online courses ever since. I love creating intuitive, aesthetic and functional applications, and I'm always looking for work environments that fit my skills, nurture my curiosity and align with my values.",
+      "description1": "I’m a software developer in Leipzig and founder of Fluent Studio. I develop web applications and native Windows software, including FluentOverlay. My work also covers AI-assisted development, testing and documentation.",
+      "description2": "After nine years working in professional kitchens, I completed DCI’s full-time web development program and a Laravel internship at ECommeleon. In 2025, I built the Kollektiv Spinnen festival platform. Since September 2026, I’ve attended the G-Kurs at Studienkolleg Sachsen, with a Digital Humanities B.Sc. planned afterward.",
       "timeline": {
         "heading": "Career Timeline & Professional Development",
         "subtitle": "Journey from Culinary Arts to Software Development",
@@ -33,13 +33,19 @@
           "future": "Future →"
         },
         "futureNode": {
-          "titleLine1": "Computer Science",
-          "titleLine2": "Degree",
-          "description": "(Future Goal)"
+          "titleLine1": "Digital Humanities",
+          "titleLine2": "B.Sc. planned",
+          "description": "After Studienkolleg"
         },
         "futureGreenNode": {
-          "title": "Develop Own SaaS",
-          "description": "(Become Entrepreneur)"
+          "titleLine1": "Grow Fluent Studio",
+          "titleLine2": "into a software company",
+          "description": "Planned"
+        },
+        "futureProductNode": {
+          "titleLine1": "Release own",
+          "titleLine2": "software product",
+          "description": "Planned"
         },
         "branches": {
           "chefWork": "Professional Chef",
@@ -59,14 +65,26 @@
           "onlineCoursesLine1": "Online",
           "onlineCoursesLine2": "Courses",
           "onlineCoursesDescription": "(Skill Enhancement)",
-          "internship": "2-Month Developer Internship",
-          "internshipLine1": "2-Month Developer",
-          "internshipLine2": "Internship",
-          "internshipDescription": "(First Pro Experience)",
+          "internship": "ECommeleon Internship · 2023",
+          "internshipLine1": "ECommeleon",
+          "internshipLine2": "Internship · 2023",
+          "internshipDescription": "Laravel · 2 months",
           "personalProjects": "Personal Projects",
           "personalProjectsLine1": "Personal",
           "personalProjectsLine2": "Projects",
           "personalProjectsDescription": "(Portfolio Building)",
+          "studienkolleg": "Studienkolleg Sachsen · 2026",
+          "studienkollegLine1": "Studienkolleg",
+          "studienkollegLine2": "Sachsen · 2026",
+          "studienkollegDescription": "G-Kurs",
+          "kollektivSpinnen": "Kollektiv Spinnen · 2025",
+          "kollektivSpinnenLine1": "Kollektiv Spinnen",
+          "kollektivSpinnenLine2": "· 2025",
+          "kollektivSpinnenDescription": "Festival platform",
+          "fluentStudio": "Fluent Studio Founded · 2026",
+          "fluentStudioLine1": "Fluent Studio",
+          "fluentStudioLine2": "Founded · 2026",
+          "fluentStudioDescription": "Software studio",
           "currentPosition": "You are here"
         }
       }
@@ -114,7 +132,14 @@
         "Project Management": "Planning, organizing, and managing resources to achieve specific project goals. Skills in task prioritization, timeline management, and team coordination.",
         "Visual Studio": "Microsoft's integrated development environment for building applications. Experience with debugging, IntelliSense, and project management for .NET and other platforms.",
         "WinUI 3": "Windows UI Library 3 - Microsoft's native UI framework for building modern Windows applications. Creating fluent, native experiences with C# and XAML.",
-        ".NET 8": "Microsoft's cross-platform, open-source framework for building modern applications. Experience with C#, ASP.NET Core, and building web APIs and desktop applications."
+        ".NET 8": "Microsoft's development platform, used with C# and WinUI 3 to build native Windows software.",
+        "PostgreSQL": "A relational database used for data modelling, queries and application backends.",
+        "Supabase": "A PostgreSQL-based backend platform used for authentication, data storage and application integration.",
+        "C#": "The primary language used with .NET and WinUI 3 to build native Windows software.",
+        "Vitest": "A test framework used for automated unit and component testing in TypeScript and JavaScript applications.",
+        "GitHub": "A platform used for Git repositories, issues, pull requests and collaborative development workflows.",
+        "Claude Code": "An agentic development tool used for implementation, testing, refactoring and documentation workflows.",
+        "Codex": "An agentic development tool used for implementation, testing, refactoring and documentation workflows."
       }
     },
     "projects": {
@@ -122,26 +147,38 @@
       "title": "Projects",
       "project1": {
         "title": "Modern Minimalist Portfolio",
-        "description": "HTML / CSS / Javascript / NextJS"
+        "description": "This bilingual portfolio presents my developer profile, skills and projects. It uses Next.js, React, TypeScript and CSS Modules, with language switching, theme support and responsive navigation."
       },
       "project2": {
         "title": "Bohemian Kids Cafe",
-        "description": "SCSS / MERN Full Stack"
+        "description": "The frontend of a team-built café platform with menus, news, an online shop, authentication, shopping-cart flows and user and administration areas."
       },
       "project3": {
         "title": "ASK Online Store",
-        "description": "SCSS / ReactJS"
+        "description": "A DCI group project: a React online store that loads product data from a public API and uses hooks for product browsing and shopping-cart interactions."
       },
       "project4": {
         "title": "Brainwave",
-        "description": "tailwindcss / ReactJS"
+        "description": "A responsive AI product landing page built with React and Tailwind CSS. It uses reusable components for feature, collaboration, pricing and roadmap sections."
       },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
-        "description": "TypeScript / PLpgSQL / CSS / NextJS / ReactJS"
+        "description": "A bilingual festival platform I developed for Kollektiv Spinnen, with an interactive timetable, filtering, administrative content management and a Supabase backend for festival data and ticketing."
+      },
+      "fluentStudio": {
+        "title": "Fluent Studio",
+        "description": "I built and published the Fluent Studio website, connecting a Next.js interface to Supabase. I also manage the studio’s technical and organizational work, including architecture, implementation, deployment and ongoing maintenance. AI-assisted development with Codex, Claude Code and Cursor supports implementation, testing, refactoring, documentation and project workflows."
+      },
+      "fluentOverlay": {
+        "title": "FluentOverlay",
+        "description": "FluentOverlay is a native Windows application currently in development for app-specific shortcuts and workflows. I am responsible for the Windows application development and product design. I use Codex, Claude Code and Cursor throughout implementation, testing, refactoring and documentation, alongside an integrated MCP server."
       },
       "github": "Github",
-      "liveDemo": "Live Demo"
+      "liveDemo": "Live Demo",
+      "visitWebsite": "Visit website",
+      "viewProductPage": "View product page",
+      "projectSummary": "Project Summary",
+      "technologies": "Technologies"
     },
     "contact": {
       "subtitle": "Get in Touch",
@@ -166,22 +203,22 @@
     },
     "profile": {
       "greeting": "Hallo, ich bin",
-      "name": "Aaron",
-      "title": "Fullstack Entwickler",
-      "downloadCV": "Lebenslauf",
-      "contactInfo": "Kontakt"
+      "name": "Aaron Greyling",
+      "title": "Softwareentwickler",
+      "downloadCV": "Lebenslauf ansehen",
+      "contactInfo": "Kontakt aufnehmen"
     },
     "about": {
       "subtitle": "Lerne mich besser kennen",
       "title": "Über mich",
       "experience": "Erfahrung",
-      "experienceYears": "3 Jahre Frontend",
-      "experienceMonths": "1 Jahr Backend",
+      "experienceYears": "Jahre Frontend",
+      "experienceMonths": "Jahre Backend",
       "education": "Bildung",
       "education1": "DCI (Digital Career Institue) Web Development Bootcamp",
       "education2": "BTEC HNC4 Allgemeines Ingenieurwesen",
-      "description1": "Ursprünglich aus Südafrika, jetzt seit über 10 Jahren in Deutschland. Ich bin ein kreativer, teamorientierter und motivierter Full Stack Webentwickler mit einem Hintergrund von neun Jahren als Koch. Zuletzt in einem hochwertigen veganen Restaurant im Herzen von Connewitz, Leipzig.",
-      "description2": "Ich habe eine umfassende Grundlage in der Entwicklung durch mein 14-monatiges DCI Web Development Bootcamp erhalten und arbeite seitdem an verschiedenen privaten Projekten. Ich liebe es, intuitive, ästhetische und funktionale Anwendungen zu erstellen und suche nach einem Arbeitsumfeld, das zu meinen Fähigkeiten passt, meine Interessen fördert und mit meinen Werten übereinstimmt.",
+      "description1": "Ich bin Softwareentwickler in Leipzig und Gründer von Fluent Studio. Ich entwickle Webanwendungen und native Windows-Software, darunter FluentOverlay. Zu meiner Arbeit gehören auch KI-gestützte Entwicklung, Tests und Dokumentation.",
+      "description2": "Nach neun Jahren in professionellen Küchen habe ich die Vollzeitausbildung in Webentwicklung am DCI und ein Laravel-Praktikum bei ECommeleon abgeschlossen. 2025 entwickelte ich die Festivalplattform für Kollektiv Spinnen. Seit September 2026 besuche ich den G-Kurs am Studienkolleg Sachsen; anschließend plane ich einen B.Sc. in Digital Humanities.",
       "timeline": {
         "heading": "Karriere-Timeline & Berufliche Entwicklung",
         "subtitle": "Weg von der Kochkunst zur Softwareentwicklung",
@@ -191,13 +228,19 @@
           "future": "Zukunft →"
         },
         "futureNode": {
-          "titleLine1": "Informatik",
-          "titleLine2": "Studium",
-          "description": "(Zukunfts-Ziel)"
+          "titleLine1": "Digital Humanities",
+          "titleLine2": "B.Sc. geplant",
+          "description": "Nach dem Studienkolleg"
         },
         "futureGreenNode": {
-          "title": "Eigenes SaaS entwickeln",
-          "description": "(Unternehmer werden)"
+          "titleLine1": "Fluent Studio zum",
+          "titleLine2": "Softwareunternehmen ausbauen",
+          "description": "Geplant"
+        },
+        "futureProductNode": {
+          "titleLine1": "Eigenes Softwareprodukt",
+          "titleLine2": "veröffentlichen",
+          "description": "Geplant"
         },
         "branches": {
           "chefWork": "Profikoch",
@@ -217,14 +260,26 @@
           "onlineCoursesLine1": "Online",
           "onlineCoursesLine2": "Kurse",
           "onlineCoursesDescription": "(Fähigkeitsverbesserung)",
-          "internship": "2-Monats Entwickler-Praktikum",
-          "internshipLine1": "2-Monats Entwickler",
-          "internshipLine2": "Praktikum",
-          "internshipDescription": "(Erste Berufserfahrung)",
+          "internship": "ECommeleon Praktikum · 2023",
+          "internshipLine1": "ECommeleon",
+          "internshipLine2": "Praktikum · 2023",
+          "internshipDescription": "Laravel · 2 Monate",
           "personalProjects": "Persönliche Projekte",
           "personalProjectsLine1": "Persönliche",
           "personalProjectsLine2": "Projekte",
           "personalProjectsDescription": "(Portfolio-Aufbau)",
+          "studienkolleg": "Studienkolleg Sachsen · 2026",
+          "studienkollegLine1": "Studienkolleg",
+          "studienkollegLine2": "Sachsen · 2026",
+          "studienkollegDescription": "G-Kurs",
+          "kollektivSpinnen": "Kollektiv Spinnen · 2025",
+          "kollektivSpinnenLine1": "Kollektiv Spinnen",
+          "kollektivSpinnenLine2": "· 2025",
+          "kollektivSpinnenDescription": "Festivalplattform",
+          "fluentStudio": "Fluent Studio Gegründet · 2026",
+          "fluentStudioLine1": "Fluent Studio",
+          "fluentStudioLine2": "Gegründet · 2026",
+          "fluentStudioDescription": "Software-Studio",
           "currentPosition": "Du bist hier"
         }
       }
@@ -272,7 +327,14 @@
         "Project Management": "Planung, Organisation und Verwaltung von Ressourcen zur Erreichung spezifischer Projektziele. Fähigkeiten in Aufgabenpriorisierung, Zeitplanmanagement und Teamkoordination.",
         "Visual Studio": "Microsofts integrierte Entwicklungsumgebung zum Erstellen von Anwendungen. Erfahrung mit Debugging, IntelliSense und Projektverwaltung für .NET und andere Plattformen.",
         "WinUI 3": "Windows UI Library 3 - Microsofts natives UI-Framework zum Erstellen moderner Windows-Anwendungen. Erstellen von flüssigen, nativen Benutzererlebnissen mit C# und XAML.",
-        ".NET 8": "Microsofts plattformübergreifendes, Open-Source-Framework zum Erstellen moderner Anwendungen. Erfahrung mit C#, ASP.NET Core und dem Erstellen von Web-APIs und Desktop-Anwendungen."
+        ".NET 8": "Microsofts Entwicklungsplattform für native Windows-Software mit C# und WinUI 3.",
+        "PostgreSQL": "Eine relationale Datenbank für Datenmodellierung, Abfragen und Anwendungs-Backends.",
+        "Supabase": "Eine PostgreSQL-basierte Backend-Plattform für Authentifizierung, Datenspeicherung und Anwendungsintegration.",
+        "C#": "Die primäre Sprache für die Entwicklung nativer Windows-Software mit .NET und WinUI 3.",
+        "Vitest": "Ein Test-Framework für automatisierte Unit- und Komponententests in TypeScript- und JavaScript-Anwendungen.",
+        "GitHub": "Eine Plattform für Git-Repositories, Issues, Pull Requests und kollaborative Entwicklungsabläufe.",
+        "Claude Code": "Ein agentisches Entwicklungswerkzeug für Implementierung, Tests, Refactoring und Dokumentationsabläufe.",
+        "Codex": "Ein agentisches Entwicklungswerkzeug für Implementierung, Tests, Refactoring und Dokumentationsabläufe."
       }
     },
     "projects": {
@@ -280,26 +342,38 @@
       "title": "Projekte",
       "project1": {
         "title": "Modern Minimalist Portfolio",
-        "description": "HTML / CSS / Javascript / NextJS"
+        "description": "Dieses zweisprachige Portfolio präsentiert mein Entwicklerprofil, meine Fähigkeiten und Projekte. Es verwendet Next.js, React, TypeScript und CSS Modules sowie Sprachumschaltung, Theme-Unterstützung und responsive Navigation."
       },
       "project2": {
         "title": "Bohemian Kids Cafe",
-        "description": "SCSS / MERN Full Stack"
+        "description": "Das Frontend einer im Team entwickelten Café-Plattform mit Speisekarten, Neuigkeiten, Onlineshop, Authentifizierung, Warenkorb sowie Benutzer- und Verwaltungsbereichen."
       },
       "project3": {
         "title": "ASK Online Store",
-        "description": "SCSS / ReactJS"
+        "description": "Ein DCI-Gruppenprojekt: ein React-Onlineshop, der Produktdaten aus einer öffentlichen API lädt und Hooks für die Produktsuche und Warenkorbfunktionen verwendet."
       },
       "project4": {
         "title": "Brainwave",
-        "description": "tailwindcss / ReactJS"
+        "description": "Eine responsive Landingpage für ein KI-Produkt, entwickelt mit React und Tailwind CSS. Wiederverwendbare Komponenten strukturieren Funktionen, Zusammenarbeit, Preise und Roadmap."
       },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
-        "description": "TypeScript / PLpgSQL / CSS / NextJS / ReactJS"
+        "description": "Eine zweisprachige Festivalplattform, die ich für Kollektiv Spinnen entwickelt habe, mit interaktivem Zeitplan, Filtern, administrativer Inhaltsverwaltung und einem Supabase-Backend für Festivaldaten und Ticketing."
+      },
+      "fluentStudio": {
+        "title": "Fluent Studio",
+        "description": "Ich habe die Website von Fluent Studio entwickelt und veröffentlicht und eine Next.js-Oberfläche mit Supabase verbunden. Außerdem verantworte ich die technische und organisatorische Arbeit des Studios, einschließlich Architektur, Implementierung, Deployment und laufender Pflege. KI-gestützte Entwicklung mit Codex, Claude Code und Cursor unterstützt Implementierung, Tests, Refactoring, Dokumentation und Projektabläufe."
+      },
+      "fluentOverlay": {
+        "title": "FluentOverlay",
+        "description": "FluentOverlay ist eine native Windows-Anwendung in Entwicklung für appbezogene Shortcuts und Workflows. Ich verantworte die Entwicklung der Windows-Anwendung und die Produktgestaltung. Ich nutze Codex, Claude Code und Cursor für Implementierung, Tests, Refactoring und Dokumentation sowie einen integrierten MCP-Server."
       },
       "github": "Github",
-      "liveDemo": "Live Demo"
+      "liveDemo": "Live Demo",
+      "visitWebsite": "Website besuchen",
+      "viewProductPage": "Produktseite ansehen",
+      "projectSummary": "Projektübersicht",
+      "technologies": "Technologien"
     },
     "contact": {
       "subtitle": "Kontakt aufnehmen",

@@ -1,0 +1,24 @@
+.projects { margin: 0 10rem; padding-top: 4vh; scroll-margin-top: 17vh; color: var(--text-color); }
+.subtitle { text-align: center; font-weight: 600; color: var(--color-medium-grey); letter-spacing: .05em; text-transform: uppercase; font-size: .875rem; }
+.title { text-align: center; font-size: 3rem; font-weight: 700; letter-spacing: -.02em; margin: .5rem 0 2rem; }
+.grid { display: flex; gap: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 1rem 0 2rem; }
+.project { flex: 0 0 400px; width: 400px; max-width: calc(100vw - 2rem); min-width: 0; scroll-snap-align: start; background: var(--color-bg-light); border: 1px solid var(--color-light-grey); border-radius: var(--border-radius-md); padding: 1.5rem; }
+.imageWrap, .projectMark { position: relative; height: 220px; width: 100%; border-radius: var(--border-radius-sm); overflow: hidden; }
+.image { object-fit: cover; object-position: top; }
+.projectMark { display: flex; align-items: center; justify-content: center; padding: 2rem; font-size: 2rem; font-weight: 700; text-align: center; }
+.body { padding-top: 1rem; }
+.category { color: var(--color-medium-grey); font-size: .85rem; margin-bottom: .4rem; }
+.body h3 { font-size: 1.5rem; margin-bottom: .75rem; }
+.summary, .contribution { line-height: 1.65; margin-bottom: 1rem; }
+.contribution { color: var(--color-medium-grey); }
+.stack { display: flex; flex-wrap: wrap; gap: .45rem; margin: 1.25rem 0; }
+.stack span { padding: .35rem .55rem; font-size: .8rem; border-radius: var(--border-radius-sm); border: 1px solid var(--color-light-grey); }
+.links { display: flex; flex-wrap: wrap; gap: 1rem; }
+.links a, .earlier a { color: var(--text-color); font-weight: 600; text-underline-offset: .2em; }
+.links a:focus-visible, .earlier a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.earlier { margin-top: 3rem; padding: 2rem 0; }
+.earlier h3 { font-size: 1.4rem; margin-bottom: .4rem; }
+.earlier p { color: var(--color-medium-grey); }
+.earlier ul { display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 0; margin-top: 1rem; list-style: none; }
+@media (max-width: 1200px) { .projects { margin: 0 2rem; } }
+@media (max-width: 700px) { .projects { margin: 0 1rem; } .subtitle { display: none; } .project { flex-basis: calc(100vw - 2rem); } }

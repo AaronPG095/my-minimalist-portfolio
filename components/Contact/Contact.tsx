@@ -10,7 +10,7 @@ export default function Contact() {
   return (
     <section id="contact" className={styles.contact} aria-label="Contact section">
       <p className={styles.subtitle}>{t('contact.subtitle')}</p>
-      <h1 className={styles.title}>{t('contact.title')}</h1>
+      <h2 className={styles.title}>{t('contact.title')}</h2>
       <div className={styles.infoContainer}>
         <div className={styles.infoCard}>
           <Image

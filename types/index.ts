@@ -109,8 +109,11 @@ export interface Project {
   image: string;
   titleKey: string;
   descriptionKey: string;
-  github: string;
-  liveDemo: string;
+  modalDescriptionKey?: string;
+  github?: string;
+  liveDemo?: string;
+  liveDemoDe?: string;
+  liveDemoLabelKey?: string;
   technologies?: string[];
 }
 

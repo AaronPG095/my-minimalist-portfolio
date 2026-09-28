@@ -28,8 +28,16 @@ import {
   SiMysql,
   SiDocker,
   SiDotnet,
+  SiPostgresql,
+  SiSupabase,
+  SiVitest,
+  SiGithub,
+  SiClaude,
+  SiOpenai,
+  SiSharp,
 } from 'react-icons/si';
 import { FaCode, FaProjectDiagram } from 'react-icons/fa';
+import { TbBrandVisualStudio, TbBrandWindows, TbPlugConnected } from 'react-icons/tb';
 
 const frontendSkills: Skill[] = [
   { name: 'HTML', level: 'experienced' },
@@ -37,10 +45,10 @@ const frontendSkills: Skill[] = [
   { name: 'JavaScript', level: 'experienced' },
   { name: 'SASS', level: 'intermediate' },
   { name: 'React.js', level: 'intermediate' },
-  { name: 'Tailwind', level: 'basic' },
+  { name: 'Tailwind', level: 'intermediate' },
   { name: 'Framer', level: 'basic' },
-  { name: 'TypeScript', level: 'basic' },
-  { name: 'Next.js', level: 'basic' },
+  { name: 'TypeScript', level: 'intermediate' },
+  { name: 'Next.js', level: 'intermediate' },
 ];
 
 const backendSkills: Skill[] = [
@@ -48,22 +56,29 @@ const backendSkills: Skill[] = [
   { name: 'Node.js', level: 'intermediate' },
   { name: 'Express.js', level: 'intermediate' },
   { name: 'PHP', level: 'basic' },
-  { name: 'Laravel', level: 'basic' },
-  { name: 'MySQL', level: 'basic' },
-  { name: 'APIs', level: 'basic' },
+  { name: 'Laravel', level: 'intermediate' },
+  { name: 'MySQL', level: 'intermediate' },
+  { name: 'APIs', level: 'intermediate' },
+  { name: 'PostgreSQL', level: 'intermediate' },
+  { name: 'Supabase', level: 'intermediate' },
 ];
 
 const toolsSkills: Skill[] = [
   { name: 'Cursor', level: 'experienced' },
-  { name: 'MCP', level: 'basic' },
+  { name: 'MCP', level: 'intermediate' },
   { name: 'Prompt Engineering', level: 'intermediate' },
   { name: 'SPRINT', level: 'experienced' },
   { name: 'Project Management', level: 'intermediate' },
   { name: 'Docker', level: 'intermediate' },
   { name: 'Git', level: 'intermediate' },
-  { name: 'Visual Studio', level: 'basic' },
-  { name: 'WinUI 3', level: 'basic' },
-  { name: '.NET 8', level: 'basic' },
+  { name: 'Visual Studio', level: 'intermediate' },
+  { name: 'WinUI 3', level: 'intermediate' },
+  { name: '.NET 8', level: 'intermediate' },
+  { name: 'C#', level: 'intermediate' },
+  { name: 'Vitest', level: 'basic' },
+  { name: 'GitHub', level: 'intermediate' },
+  { name: 'Claude Code', level: 'experienced' },
+  { name: 'Codex', level: 'experienced' },
 ];
 
 // Icon mapping for skills - react-icons components
@@ -87,20 +102,27 @@ const skillIconMap: Record<string, IconType> = {
   'Git': SiGit,
   'MySQL': SiMysql,
   'APIs': FaCode,
+  'PostgreSQL': SiPostgresql,
+  'Supabase': SiSupabase,
   // Tools
   'Docker': SiDocker,
-  'MCP': FaCode,
+  'MCP': TbPlugConnected,
   'Prompt Engineering': FaCode,
   'SPRINT': FaProjectDiagram,
   'Project Management': FaProjectDiagram,
+  'Visual Studio': TbBrandVisualStudio,
+  'WinUI 3': TbBrandWindows,
   '.NET 8': SiDotnet,
+  'C#': SiSharp,
+  'Vitest': SiVitest,
+  'GitHub': SiGithub,
+  'Claude Code': SiClaude,
+  'Codex': SiOpenai,
 };
 
 // Custom inline SVG icon keys for skills without react-icons
 const skillCustomIconMap: Record<string, string> = {
   'Cursor': 'cursor',
-  'Visual Studio': 'microsoft',
-  'WinUI 3': 'microsoft',
 };
 
 // Dark mode colors for custom SVG icons
@@ -131,6 +153,8 @@ const skillColorMap: Record<string, string> = {
   'Git': '#F05032',
   'MySQL': '#00758F',
   'APIs': '#6366F1',
+  'PostgreSQL': '#4169E1',
+  'Supabase': '#3ECF8E',
   // Tools / Other
   'Docker': '#0DB7ED',
   'Cursor': '#000000',
@@ -141,6 +165,11 @@ const skillColorMap: Record<string, string> = {
   'Visual Studio': '#5C2D91',
   'WinUI 3': '#0078D4',
   '.NET 8': '#512BD4',
+  'C#': '#512BD4',
+  'Vitest': '#6E9F18',
+  'GitHub': '#181717',
+  'Claude Code': '#D97757',
+  'Codex': '#10A37F',
 };
 
 // Helper to get icon component for a skill (or undefined if using custom SVG)
