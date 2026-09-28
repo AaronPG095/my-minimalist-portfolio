@@ -8,6 +8,8 @@
   margin-top: 2rem;
 }
 
+.summary { max-width: 52ch; line-height: 1.65; margin: 1rem auto 0; color: var(--color-medium-grey); }
+
 .picContainer {
   display: flex;
   align-items: center;

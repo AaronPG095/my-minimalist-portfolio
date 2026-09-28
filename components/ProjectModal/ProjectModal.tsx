@@ -4,81 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/hooks/useLanguage';
 import type { Project } from '@/types';
-import { IconType } from 'react-icons';
-import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiSass,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
-} from 'react-icons/si';
-import { FaCode, FaTimes, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaTimes, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { getTechColor, getTechIcon } from '@/data/technology-icons';
 import styles from './ProjectModal.module.css';
 import projectStyles from '../Projects/Projects.module.css';
-
-// Icon mapping for technologies
-const techIconMap: Record<string, IconType> = {
-  'HTML': SiHtml5,
-  'CSS': SiCss3,
-  'JavaScript': SiJavascript,
-  'Javascript': SiJavascript,
-  'SCSS': SiSass,
-  'SASS': SiSass,
-  'React.js': SiReact,
-  'React': SiReact,
-  'Tailwind': SiTailwindcss,
-  'TypeScript': SiTypescript,
-  'Typescript': SiTypescript,
-  'Next.js': SiNextdotjs,
-  'NextJS': SiNextdotjs,
-  'Node.js': SiNodedotjs,
-  'NodeJS': SiNodedotjs,
-  'Express.js': SiExpress,
-  'ExpressJS': SiExpress,
-  'MongoDB': SiMongodb,
-  'PostgreSQL': SiPostgresql,
-  'Postgres': SiPostgresql,
-};
-
-// Color mapping for technologies (kept in sync with Projects.tsx)
-const techColorMap: Record<string, string> = {
-  HTML: '#E34F26',
-  CSS: '#1572B6',
-  JavaScript: '#F7DF1E',
-  Javascript: '#F7DF1E',
-  SCSS: '#CC6699',
-  SASS: '#CC6699',
-  'React.js': '#61DAFB',
-  React: '#61DAFB',
-  Tailwind: '#38BDF8',
-  TypeScript: '#3178C6',
-  Typescript: '#3178C6',
-  'Next.js': '#000000',
-  NextJS: '#000000',
-  'Node.js': '#339933',
-  NodeJS: '#339933',
-  'Express.js': '#000000',
-  ExpressJS: '#000000',
-  MongoDB: '#47A248',
-  PostgreSQL: '#336791',
-  Postgres: '#336791',
-};
-
-// Helper functions to get icon and color for a technology
-function getTechIcon(techName: string): IconType {
-  return techIconMap[techName] || FaCode;
-}
-
-function getTechColor(techName: string): string {
-  return techColorMap[techName] || 'var(--color-accent, #6366f1)';
-}
 
 interface ProjectModalProps {
   project: Project | null;
@@ -120,7 +49,7 @@ function extractSummaryFromReadme(content: string): string | null {
 }
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const modalRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const [summary, setSummary] = useState<string | null>(null);
@@ -227,6 +156,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     }
   };
 
+  const projectLink = language === 'de' && project.liveDemoDe
+    ? project.liveDemoDe
+    : project.liveDemo;
+
+  const modalSummary = project.modalDescriptionKey
+    ? t(project.modalDescriptionKey)
+    : summary;
+
   return (
     <div
       ref={overlayRef}
@@ -264,16 +201,16 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               {t(project.titleKey)}
             </h2>
 
-            {summary && (
+            {modalSummary && (
               <section className={styles.summarySection} aria-label="Project summary">
-                <h3 className={styles.summaryTitle}>Project Summary</h3>
-                <p className={styles.summaryText}>{summary}</p>
+                <h3 className={styles.summaryTitle}>{t('projects.projectSummary')}</h3>
+                <p className={styles.summaryText}>{modalSummary}</p>
               </section>
             )}
 
             {project.technologies && project.technologies.length > 0 && (
               <div className={styles.techSection}>
-                <h3 className={styles.techSectionTitle}>Technologies</h3>
+                <h3 className={styles.techSectionTitle}>{t('projects.technologies')}</h3>
                 <div className={styles.techTags}>
                   {project.technologies.map((tech, index) => {
                     const TechIcon = getTechIcon(tech);
@@ -293,22 +230,26 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             )}
 
             <div className={styles.linksSection}>
-              <button
-                className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
-                onClick={() => openLink(project.github)}
-                aria-label={`View ${t(project.titleKey)} project on GitHub`}
-              >
-                <FaGithub aria-hidden="true" />
-                <span>{t('projects.github')}</span>
-              </button>
-              <button
-                className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
-                onClick={() => openLink(project.liveDemo)}
-                aria-label={`View ${t(project.titleKey)} project live demo`}
-              >
-                <FaExternalLinkAlt aria-hidden="true" />
-                <span>{t('projects.liveDemo')}</span>
-              </button>
+              {project.github && (
+                <button
+                  className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
+                  onClick={() => openLink(project.github!)}
+                  aria-label={`View ${t(project.titleKey)} project on GitHub`}
+                >
+                  <FaGithub aria-hidden="true" />
+                  <span>{t('projects.github')}</span>
+                </button>
+              )}
+              {projectLink && (
+                <button
+                  className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
+                  onClick={() => openLink(projectLink)}
+                  aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
+                >
+                  <FaExternalLinkAlt aria-hidden="true" />
+                  <span>{t(project.liveDemoLabelKey ?? 'projects.liveDemo')}</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

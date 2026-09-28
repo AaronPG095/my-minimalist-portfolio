@@ -10,8 +10,17 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Aaron Paul Greyling | Fullstack Developer',
-  description: 'Creative and motivated web developer with experience in frontend and backend development.',
+  metadataBase: new URL('https://aaronpaulgreyling.netlify.app'),
+  title: 'Aaron Greyling | Software Developer',
+  description: 'Aaron Greyling builds web and Windows software. Explore Fluent Studio, FluentOverlay, Kollektiv Spinnen and his technical experience.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: 'https://aaronpaulgreyling.netlify.app/',
+    title: 'Aaron Greyling | Software Developer',
+    description: 'Web and Windows software, selected projects and technical experience.',
+    images: [{ url: '/assets/aaron-greyling-portrait.jpg', width: 1086, height: 1448, alt: 'Aaron Greyling' }],
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

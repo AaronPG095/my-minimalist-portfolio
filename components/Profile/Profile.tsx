@@ -1,60 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useTheme } from '@/hooks/useTheme';
-import { useTypingAnimation } from '@/hooks/useTypingAnimation';
+import { careerContent } from '@/data/career-content';
 import styles from './Profile.module.css';
 
 export default function Profile() {
   const { t, language } = useLanguage();
-  const { theme } = useTheme();
-
-  // Get the text values
   const nameText = t('profile.name');
   const titleText = t('profile.title');
-
-  // State to control when title animation should start
-  const [shouldStartTitle, setShouldStartTitle] = useState(false);
-
-  // Typing animation for name (starts immediately)
-  const nameAnimation = useTypingAnimation(nameText, {
-    speed: 120,
-    delay: 300,
-    showCursor: true,
-    restartOnChange: true,
-  });
-
-  // Reset title start state when name text changes (language change)
-  useEffect(() => {
-    setShouldStartTitle(false);
-  }, [nameText]);
-
-  // Start title animation when name completes
-  useEffect(() => {
-    if (nameAnimation.isComplete && !shouldStartTitle) {
-      // Small pause after name completes before starting title
-      const timer = setTimeout(() => {
-        setShouldStartTitle(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [nameAnimation.isComplete, shouldStartTitle]);
-
-  // Typing animation for title (starts when shouldStartTitle is true)
-  const titleAnimation = useTypingAnimation(titleText, {
-    speed: 80,
-    delay: 0,
-    showCursor: true,
-    restartOnChange: true,
-    enabled: shouldStartTitle,
-  });
-
-  const handleDownloadCV = () => {
-    const cvFile = language === 'de' ? '/assets/CV-German.pdf' : '/assets/CV-English.pdf';
-    window.open(cvFile);
-  };
+  const cvFile = language === 'de' ? '/assets/Aaron_Greyling_CV_Technical_DE.pdf' : '/assets/Aaron_Greyling_CV_Technical_EN.pdf';
 
   const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -70,11 +25,11 @@ export default function Profile() {
   };
 
   return (
-    <section id="profile" className={styles.profile} aria-label="Profile section">
+    <section id="profile" className={styles.profile} aria-label={language === 'de' ? 'Profil' : 'Profile'}>
       <div className={styles.picContainer}>
         <OptimizedImage
-          src="/assets/profile-pic-1.jpg"
-          alt="Aaron Paul Greyling - Fullstack Developer"
+          src="/assets/aaron-greyling-portrait.jpg"
+          alt="Aaron Greyling"
           className={styles.profilePic}
           width={400}
           height={533}
@@ -85,29 +40,19 @@ export default function Profile() {
       </div>
       <div className={styles.text}>
         <p className={styles.textP1}>{t('profile.greeting')}</p>
-        <h1 className={styles.title} aria-label={nameText}>
-          {nameAnimation.displayedText}
-          {nameAnimation.isTyping && <span className={styles.cursor} aria-hidden="true">|</span>}
-        </h1>
-        <p className={styles.textP2} aria-label={titleText}>
-          {titleAnimation.displayedText}
-          {titleAnimation.isTyping && <span className={styles.cursor} aria-hidden="true">|</span>}
-        </p>
+        <h1 className={styles.title}>{nameText}</h1>
+        <p className={styles.textP2}>{titleText}</p>
+        <p className={styles.summary}>{careerContent[language].profileSummary}</p>
         <div className={styles.btnContainer}>
-          <button
-            className={`${styles.btn} ${styles.btnColor2}`}
-            onClick={handleDownloadCV}
-            aria-label={language === 'de' ? 'Lebenslauf auf Deutsch herunterladen' : 'Download CV in English'}
-          >
-            {t('profile.downloadCV')}
-          </button>
           <button
             className={`${styles.btn} ${styles.btnColor1}`}
             onClick={handleContactClick}
-            aria-label="Go to contact section"
           >
             {t('profile.contactInfo')}
           </button>
+          <a className={`${styles.btn} ${styles.btnColor2}`} href={cvFile} target="_blank" rel="noopener noreferrer" aria-label={language === 'de' ? 'Technischen Lebenslauf auf Deutsch öffnen' : 'Open technical CV in English'}>
+            {t('profile.downloadCV')}
+          </a>
         </div>
         <div id="socials-container" className={styles.socialsContainer}>
           <a

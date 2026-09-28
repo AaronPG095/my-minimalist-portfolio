@@ -678,7 +678,7 @@
 
 .timelineSVG {
   display: block;
-  min-width: 1200px;
+  min-width: 1500px;
   width: 100%;
   height: auto;
 }
@@ -838,7 +838,7 @@
   }
 
   .timelineSVG {
-    min-width: 1000px;
+    min-width: 1300px;
   }
 }
 
@@ -848,6 +848,6 @@
   }
 
   .timelineSVG {
-    min-width: 800px;
+    min-width: 1100px;
   }
 }

@@ -43,7 +43,7 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
       document.removeEventListener('mousemove', handleMouseMoveGlobal);
       document.removeEventListener('mouseup', handleMouseUpGlobal);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [containerRef, handleMouseMove, handleMouseUp]);
 
   const getDotLabel = (index: number): string => {
     if (index === 0) return 'Frontend';

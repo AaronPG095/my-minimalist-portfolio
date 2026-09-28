@@ -18,7 +18,7 @@ function calculateYears(startDate: Date): number {
 }
 
 /**
- * Extracts time unit and category from text like "3 Years Frontend" or "1 Year Backend"
+ * Extracts time unit and category from text like "3 Years Frontend" or "3 Jahre Frontend"
  * Returns data formatted as "Category - Number Time"
  */
 function parseExperienceText(text: string): { 
@@ -27,7 +27,7 @@ function parseExperienceText(text: string): {
 } {
   // Match pattern: "3 Years Frontend" or "1 Year Backend"
   // Format: number + time unit + category
-  const match = text.match(/^\d+(?:\.\d+)?\s+(Year|Years|Month|Months)\s+(.+)$/i);
+  const match = text.match(/^(?:\d+(?:\.\d+)?\s+)?(Years|Year|Months|Month|Jahre|Jahr|Monate|Monat)\s+(.+)$/i);
   if (match) {
     return {
       timeUnit: match[1],
@@ -36,7 +36,7 @@ function parseExperienceText(text: string): {
   }
   
   // Fallback: try to extract time unit and category
-  const timeUnitMatch = text.match(/(Year|Years|Month|Months)/i);
+  const timeUnitMatch = text.match(/(Years|Year|Months|Month|Jahre|Jahr|Monate|Monat)/i);
   if (timeUnitMatch) {
     const timeUnit = timeUnitMatch[1];
     const parts = text.split(timeUnit);
@@ -122,6 +122,12 @@ function createTranslatedBranches(t: (key: string) => string): TimelineBranch[] 
           position: 55,
         },
         {
+          id: 'studienkolleg',
+          title: t('about.timeline.nodes.studienkolleg'),
+          description: t('about.timeline.nodes.studienkollegDescription'),
+          position: 68,
+        },
+        {
           id: 'current-position',
           title: t('about.timeline.nodes.currentPosition'),
           isCurrentPosition: true,
@@ -144,6 +150,18 @@ function createTranslatedBranches(t: (key: string) => string): TimelineBranch[] 
           title: `N4: ${t('about.timeline.nodes.personalProjects')}`,
           description: t('about.timeline.nodes.personalProjectsDescription'),
           position: 50,
+        },
+        {
+          id: 'kollektiv-spinnen',
+          title: t('about.timeline.nodes.kollektivSpinnen'),
+          description: t('about.timeline.nodes.kollektivSpinnenDescription'),
+          position: 64,
+        },
+        {
+          id: 'fluent-studio',
+          title: t('about.timeline.nodes.fluentStudio'),
+          description: t('about.timeline.nodes.fluentStudioDescription'),
+          position: 76,
         },
       ],
     },

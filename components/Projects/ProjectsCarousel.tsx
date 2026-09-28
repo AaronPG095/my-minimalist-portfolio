@@ -42,7 +42,7 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
       document.removeEventListener('mousemove', handleMouseMoveGlobal);
       document.removeEventListener('mouseup', handleMouseUpGlobal);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [containerRef, handleMouseMove, handleMouseUp]);
 
   // Function to center the first project
   const centerFirstProject = useCallback(() => {
@@ -69,7 +69,7 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
         }
       }, 0);
     }
-  }, [items.length]);
+  }, [containerRef, items.length]);
 
   // Center the first project on initial load
   useEffect(() => {

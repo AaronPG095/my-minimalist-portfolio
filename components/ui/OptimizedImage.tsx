@@ -25,6 +25,7 @@ interface OptimizedImageProps extends Omit<ImageProps, 'quality' | 'sizes'> {
  * This component provides consistent optimization settings across the app.
  */
 export default function OptimizedImage({
+  alt,
   quality = 85,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   priority = false,
@@ -33,6 +34,7 @@ export default function OptimizedImage({
   return (
     <Image
       {...props}
+      alt={alt}
       quality={quality}
       sizes={sizes}
       priority={priority}

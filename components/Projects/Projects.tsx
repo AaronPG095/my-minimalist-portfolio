@@ -7,105 +7,79 @@ import ProjectsCarousel from './ProjectsCarousel';
 import ProjectModal from '../ProjectModal/ProjectModal';
 import styles from './Projects.module.css';
 import type { Project } from '@/types';
-import { IconType } from 'react-icons';
-import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiSass,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
-} from 'react-icons/si';
-import { FaCode } from 'react-icons/fa';
-
-// Icon mapping for technologies
-const techIconMap: Record<string, IconType> = {
-  'HTML': SiHtml5,
-  'CSS': SiCss3,
-  'JavaScript': SiJavascript,
-  'Javascript': SiJavascript,
-  'SCSS': SiSass,
-  'SASS': SiSass,
-  'React.js': SiReact,
-  'React': SiReact,
-  'Tailwind': SiTailwindcss,
-  'TypeScript': SiTypescript,
-  'Typescript': SiTypescript,
-  'Next.js': SiNextdotjs,
-  'NextJS': SiNextdotjs,
-  'Node.js': SiNodedotjs,
-  'NodeJS': SiNodedotjs,
-  'Express.js': SiExpress,
-  'ExpressJS': SiExpress,
-  'MongoDB': SiMongodb,
-  'PostgreSQL': SiPostgresql,
-  'Postgres': SiPostgresql,
-};
-
-// Color mapping for technologies
-const techColorMap: Record<string, string> = {
-  'HTML': '#E34F26',
-  'CSS': '#1572B6',
-  'JavaScript': '#F7DF1E',
-  'Javascript': '#F7DF1E',
-  'SCSS': '#CC6699',
-  'SASS': '#CC6699',
-  'React.js': '#61DAFB',
-  'React': '#61DAFB',
-  'Tailwind': '#38BDF8',
-  'TypeScript': '#3178C6',
-  'Typescript': '#3178C6',
-  'Next.js': '#000000',
-  'NextJS': '#000000',
-  'Node.js': '#339933',
-  'NodeJS': '#339933',
-  'Express.js': '#000000',
-  'ExpressJS': '#000000',
-  'MongoDB': '#47A248',
-  'PostgreSQL': '#336791',
-  'Postgres': '#336791',
-};
-
-// Helper function to get icon for a technology
-function getTechIcon(techName: string): IconType {
-  return techIconMap[techName] || FaCode;
-}
-
-// Helper function to get color for a technology icon
-function getTechColor(techName: string): string {
-  return techColorMap[techName] || 'var(--color-accent, #6366f1)';
-}
+import { getTechColor, getTechIcon } from '@/data/technology-icons';
 
 const projects: Project[] = [
+  {
+    id: 6,
+    image: '/assets/fluent-studio-project.png',
+    titleKey: 'projects.fluentStudio.title',
+    descriptionKey: 'projects.fluentStudio.description',
+    modalDescriptionKey: 'projects.fluentStudio.description',
+    liveDemo: 'https://www.fluent-studio.com/en',
+    liveDemoDe: 'https://www.fluent-studio.com/de',
+    liveDemoLabelKey: 'projects.visitWebsite',
+    technologies: [
+      'Next.js',
+      'React.js',
+      'TypeScript',
+      'Supabase',
+      'Tailwind',
+      'PostgreSQL',
+      'Vitest',
+      'Playwright',
+      'Codex',
+      'Claude Code',
+      'Cursor',
+    ],
+  },
+  {
+    id: 7,
+    image: '/assets/fluentoverlay-project.png',
+    titleKey: 'projects.fluentOverlay.title',
+    descriptionKey: 'projects.fluentOverlay.description',
+    modalDescriptionKey: 'projects.fluentOverlay.description',
+    liveDemo: 'https://www.fluent-studio.com/en/fluentoverlay',
+    liveDemoDe: 'https://www.fluent-studio.com/de/fluentoverlay',
+    liveDemoLabelKey: 'projects.viewProductPage',
+    technologies: [
+      'C#',
+      'WinUI 3',
+      '.NET 10',
+      'XAML',
+      'Visual Studio',
+      'MCP',
+      'Codex',
+      'Claude Code',
+      'Cursor',
+    ],
+  },
   {
     id: 5,
     image: '/assets/Screenshot 2025-11-12 203334.png',
     titleKey: 'projects.project5.title',
     descriptionKey: 'projects.project5.description',
-    github: 'https://github.com/AaronPG095/kollektiv-spinnen-timetable',
+    modalDescriptionKey: 'projects.project5.description',
+    github: 'https://github.com/AaronPG095/kollektiv-spinnen-website',
     liveDemo: 'https://kollektiv-spinnen-festival.vercel.app/',
-    technologies: ['HTML', 'TypeScript', 'JavaScript', 'Next.js', 'React.js', 'PostgreSQL'],
+    technologies: ['React.js', 'TypeScript', 'Tailwind', 'Supabase', 'PostgreSQL'],
   },
   {
     id: 1,
     image: '/assets/Screenshot 2024-05-08 140820.png',
     titleKey: 'projects.project1.title',
     descriptionKey: 'projects.project1.description',
-    github: 'https://github.com/AaronPG095/portfolio-html-css-js',
+    modalDescriptionKey: 'projects.project1.description',
+    github: 'https://github.com/AaronPG095/my-minimalist-portfolio',
     liveDemo: 'https://aaronpaulgreyling.netlify.app/',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Next.js'],
+    technologies: ['Next.js', 'React.js', 'TypeScript', 'CSS'],
   },
   {
     id: 4,
     image: '/assets/Screenshot 2024-05-23 211320.png',
     titleKey: 'projects.project4.title',
     descriptionKey: 'projects.project4.description',
+    modalDescriptionKey: 'projects.project4.description',
     github: 'https://github.com/AaronPG095/brainwave',
     liveDemo: 'https://braynewave.netlify.app/',
     technologies: ['HTML', 'Tailwind', 'JavaScript', 'React.js'],
@@ -115,8 +89,8 @@ const projects: Project[] = [
     image: '/assets/project-2.png',
     titleKey: 'projects.project2.title',
     descriptionKey: 'projects.project2.description',
+    modalDescriptionKey: 'projects.project2.description',
     github: 'https://github.com/AaronPG095/BohemianKidsFrontEnd',
-    liveDemo: 'https://github.com/AaronPG095/BohemianKidsFrontEnd',
     technologies: ['SCSS', 'React.js', 'Node.js', 'MongoDB', 'Express.js'],
   },
   {
@@ -124,6 +98,7 @@ const projects: Project[] = [
     image: '/assets/Screenshot 2024-05-08 152922.png',
     titleKey: 'projects.project3.title',
     descriptionKey: 'projects.project3.description',
+    modalDescriptionKey: 'projects.project3.description',
     github: 'https://github.com/AaronPG095/React-Ecommerce-Project?tab=readme-ov-file',
     liveDemo: 'https://sunnyeyles.github.io/React-Ecommerce-Project/',
     technologies: ['HTML', 'SCSS', 'JavaScript', 'React.js'],
@@ -131,7 +106,7 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -156,6 +131,9 @@ export default function Projects() {
       setSelectedProject(null);
     }, 300);
   };
+
+  const getProjectLink = (project: Project) =>
+    language === 'de' && project.liveDemoDe ? project.liveDemoDe : project.liveDemo;
 
   const projectCards = projects.map((project) => (
     <div 
@@ -202,20 +180,24 @@ export default function Projects() {
         </div>
       )}
       <div className={styles.btnContainer}>
-        <button
-          className={`${styles.btn} ${styles.projectBtn}`}
-          onClick={(e) => openProjectLink(project.github, e)}
-          aria-label={`View ${t(project.titleKey)} project on GitHub`}
-        >
-          {t('projects.github')}
-        </button>
-        <button
-          className={`${styles.btn} ${styles.projectBtn}`}
-          onClick={(e) => openProjectLink(project.liveDemo, e)}
-          aria-label={`View ${t(project.titleKey)} project live demo`}
-        >
-          {t('projects.liveDemo')}
-        </button>
+        {project.github && (
+          <button
+            className={`${styles.btn} ${styles.projectBtn}`}
+            onClick={(e) => openProjectLink(project.github!, e)}
+            aria-label={`View ${t(project.titleKey)} project on GitHub`}
+          >
+            {t('projects.github')}
+          </button>
+        )}
+        {getProjectLink(project) && (
+          <button
+            className={`${styles.btn} ${styles.projectBtn}`}
+            onClick={(e) => openProjectLink(getProjectLink(project)!, e)}
+            aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
+          >
+            {t(project.liveDemoLabelKey ?? 'projects.liveDemo')}
+          </button>
+        )}
       </div>
     </div>
   ));

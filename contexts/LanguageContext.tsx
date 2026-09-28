@@ -36,6 +36,7 @@ export function LanguageProvider({
     setMounted(true);
     const storedLang = getStoredLanguage();
     setLanguageState(storedLang);
+    document.documentElement.lang = storedLang;
   }, []);
 
   const setLanguage = (lang: Language) => {
@@ -55,6 +56,17 @@ export function LanguageProvider({
     if (!translations) return key;
     return getTranslation(translations, key, language);
   };
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = language === 'de' ? 'Aaron Greyling | Softwareentwickler' : 'Aaron Greyling | Software Developer';
+    const description = language === 'de'
+      ? 'Aaron Greyling entwickelt Web- und Windows-Software. Projekte: Fluent Studio, FluentOverlay und Kollektiv Spinnen.'
+      : 'Aaron Greyling builds web and Windows software. Explore Fluent Studio, FluentOverlay and Kollektiv Spinnen.';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    const skipLink = document.querySelector<HTMLAnchorElement>('.skip-link');
+    if (skipLink) skipLink.textContent = language === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content';
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t, translations, mounted }}>
