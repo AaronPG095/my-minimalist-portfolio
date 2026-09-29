@@ -49,7 +49,11 @@ The previously planned phases below are complete. New work is listed at the end 
 
 ## Later discussion and pending decisions
 
-- [ ] Discuss project-card internal alignment of image, description, tags, and actions. Present concrete options and get Aaron's approval before scheduling or implementing any design changes. Current cards show an image, title, tags, and actions; the full description appears only in the modal. Options for review:
+- [x] Aaron selected the recommended minimal project-card alignment. Image and title positions, tag starting positions, and bottom actions now align across all seven cards while retaining existing content and styling. Verified in German at desktop and 390px phone widths. The full description remains in the modal. Options considered:
   - **A — Minimal alignment (recommended):** Keep the same card content and visual style. Reserve consistent image and title space, let tags use the flexible middle area, and align actions at the bottom. Descriptions remain in the modals.
   - **B — Visible summary:** Add an approved one- or two-sentence bilingual summary to each card between the title and tags, then align tags and actions. This increases card density and may require taller cards.
   - **C — Larger composition change:** Use a more structured image/text split with visible summaries, tags, and actions. This needs a separate visual review before any implementation.
+
+## New interaction follow-up
+
+- [ ] Repair mouse dragging in both card carousels. Reproduce and verify direction changes, moving beyond the carousel boundary, and pointer release outside the carousel. Preserve touch swipe, arrows, dots, keyboard controls, and card click behavior. Commit separately; do not deploy.
