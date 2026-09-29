@@ -19,7 +19,7 @@ Work in this repository. Preserve the existing visual style and existing content
 - [ ] Review exact English and German wording for Skills, contact, and page metadata before editing any copy.
 - [x] Verify both technical CV links, filenames, language switching, and rendered PDFs. Both one-page PDFs render correctly; the site opens the appropriate language file in a new tab.
 - [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
-- [ ] Choose an APG tab icon from the prepared 16px and 32px previews; then generate and verify SVG, ICO, PNG, and manifest assets. Final asset replacement waits for Aaron's choice.
+- [x] Use Aaron's selected option C, the open APG monogram. Generate and verify its SVG, 16px/32px ICO entries, PNG sizes, manifest references, and local browser icon loading.
 - [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
 - [ ] Finish timeline screen-reader, text-scaling, pointer-cursor, and unused-code review. Initial audit: the ordered event list exposes event, pathway, and year; markers and events can receive keyboard focus; the drag cursor is restricted to eligible canvas areas. The retired SVG renderer is gone, but its CSS selectors remain unused. The fixed-height canvas still needs a browser text-scaling check before any cleanup or layout change.
 - [ ] Review the German screen-reader labels in Projects and section regions: some are still hard-coded in English. Propose exact accessible wording before changing them.
