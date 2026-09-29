@@ -12,7 +12,8 @@ import { getTechColor, getTechIcon } from '@/data/technology-icons';
 const projects: Project[] = [
   {
     id: 6,
-    image: '/assets/fluent-studio-project.png',
+    image: '/assets/fluent-studio-hero-en.webp',
+    imageDe: '/assets/fluent-studio-hero-de.webp',
     titleKey: 'projects.fluentStudio.title',
     descriptionKey: 'projects.fluentStudio.description',
     modalDescriptionKey: 'projects.fluentStudio.description',
@@ -152,7 +153,7 @@ export default function Projects() {
     >
       <div className={styles.articleContainer}>
         <OptimizedImage
-          src={project.image}
+          src={language === 'de' && project.imageDe ? project.imageDe : project.image}
           alt={`${t(project.titleKey)} project screenshot`}
           className={styles.projectImg}
           width={500}

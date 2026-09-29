@@ -107,6 +107,7 @@ export interface Skill {
 export interface Project {
   id: number;
   image: string;
+  imageDe?: string;
   titleKey: string;
   descriptionKey: string;
   modalDescriptionKey?: string;

@@ -9,6 +9,7 @@ Next phase order: English CV → timeline zoom review → remaining copy and acc
 - [x] Update the hero and About copy in English and German, with the approved portrait and language-specific technical CV files.
 - [x] Add the approved career events and future goals to the three-pathway vertical timeline, including later chronology, accessibility, and drag-cue refinements.
 - [x] Add Fluent Studio and FluentOverlay before the existing five projects and add the approved product links and skill icons.
+- [x] Give Fluent Studio its own English and German hero-based project banner, distinct from the FluentOverlay UI image. Keep the existing project-card layout and FluentOverlay image.
 - [x] Add the monochrome Fluent Studio icon next to GitHub in the hero.
 - [x] Correct the approved skill proficiency levels, ordering, `.NET` name, and 80/55/30 progress scale. Commit `2a6aa99`.
 - [x] Add previous/next arrows to the project carousel. Commit `7c0102e`.
@@ -24,6 +25,7 @@ Next phase order: English CV → timeline zoom review → remaining copy and acc
 - [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
 - [x] Use Aaron's selected option C, the open APG monogram. Generate and verify its SVG, 16px/32px ICO entries, PNG sizes, manifest references, and local browser icon loading.
 - [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
+- [ ] Review the desktop header height with Aaron. It is currently `14vh` (about 170px in a 1215px-high viewport); propose a capped 80–96px desktop height while retaining the existing 56px tablet and 48px phone heights. Change it only after Aaron chooses a direction, then check section offsets and both languages.
 - [x] Finish timeline screen-reader, text-scaling, pointer-cursor, and unused-code review. The ordered event list exposes event, pathway, and year; markers and events can receive keyboard focus; the drag cursor is restricted to eligible canvas areas. Browser checks at 200% root text size found a clipped future label; the timeline's minimum canvas dimensions and label widths now scale with text size while retaining their original 16px-root dimensions. English and German labels fit without clipping or overlapping at the tested text size. The retired SVG renderer is gone and its CSS selectors remain unused; they were identified but retained, with no unapproved removal.
 - [ ] Review the German screen-reader labels in Projects and section regions: some are still hard-coded in English. Propose exact accessible wording before changing them.
 - [ ] Compare desktop, tablet, and phone views in both languages and themes with the earlier visual design. Correct unintended changes.
