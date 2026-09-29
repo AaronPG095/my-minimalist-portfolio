@@ -72,7 +72,14 @@ export default function VerticalTimeline() {
       >
         <div className={styles.verticalTimeline}>
           <div className={styles.verticalTimelinePlot}>
-            <div className={styles.verticalYearMarkers} aria-hidden="true">
+            <div
+              className={styles.verticalYearMarkers}
+              style={{
+                '--timeline-start': `${careerTimelineMarkers[0].position}%`,
+                '--timeline-future': `${careerTimelineMarkers.find((marker) => marker.id === 'future')?.position}%`,
+                '--timeline-end': `${careerTimelineLanes[0].futureEnd}%`,
+              } as CSSProperties}
+            >
               {careerTimelineMarkers.map((marker) => {
                 const label = marker.labelKey ? t(marker.labelKey) : marker.label;
 
@@ -81,9 +88,12 @@ export default function VerticalTimeline() {
                     key={marker.id}
                     className={styles.verticalYearMarker}
                     style={{ '--marker-position': `${marker.position}%` } as CSSProperties}
+                    role="img"
+                    aria-label={label?.replace(/[→↓]/g, '').trim()}
+                    tabIndex={0}
                   >
                     <span className={styles.verticalYearLabel}>
-                      {label?.replace('→', '').trim()}
+                      {label}
                     </span>
                     <span className={styles.verticalYearDot} />
                   </span>
@@ -106,7 +116,8 @@ export default function VerticalTimeline() {
                       className={`${styles.verticalLaneLabel} ${laneClassNames[lane.id]}`}
                       style={laneStyle}
                     >
-                      {t(lane.labelKey)}
+                      <strong>{t(lane.labelKey)}</strong>
+                      {lane.subtitleKey && <small>{t(lane.subtitleKey)}</small>}
                     </span>
                     <span
                       className={`${styles.verticalTrack} ${styles.verticalTrackSolid} ${laneClassNames[lane.id]}`}
@@ -116,12 +127,6 @@ export default function VerticalTimeline() {
                       className={`${styles.verticalTrack} ${styles.verticalTrackFuture} ${laneClassNames[lane.id]}`}
                       style={laneStyle}
                     />
-                    {lane.id === 'chef-work' && (
-                      <span
-                        className={`${styles.verticalFutureBoundaryMarker} ${laneClassNames[lane.id]}`}
-                        style={laneStyle}
-                      />
-                    )}
                   </React.Fragment>
                 );
               })}
@@ -157,9 +162,9 @@ export default function VerticalTimeline() {
                 const title = t(event.titleKey);
                 const description = event.descriptionKey ? t(event.descriptionKey) : undefined;
                 const timeContext = event.future
-                  ? t('about.timeline.markers.future').replace('→', '').trim()
+                  ? t('about.timeline.markers.future').replace(/[→↓]/g, '').trim()
                   : event.year;
-                const labelSideClass = lane.labelSide === 'left'
+                const labelSideClass = (event.labelSide ?? lane.labelSide) === 'left'
                   ? styles.verticalLabelLeft
                   : styles.verticalLabelRight;
 

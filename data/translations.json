@@ -30,7 +30,7 @@
         "markers": {
           "startYear": "2022",
           "year2026": "2026",
-          "future": "Future →"
+          "future": "Future ↓"
         },
         "futureNode": {
           "title": "Digital Humanities B.Sc. planned",
@@ -52,11 +52,13 @@
         },
         "branches": {
           "chefWork": "Professional Chef",
+          "chefWorkContext": "Culinary career began in 2016",
           "developerEducation": "Developer Education",
           "developerExperience": "Developer Experience"
         },
         "nodes": {
           "restaurantZest": "Restaurant Zest",
+          "restaurantZestEnd": "Restaurant Zest ends · Sep 2026",
           "bootcampStart": "Bootcamp Start",
           "bootcampStartDescription": "(Major Transition)",
           "dciBootcamp": "12-Month DCI Bootcamp",
@@ -228,7 +230,7 @@
         "markers": {
           "startYear": "2022",
           "year2026": "2026",
-          "future": "Zukunft →"
+          "future": "Zukunft ↓"
         },
         "futureNode": {
           "title": "Digital Humanities B.Sc. geplant",
@@ -250,11 +252,13 @@
         },
         "branches": {
           "chefWork": "Profikoch",
+          "chefWorkContext": "Kochkarriere begann 2016",
           "developerEducation": "Entwickler-Ausbildung",
           "developerExperience": "Entwickler-Erfahrung"
         },
         "nodes": {
           "restaurantZest": "Restaurant Zest",
+          "restaurantZestEnd": "Ende bei Restaurant Zest · Sep. 2026",
           "bootcampStart": "Bootcamp Start",
           "bootcampStartDescription": "(Großer Übergang)",
           "dciBootcamp": "12-Monats DCI Bootcamp",
