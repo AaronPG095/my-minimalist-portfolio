@@ -431,7 +431,7 @@
 
 .verticalTimelinePlot {
   position: relative;
-  height: 1000px;
+  height: 1100px;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
@@ -456,8 +456,8 @@
 .verticalYearMarkers::before {
   content: '';
   position: absolute;
-  top: 6%;
-  bottom: 2%;
+  top: var(--timeline-start);
+  bottom: calc(100% - var(--timeline-future));
   left: 0;
   width: 2px;
   transform: translateX(-50%);
@@ -467,21 +467,44 @@
     opacity var(--transition-speed) var(--transition-ease);
 }
 
+.verticalYearMarkers::after {
+  content: '';
+  position: absolute;
+  top: var(--timeline-future);
+  bottom: calc(100% - var(--timeline-end));
+  left: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    to bottom,
+    #95a5a6 0 14px,
+    transparent 14px 24px
+  );
+  opacity: 0.55;
+  transition: opacity var(--transition-speed) var(--transition-ease);
+}
+
 .verticalYearMarker {
   position: absolute;
   top: var(--marker-position);
   left: 0;
-  width: 0;
-  height: 0;
+  width: 108px;
+  height: 32px;
+  transform: translate(-108px, -50%);
+  cursor: pointer;
+}
+
+.verticalYearMarker:focus-visible {
+  outline: none;
 }
 
 .verticalYearLabel {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 18px;
   transform: translateY(-50%);
   color: var(--color-medium-grey);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-style: italic;
   font-weight: 500;
   white-space: nowrap;
@@ -490,16 +513,35 @@
 
 .verticalYearDot {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 9px;
-  height: 9px;
+  top: 50%;
+  left: 108px;
+  width: 12px;
+  height: 12px;
   transform: translate(-50%, -50%);
   border: 2px solid var(--color-bg-light);
   border-radius: 50%;
   background: #95a5a6;
   transition: background-color var(--transition-speed) var(--transition-ease),
-    border-color var(--transition-speed) var(--transition-ease);
+    border-color var(--transition-speed) var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease),
+    transform var(--transition-speed) var(--transition-ease);
+}
+
+.verticalYearMarker:hover .verticalYearLabel,
+.verticalYearMarker:focus-visible .verticalYearLabel {
+  color: var(--text-color);
+}
+
+.verticalYearMarker:hover .verticalYearDot,
+.verticalYearMarker:focus-visible .verticalYearDot {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: #b1bdc1;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #95a5a6 28%, transparent);
+}
+
+.verticalYearMarker:focus-visible .verticalYearDot {
+  outline: 2px solid var(--text-color);
+  outline-offset: 4px;
 }
 
 .verticalLaneChef {
@@ -518,14 +560,34 @@
   position: absolute;
   top: var(--lane-start);
   left: var(--lane-position);
-  width: 180px;
+  width: 220px;
   transform: translate(-50%, calc(-100% - 14px));
-  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
   text-wrap: balance;
   transition: color var(--transition-speed) var(--transition-ease);
+}
+
+.verticalLaneLabel strong {
+  font-weight: 600;
+}
+
+.verticalLaneLabel small {
+  color: var(--color-medium-grey);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color var(--transition-speed) var(--transition-ease);
+}
+
+.verticalLaneEducation.verticalLaneLabel,
+.verticalLaneExperience.verticalLaneLabel {
+  transform: translate(-50%, calc(-100% - 28px));
 }
 
 .verticalTrack {
@@ -550,21 +612,6 @@
   width: 0;
   border-left: 3px dashed currentColor;
   opacity: 0.4;
-}
-
-.verticalFutureBoundaryMarker {
-  position: absolute;
-  top: var(--lane-solid-end);
-  left: var(--lane-position);
-  z-index: 2;
-  width: 10px;
-  height: 10px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.4;
-  transition: background-color var(--transition-speed) var(--transition-ease),
-    opacity var(--transition-speed) var(--transition-ease);
 }
 
 .verticalConnector {
@@ -762,12 +809,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .verticalYearDot,
+  .verticalYearLabel,
   .verticalEvent,
   .verticalEventDot,
   .verticalEventDot::after,
   .verticalEventContent strong,
   .verticalEventContent small {
     transition-duration: 0s;
+  }
+
+  .verticalYearMarker:hover .verticalYearDot,
+  .verticalYearMarker:focus-visible .verticalYearDot {
+    transform: translate(-50%, -50%);
   }
 
   .verticalEvent:hover,
