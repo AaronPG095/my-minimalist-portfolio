@@ -409,14 +409,70 @@
   touch-action: pan-x pan-y;
 }
 
-.timelineDragHint {
+.timelineToolbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.4rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.timelineToolbar:has(.timelineDragHint) {
   margin-bottom: 0.5rem;
+}
+
+.timelineDragHint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--color-medium-grey);
   font-size: 0.8rem;
+}
+
+.timelineZoomControls {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-color);
+  font-size: 0.8rem;
+}
+
+.timelineZoomControls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 50%;
+  background: var(--color-bg-light);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.timelineZoomControls button:hover:not(:disabled) {
+  border-color: var(--text-color);
+}
+
+.timelineZoomControls button:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 3px;
+}
+
+.timelineZoomControls button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.timelineZoomControls output {
+  min-width: 3ch;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .timelineToolbar { margin-bottom: 0.5rem; }
+  .timelineZoomControls { display: flex; }
+  .verticalTimeline { zoom: var(--timeline-zoom); }
 }
 
 .verticalTimelineDraggable .verticalTimelinePlot {

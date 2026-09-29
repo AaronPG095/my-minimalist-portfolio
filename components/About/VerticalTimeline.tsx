@@ -4,11 +4,12 @@ import React, {
   CSSProperties,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
-import { LuGrab } from 'react-icons/lu';
+import { LuGrab, LuMinus, LuPlus } from 'react-icons/lu';
 import { useLanguage } from '@/hooks/useLanguage';
 import {
   careerTimelineEvents,
@@ -28,8 +29,10 @@ export default function VerticalTimeline() {
   const { t } = useLanguage();
   const viewportRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ pointerId: number; startX: number; startScrollLeft: number; active: boolean } | null>(null);
+  const scrollRatioRef = useRef(0);
   const [hasOverflow, setHasOverflow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [zoom, setZoom] = useState(100);
 
   const lanesById = useMemo(
     () => new Map(careerTimelineLanes.map((lane) => [lane.id, lane])),
@@ -60,6 +63,23 @@ export default function VerticalTimeline() {
       window.removeEventListener('resize', updateOverflow);
     };
   }, [updateOverflow]);
+
+  useLayoutEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    viewport.scrollLeft = scrollRatioRef.current * maxScroll;
+    updateOverflow();
+  }, [zoom, updateOverflow]);
+
+  const changeZoom = (nextZoom: number) => {
+    const viewport = viewportRef.current;
+    if (viewport) {
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      scrollRatioRef.current = maxScroll ? viewport.scrollLeft / maxScroll : 0;
+    }
+    setZoom(nextZoom);
+  };
 
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (dragRef.current?.pointerId !== event.pointerId) return;
@@ -118,12 +138,23 @@ export default function VerticalTimeline() {
 
   return (
     <div className={styles.verticalTimelineShell}>
-      {hasOverflow && (
-        <div className={styles.timelineDragHint}>
-          <LuGrab aria-hidden="true" />
-          <span>{t('about.timeline.dragHint')}</span>
+      <div className={styles.timelineToolbar}>
+        {hasOverflow && (
+          <div className={styles.timelineDragHint}>
+            <LuGrab aria-hidden="true" />
+            <span>{t('about.timeline.dragHint')}</span>
+          </div>
+        )}
+        <div className={styles.timelineZoomControls} role="group" aria-label={t('about.timeline.zoomControls')}>
+          <button type="button" onClick={() => changeZoom(Math.max(75, zoom - 25))} disabled={zoom === 75} aria-label={t('about.timeline.zoomOut')}>
+            <LuMinus aria-hidden="true" />
+          </button>
+          <output aria-live="polite">{zoom}%</output>
+          <button type="button" onClick={() => changeZoom(Math.min(125, zoom + 25))} disabled={zoom === 125} aria-label={t('about.timeline.zoomIn')}>
+            <LuPlus aria-hidden="true" />
+          </button>
         </div>
-      )}
+      </div>
       <div
         ref={viewportRef}
         className={`${styles.verticalTimelineViewport} ${hasOverflow ? styles.verticalTimelineDraggable : ''} ${isDragging ? styles.verticalTimelineDragging : ''}`}
@@ -137,7 +168,7 @@ export default function VerticalTimeline() {
         onPointerCancel={endDrag}
         onLostPointerCapture={endDrag}
       >
-        <div className={styles.verticalTimeline}>
+        <div className={styles.verticalTimeline} style={{ '--timeline-zoom': zoom / 100 } as CSSProperties}>
           <div className={styles.verticalTimelinePlot}>
             <div
               className={styles.verticalYearMarkers}
