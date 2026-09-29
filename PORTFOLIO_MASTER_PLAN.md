@@ -43,7 +43,7 @@ The previously planned phases below are complete. New work is listed at the end 
 
 - [x] Hero spacing: give the summary 24px side spacing on phones. Make the Hero fill at least the visible viewport below the fixed header at every screen size, growing naturally for taller content, so About first appears after scrolling. Preserve its content and visual treatment. Commit separately.
 - [x] Carousel response: approximately 380ms project arrow travel and 280ms skill arrow travel, with smooth easing. Repeated arrow presses immediately update the target during an ongoing movement. Preserve swipe, drag, snapping, dots, keyboard controls, and reduced-motion behavior. Commit separately. Verified repeated project-arrow clicks and phone skill-arrow clicks in a fresh local browser session.
-- [ ] Timeline starting zoom: 75% on phones up to 600px wide, 100% above that width. Preserve the 75–125% controls, horizontal scrolling, and a visitor's zoom choice after resizing. Commit separately.
+- [x] Timeline starting zoom: 75% on phones up to 600px wide, 100% above that width. Preserve the 75–125% controls, horizontal scrolling, and a visitor's zoom choice after resizing. Commit separately. Verified 75% at 390px and an explicitly selected 100% remaining selected after resizing to tablet width.
 - [ ] Verify English and German in both themes at 320px and 390px phone, tablet, narrow desktop, and wide desktop widths, including enlarged text, carousel interactions, Hero/About visibility, and timeline zoom. Run TypeScript, ESLint, and the production build. Record outcomes without changing completed sections.
 
 ## Later discussion and pending decisions
