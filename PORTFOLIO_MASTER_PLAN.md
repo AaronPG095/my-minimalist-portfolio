@@ -2,7 +2,7 @@
 
 Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Aaron approved the final local preview and the remaining work was deployed on 29 September 2026.
 
-All planned phases below are complete. Keep this record for future portfolio updates.
+The previously planned phases below are complete. New work is listed at the end without changing that record.
 
 ## Completed phases
 
@@ -34,3 +34,12 @@ All planned phases below are complete. Keep this record for future portfolio upd
 - [x] Check phone, tablet, narrow desktop, and wide desktop widths in both languages and themes. All 16 combinations retain seven project cards and have no document-level horizontal overflow; header heights remain 48px, 56px, and 80px at the tested widths. Compare CSS changes since the earlier published version: they are limited to the approved header height/icon/wrapping and timeline text-scaling adjustments. No unintended visual change was identified in the representative browser views; an original saved baseline image is unavailable.
 - [x] Run TypeScript, ESLint, and a production build on the final local version. TypeScript and changed-file ESLint passed, and the production build completed successfully with its integrated lint and type checks. Keyboard checks covered project and skill arrows and timeline zoom; the German project modal and approved accessible labels were checked in the browser.
 - [x] **Final Netlify deployment after the remaining phases.** Aaron approved the final local preview; verified commit `d824547` was pushed to `main` and published by Netlify. The live English and German pages show the approved changes. Both live CV URLs return PDF status 200 and match the local file sizes.
+
+## Next phase — card consistency
+
+- [ ] Give each skill card the same height within its carousel: approximately 930px on desktop (current height), 640px on tablets, and 580px on phones. Give each project card the same height within its carousel: approximately 624px on desktop/tablets and 544px on phones. These are minimums; cards in a carousel grow together if German copy or enlarged text needs more room. Preserve all content, styling, and interactions. Verify English/German, both themes, desktop/tablet/phone, and enlarged text; then make a separate local commit. Do not deploy as part of this phase.
+
+## Later discussion and pending decisions
+
+- [ ] Review the project carousel arrow speed and smoothness. Its current motion is slower than Aaron wants; agree on the new timing and behavior before changing it.
+- [ ] Discuss possible visual architecture and structure improvements. Present concrete options and get Aaron's approval before scheduling or implementing any design changes.
