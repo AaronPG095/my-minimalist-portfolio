@@ -18,6 +18,7 @@
   --font-family: 'Poppins', sans-serif;
   --transition-speed: 300ms;
   --transition-ease: ease;
+  --header-height: clamp(80px, 8vh, 96px);
   --border-radius-sm: 1rem;
   --border-radius-md: 2rem;
   --border-radius-lg: 3rem;
@@ -64,7 +65,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 14vh;
+  scroll-padding-top: var(--header-height);
   overflow-x: hidden;
 }
 
@@ -75,7 +76,7 @@ body {
   background-color: var(--bg-color);
   transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
   overflow-x: hidden;
-  padding-top: 14vh;
+  padding-top: var(--header-height);
 }
 
 p {
@@ -87,7 +88,7 @@ p {
    ============================================ */
 
 section[id] {
-  scroll-margin-top: 14vh;
+  scroll-margin-top: var(--header-height);
 }
 
 /* ============================================
@@ -146,33 +147,17 @@ a:focus-visible {
    RESPONSIVE BREAKPOINTS
    ============================================ */
 
-/* Mobile - 600px */
-@media screen and (max-width: 600px) {
-  html {
-    scroll-padding-top: 48px;
-  }
-  
-  body {
-    padding-top: 48px;
-  }
-  
-  section[id] {
-    scroll-margin-top: 48px;
+/* Tablet - 1200px */
+@media screen and (max-width: 1200px) {
+  :root {
+    --header-height: 56px;
   }
 }
 
-/* Tablet - 1200px */
-@media screen and (max-width: 1200px) {
-  html {
-    scroll-padding-top: 56px;
-  }
-  
-  body {
-    padding-top: 56px;
-  }
-  
-  section[id] {
-    scroll-margin-top: 56px;
+/* Mobile - 600px */
+@media screen and (max-width: 600px) {
+  :root {
+    --header-height: 48px;
   }
 }
 
