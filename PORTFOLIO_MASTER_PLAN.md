@@ -2,7 +2,7 @@
 
 Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Aaron requested an early deployment of the current approved version on 29 September 2026; deploy the remaining work after he reviews and approves the final local preview.
 
-Next phase order: APG icon beside the header name → remaining copy and accessibility reviews → final verification → Netlify deployment. Keep every open item below in scope.
+Next phase order: remaining copy and accessibility reviews → final verification → Netlify deployment. Keep every open item below in scope.
 
 ## Completed phases
 
@@ -27,7 +27,7 @@ Next phase order: APG icon beside the header name → remaining copy and accessi
 - [x] Use Aaron's selected option C, the open APG monogram. Generate and verify its SVG, 16px/32px ICO entries, PNG sizes, manifest references, and local browser icon loading.
 - [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
 - [x] Apply Aaron's approved desktop header adjustment: the height is now capped at 80–96px instead of `14vh` (about 170px in a 1215px-high viewport). Desktop body spacing and section scroll offsets use the same height; tablet remains 56px and phone 48px. English and German desktop navigation and section jumps were checked, with no document-level horizontal overflow at the tested desktop, tablet, and phone widths.
-- [ ] Reuse the selected open APG tab icon immediately to the left of “Aaron Paul Greyling” in the header. Check its size, contrast, spacing, and desktop/mobile placement in both themes and languages; keep the existing navigation behavior and name.
+- [x] Reuse the selected open APG tab icon immediately to the left of “Aaron Paul Greyling” in both headers. It inherits the header text color for light and dark themes; desktop and phone placement were visually checked. The name and navigation behavior are unchanged.
 - [x] Finish timeline screen-reader, text-scaling, pointer-cursor, and unused-code review. The ordered event list exposes event, pathway, and year; markers and events can receive keyboard focus; the drag cursor is restricted to eligible canvas areas. Browser checks at 200% root text size found a clipped future label; the timeline's minimum canvas dimensions and label widths now scale with text size while retaining their original 16px-root dimensions. English and German labels fit without clipping or overlapping at the tested text size. The retired SVG renderer is gone and its CSS selectors remain unused; they were identified but retained, with no unapproved removal.
 - [ ] Review the German screen-reader labels in Projects and section regions: some are still hard-coded in English. Propose exact accessible wording before changing them.
 - [ ] Compare desktop, tablet, and phone views in both languages and themes with the earlier visual design. Correct unintended changes.

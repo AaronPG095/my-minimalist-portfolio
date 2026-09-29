@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import LanguageToggle from '../LanguageToggle/LanguageToggle';
+import ApgMonogram from './ApgMonogram';
 import styles from './Header.module.css';
 
 interface DesktopNavProps {
@@ -43,6 +44,7 @@ export default function DesktopNav({ activeSection = '' }: DesktopNavProps) {
         aria-label="Go to top of page"
         onClick={handleLogoClick}
       >
+        <ApgMonogram />
         Aaron Paul Greyling
       </Link>
       <div className={styles.navRight}>

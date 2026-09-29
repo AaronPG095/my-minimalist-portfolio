@@ -73,7 +73,15 @@
   color: var(--text-color);
   text-decoration: none;
   transition: color var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.logo svg {
+  width: 0.9em;
+  height: 0.9em;
+  flex: none;
 }
 
 .logo:hover {
