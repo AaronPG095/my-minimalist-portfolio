@@ -1,8 +1,8 @@
 # Portfolio update — working plan
 
-Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Aaron requested an early deployment of the current approved version on 29 September 2026; deploy the remaining work after he reviews and approves the final local preview.
+Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Aaron approved the final local preview and the remaining work was deployed on 29 September 2026.
 
-Next phase order: remaining copy and accessibility reviews → final verification → Netlify deployment. Keep every open item below in scope.
+All planned phases below are complete. Keep this record for future portfolio updates.
 
 ## Completed phases
 
@@ -33,4 +33,4 @@ Next phase order: remaining copy and accessibility reviews → final verificatio
 - [x] Apply Aaron's exact approved German screen-reader labels in the About, Skills, and Projects regions, DCI link, project cards, carousel, and modal. Check the German accessibility tree in the local browser; retain the existing English labels.
 - [x] Check phone, tablet, narrow desktop, and wide desktop widths in both languages and themes. All 16 combinations retain seven project cards and have no document-level horizontal overflow; header heights remain 48px, 56px, and 80px at the tested widths. Compare CSS changes since the earlier published version: they are limited to the approved header height/icon/wrapping and timeline text-scaling adjustments. No unintended visual change was identified in the representative browser views; an original saved baseline image is unavailable.
 - [x] Run TypeScript, ESLint, and a production build on the final local version. TypeScript and changed-file ESLint passed, and the production build completed successfully with its integrated lint and type checks. Keyboard checks covered project and skill arrows and timeline zoom; the German project modal and approved accessible labels were checked in the browser.
-- [ ] **Final Netlify deployment after the remaining phases.** After Aaron approves the final local preview, push any remaining verified commits to `main` through the existing GitHub connection, monitor Netlify, and check the live site and both CV links. Resolve any deployment failure and verify the resulting live version.
+- [x] **Final Netlify deployment after the remaining phases.** Aaron approved the final local preview; verified commit `d824547` was pushed to `main` and published by Netlify. The live English and German pages show the approved changes. Both live CV URLs return PDF status 200 and match the local file sizes.
