@@ -17,7 +17,7 @@ Work in this repository. Preserve the existing visual style and existing content
 
 - [ ] **Aaron to review the timeline zoom in the local browser.** Decide whether the 75–125% range, step size, legibility, and placement are adequate or need adjustment.
 - [ ] Review exact English and German wording for Skills, contact, and page metadata before editing any copy.
-- [x] Verify both technical CV links, filenames, language switching, and rendered PDFs. Both one-page PDFs render correctly; the site opens the appropriate language file in a new tab.
+- [ ] **Fix the English CV linked from “View CV”.** The language switch and PDF link work, but the current English technical PDF is a basic version while the German PDF contains the full CV. Compare the current German CV and career documents, prepare a complete English equivalent, review its content with Aaron, replace the website’s English PDF only after approval, then verify the rendered PDF, link, and downloaded filename in the browser. Keep the German CV as is unless Aaron requests changes.
 - [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
 - [x] Use Aaron's selected option C, the open APG monogram. Generate and verify its SVG, 16px/32px ICO entries, PNG sizes, manifest references, and local browser icon loading.
 - [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
