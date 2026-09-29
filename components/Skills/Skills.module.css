@@ -589,11 +589,7 @@
     font-size: 0.75rem;
     margin: 0;
     line-height: 1.2;
-    max-height: 2.4em;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    overflow-wrap: anywhere;
   }
   
   .articleContainer :global(article p) {
@@ -773,11 +769,7 @@
   .skillContent h3 {
     font-size: 0.65rem;
     line-height: 1.2;
-    max-height: 2.4em;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    overflow-wrap: anywhere;
   }
   
   .articleContainer :global(article p) {
