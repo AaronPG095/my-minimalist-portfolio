@@ -15,11 +15,11 @@ interface SkillProgressProps {
 function getLevelPercentage(level: SkillLevel): number {
   switch (level) {
     case 'experienced':
-      return 90;
+      return 80;
     case 'intermediate':
-      return 65;
+      return 55;
     case 'basic':
-      return 35;
+      return 30;
     default:
       return 0;
   }
