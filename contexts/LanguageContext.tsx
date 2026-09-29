@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { getAllTranslations, getStoredLanguage, setStoredLanguage, getTranslation } from '@/lib/translations';
 import type { Language, TranslationsData } from '@/types';
+import { siteMetadata } from '@/lib/site-metadata';
 
 interface LanguageContextType {
   language: Language;
@@ -59,11 +60,11 @@ export function LanguageProvider({
 
   useEffect(() => {
     document.documentElement.lang = language;
-    document.title = language === 'de' ? 'Aaron Greyling | Softwareentwickler' : 'Aaron Greyling | Software Developer';
-    const description = language === 'de'
-      ? 'Aaron Greyling entwickelt Web- und Windows-Software. Projekte: Fluent Studio, FluentOverlay und Kollektiv Spinnen.'
-      : 'Aaron Greyling builds web and Windows software. Explore Fluent Studio, FluentOverlay and Kollektiv Spinnen.';
+    const { title, description } = siteMetadata[language];
+    document.title = title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
     const skipLink = document.querySelector<HTMLAnchorElement>('.skip-link');
     if (skipLink) skipLink.textContent = language === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content';
   }, [language]);

@@ -2,6 +2,7 @@ import './globals.css';
 import Providers from '@/components/Providers/Providers';
 import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
+import { siteMetadata } from '@/lib/site-metadata';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -11,14 +12,14 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://aaronpaulgreyling.netlify.app'),
-  title: 'Aaron Greyling | Software Developer',
-  description: 'Aaron Greyling builds web and Windows software. Explore Fluent Studio, FluentOverlay, Kollektiv Spinnen and his technical experience.',
+  title: siteMetadata.en.title,
+  description: siteMetadata.en.description,
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     url: 'https://aaronpaulgreyling.netlify.app/',
-    title: 'Aaron Greyling | Software Developer',
-    description: 'Web and Windows software, selected projects and technical experience.',
+    title: siteMetadata.en.title,
+    description: siteMetadata.en.description,
     images: [{ url: '/assets/aaron-greyling-portrait.jpg', width: 1086, height: 1448, alt: 'Aaron Greyling' }],
   },
   icons: {
