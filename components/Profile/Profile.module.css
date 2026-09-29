@@ -4,8 +4,10 @@
   justify-content: center;
   align-items: center;
   gap: 5rem;
-  height: 80vh;
-  margin-top: 2rem;
+  min-height: calc(100svh - var(--header-height));
+  height: auto;
+  margin-top: 0;
+  box-sizing: border-box;
 }
 
 .summary { max-width: 52ch; line-height: 1.65; margin: 1rem auto 0; color: var(--color-medium-grey); }
@@ -358,10 +360,7 @@
 
 @media screen and (max-width: 1400px) {
   .profile {
-    height: 83vh;
-    margin-bottom: 6rem;
     gap: 4rem;
-    margin-top: 2rem;
   }
 }
 
@@ -371,10 +370,8 @@
     flex-direction: column;
     align-items: center;
     gap: 3rem;
-    height: auto;
-    min-height: 80vh;
+    min-height: calc(100svh - var(--header-height));
     padding: 4rem 0;
-    margin-top: 2rem;
   }
   
   .picContainer {
@@ -385,14 +382,16 @@
 
 @media screen and (max-width: 600px) {
   .profile {
-    height: auto;
-    min-height: 85vh;
-    margin-bottom: 0;
-    margin-top: 2rem;
+    min-height: calc(100svh - var(--header-height));
     gap: 2rem;
     padding: 3rem 0;
     align-items: center;
     justify-content: center;
+  }
+
+  .summary {
+    box-sizing: border-box;
+    padding-inline: 24px;
   }
 
   .picContainer {
