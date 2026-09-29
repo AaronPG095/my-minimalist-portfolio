@@ -1,6 +1,8 @@
 # Portfolio update — working plan
 
-Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Do not deploy without a separate request.
+Work in this repository. Preserve the existing visual style and existing content unless Aaron approves a specific change. Complete work in phases with a local commit after each. Deploy only at the end, after Aaron reviews and approves the final local preview.
+
+Next phase order: English CV → timeline zoom review → remaining copy and accessibility reviews → final verification → Netlify deployment. Keep every open item below in scope.
 
 ## Completed phases
 
@@ -17,7 +19,7 @@ Work in this repository. Preserve the existing visual style and existing content
 
 - [ ] **Aaron to review the timeline zoom in the local browser.** Decide whether the 75–125% range, step size, legibility, and placement are adequate or need adjustment.
 - [ ] Review exact English and German wording for Skills, contact, and page metadata before editing any copy.
-- [ ] **Fix the English CV linked from “View CV”.** The language switch and PDF link work, but the current English technical PDF is a basic version while the German PDF contains the full CV. Compare the current German CV and career documents, prepare a complete English equivalent, review its content with Aaron, replace the website’s English PDF only after approval, then verify the rendered PDF, link, and downloaded filename in the browser. Keep the German CV as is unless Aaron requests changes.
+- [ ] **Fix the English CV linked from “View CV”.** The language switch and PDF link work. Both PDFs contain essentially the same career information, but the current English PDF has plain formatting and no portrait; the German PDF has the finished layout. The English source DOCX already contains the portrait and matching styles. Render and correct the English source against the German visual reference, review the rendered result and any wording changes with Aaron, replace the website’s English PDF only after approval, then verify the PDF, links, and downloaded filename in the browser. Keep the German CV as is unless Aaron requests changes.
 - [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
 - [x] Use Aaron's selected option C, the open APG monogram. Generate and verify its SVG, 16px/32px ICO entries, PNG sizes, manifest references, and local browser icon loading.
 - [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
@@ -25,3 +27,4 @@ Work in this repository. Preserve the existing visual style and existing content
 - [ ] Review the German screen-reader labels in Projects and section regions: some are still hard-coded in English. Propose exact accessible wording before changing them.
 - [ ] Compare desktop, tablet, and phone views in both languages and themes with the earlier visual design. Correct unintended changes.
 - [ ] Run TypeScript, ESLint, and a production build on the final local version; commit each completed change group.
+- [ ] **Netlify deployment, last phase only.** After Aaron approves the final local preview, push the verified commits to `main` through the existing GitHub connection, monitor Netlify, and check the live site and both CV links. Resolve any deployment failure and verify the resulting live version.
