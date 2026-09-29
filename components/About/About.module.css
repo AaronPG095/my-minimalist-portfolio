@@ -409,6 +409,30 @@
   touch-action: pan-x pan-y;
 }
 
+.timelineDragHint {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-medium-grey);
+  font-size: 0.8rem;
+}
+
+.verticalTimelineDraggable .verticalTimelinePlot {
+  cursor: grab;
+}
+
+.verticalTimelineDraggable .verticalLaneLabel {
+  cursor: text;
+}
+
+.verticalTimelineDragging,
+.verticalTimelineDragging * {
+  cursor: grabbing !important;
+  user-select: none;
+}
+
 .verticalTimelineViewport::-webkit-scrollbar {
   display: none;
 }
@@ -451,6 +475,16 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.verticalTracks,
+.verticalEventList {
+  pointer-events: none;
+}
+
+.verticalLaneLabel,
+.verticalEvent {
+  pointer-events: auto;
 }
 
 .verticalYearMarkers::before {
@@ -776,36 +810,6 @@
 
 .verticalEvent:active {
   transform: scale(1.1);
-}
-
-.timelineScrollHint {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 6;
-  display: flex;
-  width: 50px;
-  align-items: center;
-  color: var(--text-color);
-  font-size: 2rem;
-  font-weight: 300;
-  pointer-events: none;
-  transition: color var(--transition-speed) var(--transition-ease),
-    opacity var(--transition-speed) var(--transition-ease);
-}
-
-.timelineScrollHintLeft {
-  left: 0;
-  justify-content: flex-start;
-  padding-left: 8px;
-  background: linear-gradient(90deg, var(--bg-color) 0%, transparent 100%);
-}
-
-.timelineScrollHintRight {
-  right: 0;
-  justify-content: flex-end;
-  padding-right: 8px;
-  background: linear-gradient(270deg, var(--bg-color) 0%, transparent 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
