@@ -185,7 +185,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         <div className={styles.modalContent}>
           <div className={styles.imageSection}>
             <Image
-              src={project.image}
+              src={language === 'de' && project.imageDe ? project.imageDe : project.image}
               alt={`${t(project.titleKey)} project screenshot`}
               className={styles.modalImage}
               width={800}
