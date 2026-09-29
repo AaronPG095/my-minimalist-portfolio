@@ -182,7 +182,7 @@
       },
       "fluentOverlay": {
         "title": "FluentOverlay",
-        "description": "FluentOverlay is a native Windows application currently in development for app-specific shortcuts and workflows. I am responsible for the Windows application development and product design. I use Codex, Claude Code and Cursor throughout implementation, testing, refactoring and documentation, alongside an integrated MCP server."
+        "description": "FluentOverlay is a native Windows application for app-specific shortcuts and workflows. I am responsible for the Windows application development and product design. I use Codex, Claude Code and Cursor throughout implementation, testing, refactoring and documentation, alongside an integrated MCP server."
       },
       "github": "Github",
       "liveDemo": "Live Demo",
@@ -390,7 +390,7 @@
       },
       "fluentOverlay": {
         "title": "FluentOverlay",
-        "description": "FluentOverlay ist eine native Windows-Anwendung in Entwicklung für appbezogene Shortcuts und Workflows. Ich verantworte die Entwicklung der Windows-Anwendung und die Produktgestaltung. Ich nutze Codex, Claude Code und Cursor für Implementierung, Tests, Refactoring und Dokumentation sowie einen integrierten MCP-Server."
+        "description": "FluentOverlay ist eine native Windows-Anwendung für appbezogene Shortcuts und Workflows. Ich verantworte die Entwicklung der Windows-Anwendung und die Produktgestaltung. Ich nutze Codex, Claude Code und Cursor für Implementierung, Tests, Refactoring und Dokumentation sowie einen integrierten MCP-Server."
       },
       "github": "Github",
       "liveDemo": "Live Demo",
