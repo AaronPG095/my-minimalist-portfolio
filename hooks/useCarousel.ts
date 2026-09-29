@@ -17,6 +17,12 @@ export function useCarousel(
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const targetIndexRef = useRef(0);
+  const animationRef = useRef<{
+    frame: number;
+    originalScrollBehavior: string;
+    originalScrollSnapType: string;
+  } | null>(null);
   
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -47,8 +53,20 @@ export function useCarousel(
     return currentIdx;
   }, [items]);
 
+  const cancelAnimation = useCallback(() => {
+    const animation = animationRef.current;
+    if (!animation) return;
+    cancelAnimationFrame(animation.frame);
+    if (containerRef.current) {
+      containerRef.current.style.scrollBehavior = animation.originalScrollBehavior;
+      containerRef.current.style.scrollSnapType = animation.originalScrollSnapType;
+    }
+    animationRef.current = null;
+    setIsAnimating(false);
+  }, []);
+
   const scrollToIndex = useCallback((targetIndex: number, customDuration: number = duration) => {
-    if (!containerRef.current || isAnimating || targetIndex < 0 || targetIndex >= items.length) return;
+    if (!containerRef.current || targetIndex < 0 || targetIndex >= items.length) return;
     
     const children = Array.from(containerRef.current.querySelectorAll('.carousel-item'));
     const targetItem = children[targetIndex] as HTMLElement;
@@ -69,18 +87,43 @@ export function useCarousel(
     
     const startScroll = containerRef.current.scrollLeft;
     const distance = targetScroll - startScroll;
-    const startTime = performance.now();
-    
-    setIsAnimating(true);
-    const originalScrollBehavior = containerRef.current.style.scrollBehavior;
+    const previousAnimation = animationRef.current;
+    if (previousAnimation) cancelAnimationFrame(previousAnimation.frame);
+    const animation = {
+      frame: 0,
+      originalScrollBehavior: previousAnimation?.originalScrollBehavior ?? containerRef.current.style.scrollBehavior,
+      originalScrollSnapType: previousAnimation?.originalScrollSnapType ?? containerRef.current.style.scrollSnapType,
+    };
+    animationRef.current = animation;
     containerRef.current.style.scrollBehavior = 'auto';
+    containerRef.current.style.scrollSnapType = 'none';
+    targetIndexRef.current = targetIndex;
+    setCurrentIndex(targetIndex);
+
+    const finish = () => {
+      const container = containerRef.current;
+      if (container) {
+        container.scrollLeft = targetScroll;
+        container.style.scrollBehavior = animation.originalScrollBehavior;
+        container.style.scrollSnapType = animation.originalScrollSnapType;
+      }
+      animationRef.current = null;
+      setIsAnimating(false);
+    };
+
+    if (customDuration <= 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finish();
+      return;
+    }
+
+    const startTime = performance.now();
+    setIsAnimating(true);
     
     const animateScroll = (currentTime: number) => {
+      if (animationRef.current !== animation) return;
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / customDuration, 1);
-      const ease = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      const ease = 1 - Math.pow(1 - progress, 4);
       
       const newScroll = startScroll + (distance * ease);
       const clampedScroll = Math.max(0, Math.min(newScroll, maxScroll));
@@ -89,22 +132,17 @@ export function useCarousel(
       }
       
       if (progress < 1) {
-        requestAnimationFrame(animateScroll);
+        animation.frame = requestAnimationFrame(animateScroll);
       } else {
-        if (containerRef.current) {
-          containerRef.current.scrollLeft = targetScroll;
-          containerRef.current.style.scrollBehavior = originalScrollBehavior;
-        }
-        setIsAnimating(false);
-        setCurrentIndex(targetIndex);
+        finish();
       }
     };
     
-    requestAnimationFrame(animateScroll);
-  }, [items, duration, isAnimating]);
+    animation.frame = requestAnimationFrame(animateScroll);
+  }, [items, duration]);
 
   const scroll = useCallback((direction: 'left' | 'right') => {
-    const currentIdx = getCurrentIndex();
+    const currentIdx = animationRef.current ? targetIndexRef.current : getCurrentIndex();
     let targetIdx = direction === 'left' ? currentIdx - 1 : currentIdx + 1;
     targetIdx = Math.max(0, Math.min(items.length - 1, targetIdx));
     
@@ -114,15 +152,17 @@ export function useCarousel(
   }, [items, getCurrentIndex, scrollToIndex]);
 
   const snapToNearest = useCallback(() => {
-    if (!containerRef.current || isAnimating) return;
+    if (!containerRef.current) return;
     const nearestIdx = getCurrentIndex();
     scrollToIndex(nearestIdx, snapDuration);
-  }, [getCurrentIndex, scrollToIndex, snapDuration, isAnimating]);
+  }, [getCurrentIndex, scrollToIndex, snapDuration]);
 
   // Touch handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    cancelAnimation();
+    targetIndexRef.current = getCurrentIndex();
     touchStartX.current = e.touches[0].clientX;
-  }, []);
+  }, [cancelAnimation, getCurrentIndex]);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
@@ -155,6 +195,8 @@ export function useCarousel(
   // Mouse drag handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
+    cancelAnimation();
+    targetIndexRef.current = getCurrentIndex();
     
     setIsDragging(true);
     dragStartX.current = e.clientX;
@@ -164,7 +206,7 @@ export function useCarousel(
       containerRef.current.style.userSelect = 'none';
     }
     e.preventDefault();
-  }, []);
+  }, [cancelAnimation, getCurrentIndex]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent | MouseEvent) => {
     if (!isDragging || !containerRef.current) return;
@@ -204,15 +246,21 @@ export function useCarousel(
     if (!container) return;
     
     const updateIndex = () => {
-      if (!isAnimating && !isDragging) {
+      if (!animationRef.current && !isDragging) {
         const idx = getCurrentIndex();
+        targetIndexRef.current = idx;
         setCurrentIndex(idx);
       }
     };
     
     container.addEventListener('scroll', updateIndex);
     return () => container.removeEventListener('scroll', updateIndex);
-  }, [getCurrentIndex, isAnimating, isDragging]);
+  }, [getCurrentIndex, isDragging]);
+
+  useEffect(() => () => {
+    const animation = animationRef.current;
+    if (animation) cancelAnimationFrame(animation.frame);
+  }, []);
 
   // Set initial cursor
   useEffect(() => {
