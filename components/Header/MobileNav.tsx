@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/hooks/useLanguage';
+import ApgMonogram from './ApgMonogram';
 import styles from './Header.module.css';
 
 interface MobileNavProps {
@@ -27,6 +28,7 @@ export default function MobileNav({ onMenuToggle, isOpen }: MobileNavProps) {
         aria-label={language === 'de' ? 'Zum Seitenanfang' : 'Go to top of page'}
         onClick={handleLogoClick}
       >
+        <ApgMonogram />
         Aaron Paul Greyling
       </Link>
       <button
