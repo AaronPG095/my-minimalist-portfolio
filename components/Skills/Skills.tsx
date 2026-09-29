@@ -271,7 +271,7 @@ function SkillCard({ title, skills, onTooltipShow, onTooltipHide }: SkillCardPro
 }
 
 export default function Skills() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [hoveredTooltip, setHoveredTooltip] = useState<{ text: string; x: number; y: number } | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -313,7 +313,7 @@ export default function Skills() {
 
   return (
     <>
-      <section id="skills" className={styles.skills} aria-label="Skills section">
+      <section id="skills" className={styles.skills} aria-label={language === 'de' ? 'Fähigkeiten' : 'Skills section'}>
         <p className={styles.subtitle}>{t('skills.subtitle')}</p>
         <h1 className={styles.title}>{t('skills.title')}</h1>
         <div className={styles.detailsContainer}>

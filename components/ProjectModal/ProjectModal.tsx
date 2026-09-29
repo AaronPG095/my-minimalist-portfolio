@@ -177,7 +177,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         <button
           className={styles.closeButton}
           onClick={onClose}
-          aria-label="Close modal"
+          aria-label={language === 'de' ? 'Projektfenster schließen' : 'Close modal'}
         >
           <FaTimes aria-hidden="true" />
         </button>
@@ -186,7 +186,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           <div className={styles.imageSection}>
             <Image
               src={language === 'de' && project.imageDe ? project.imageDe : project.image}
-              alt={`${t(project.titleKey)} project screenshot`}
+              alt={language === 'de' ? `Screenshot des Projekts ${t(project.titleKey)}` : `${t(project.titleKey)} project screenshot`}
               className={styles.modalImage}
               width={800}
               height={600}
@@ -202,7 +202,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </h2>
 
             {modalSummary && (
-              <section className={styles.summarySection} aria-label="Project summary">
+              <section className={styles.summarySection} aria-label={language === 'de' ? 'Projektbeschreibung' : 'Project summary'}>
                 <h3 className={styles.summaryTitle}>{t('projects.projectSummary')}</h3>
                 <p className={styles.summaryText}>{modalSummary}</p>
               </section>
@@ -234,7 +234,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 <button
                   className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
                   onClick={() => openLink(project.github!)}
-                  aria-label={`View ${t(project.titleKey)} project on GitHub`}
+                  aria-label={language === 'de' ? `Projekt ${t(project.titleKey)} auf GitHub ansehen` : `View ${t(project.titleKey)} project on GitHub`}
                 >
                   <FaGithub aria-hidden="true" />
                   <span>{t('projects.github')}</span>

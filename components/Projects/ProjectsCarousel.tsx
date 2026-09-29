@@ -11,7 +11,7 @@ interface ProjectsCarouselProps {
 }
 
 export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   // React.Children.toArray handles both single child and multiple children
   const items = React.Children.toArray(children);
   const {
@@ -135,13 +135,13 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
           >
             <LuChevronLeft aria-hidden="true" />
           </button>
-          <div className={styles.dots} id="projects-carousel-dots" aria-label="Projects carousel navigation" role="tablist">
+          <div className={styles.dots} id="projects-carousel-dots" aria-label={language === 'de' ? 'Projektauswahl' : 'Projects carousel navigation'} role="tablist">
             {items.map((_, index) => (
               <button
                 key={index}
                 className={`${styles.dot} ${index === currentIndex ? styles.active : ''}`}
                 onClick={() => scrollToIndex(index)}
-                aria-label={`Show project ${index + 1}`}
+                aria-label={language === 'de' ? `Projekt ${index + 1} anzeigen` : `Show project ${index + 1}`}
                 aria-selected={index === currentIndex}
                 tabIndex={index === currentIndex ? 0 : -1}
                 role="tab"

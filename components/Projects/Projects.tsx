@@ -149,12 +149,12 @@ export default function Projects() {
           handleProjectClick(project);
         }
       }}
-      aria-label={`View details for ${t(project.titleKey)} project`}
+      aria-label={language === 'de' ? `Details zum Projekt ${t(project.titleKey)} anzeigen` : `View details for ${t(project.titleKey)} project`}
     >
       <div className={styles.articleContainer}>
         <OptimizedImage
           src={language === 'de' && project.imageDe ? project.imageDe : project.image}
-          alt={`${t(project.titleKey)} project screenshot`}
+          alt={language === 'de' ? `Screenshot des Projekts ${t(project.titleKey)}` : `${t(project.titleKey)} project screenshot`}
           className={styles.projectImg}
           width={500}
           height={400}
@@ -185,7 +185,7 @@ export default function Projects() {
           <button
             className={`${styles.btn} ${styles.projectBtn}`}
             onClick={(e) => openProjectLink(project.github!, e)}
-            aria-label={`View ${t(project.titleKey)} project on GitHub`}
+            aria-label={language === 'de' ? `Projekt ${t(project.titleKey)} auf GitHub ansehen` : `View ${t(project.titleKey)} project on GitHub`}
           >
             {t('projects.github')}
           </button>
@@ -205,7 +205,7 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className={styles.projects} aria-label="Projects section">
+      <section id="projects" className={styles.projects} aria-label={language === 'de' ? 'Projekte' : 'Projects section'}>
         <p className={styles.subtitle}>{t('projects.subtitle')}</p>
         <h1 className={styles.title}>{t('projects.title')}</h1>
         <div className={styles.detailsContainer}>
