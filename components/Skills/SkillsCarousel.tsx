@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { useCarousel } from '@/hooks/useCarousel';
+import { useLanguage } from '@/hooks/useLanguage';
 import styles from './Skills.module.css';
 
 interface SkillsCarouselProps {
@@ -10,12 +12,14 @@ interface SkillsCarouselProps {
 }
 
 export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) {
+  const { t } = useLanguage();
   // React.Children.toArray handles both single child and multiple children
   const items = React.Children.toArray(children);
   const {
     containerRef,
     currentIndex,
     scrollToIndex,
+    scroll,
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
@@ -55,6 +59,7 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
     <>
       <div className={styles.carouselWrapper}>
         <div
+          id="skills-carousel"
           ref={containerRef}
           className={styles.carouselContainer}
           onTouchStart={handleTouchStart}
@@ -73,16 +78,38 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
         </div>
       </div>
       {dots && dots.length > 0 && (
-        <div className={styles.dots} aria-label="Skills carousel navigation">
-          {dots.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${index === currentIndex ? styles.active : ''}`}
-              onClick={() => scrollToIndex(index)}
-              aria-label={`Show ${getDotLabel(index)} Development`}
-              data-index={index}
-            />
-          ))}
+        <div className={styles.carouselNavigation}>
+          <button
+            type="button"
+            className={styles.carouselArrow}
+            onClick={() => scroll('left')}
+            disabled={currentIndex === 0}
+            aria-label={t('skills.previousCard')}
+            aria-controls="skills-carousel"
+          >
+            <LuChevronLeft aria-hidden="true" />
+          </button>
+          <div className={styles.dots} aria-label="Skills carousel navigation">
+            {dots.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.dot} ${index === currentIndex ? styles.active : ''}`}
+                onClick={() => scrollToIndex(index)}
+                aria-label={`Show ${getDotLabel(index)} Development`}
+                data-index={index}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className={styles.carouselArrow}
+            onClick={() => scroll('right')}
+            disabled={currentIndex === items.length - 1}
+            aria-label={t('skills.nextCard')}
+            aria-controls="skills-carousel"
+          >
+            <LuChevronRight aria-hidden="true" />
+          </button>
         </div>
       )}
     </>

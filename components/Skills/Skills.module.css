@@ -388,8 +388,59 @@
   display: flex;
   justify-content: center;
   gap: 0.75rem;
-  margin: 1rem auto 0;
-  width: 100%;
+  align-items: center;
+}
+
+.carouselNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.carouselArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 50%;
+  background: var(--color-bg-light);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease),
+              border-color var(--transition-speed) var(--transition-ease),
+              transform var(--transition-speed) var(--transition-ease);
+}
+
+.carouselArrow:hover:not(:disabled) {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+:global([data-theme="dark"]) .carouselArrow:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.carouselArrow:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.carouselArrow:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.carouselArrow:disabled {
+  cursor: default;
+  opacity: 0.35;
 }
 
 .dot {

@@ -101,6 +101,8 @@
       "frontend": "Frontend",
       "backend": "Backend",
       "tools": "Other / Tools",
+      "previousCard": "Previous skill card",
+      "nextCard": "Next skill card",
       "levels": {
         "experienced": "Experienced",
         "intermediate": "Intermediate",
@@ -304,6 +306,8 @@
       "frontend": "Frontend",
       "backend": "Backend",
       "tools": "Other / Tools",
+      "previousCard": "Vorherige Fähigkeiten-Karte",
+      "nextCard": "Nächste Fähigkeiten-Karte",
       "levels": {
         "experienced": "Erfahren",
         "intermediate": "Fortgeschritten",
