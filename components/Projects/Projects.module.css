@@ -40,6 +40,10 @@
   flex-direction: column;
 }
 
+.carouselShell {
+  position: relative;
+}
+
 .carouselWrapper {
   position: relative;
   display: flex;
@@ -322,6 +326,61 @@
   margin-top: 1.5rem;
 }
 
+.carouselNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselArrow {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 1.5rem);
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 50%;
+  background: var(--color-bg-light);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease),
+              border-color var(--transition-speed) var(--transition-ease),
+              transform var(--transition-speed) var(--transition-ease);
+}
+
+.carouselArrow:hover:not(:disabled) {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+:global([data-theme="dark"]) .carouselArrow:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.carouselArrow:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.carouselArrow:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.carouselArrow:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.carouselArrowPrevious { left: -3.5rem; }
+.carouselArrowNext { right: -3.5rem; }
+
 .dot {
   width: 10px;
   height: 10px;
@@ -376,6 +435,9 @@
 }
 
 @media screen and (max-width: 1200px) {
+  .carouselArrowPrevious { left: 0; }
+  .carouselArrowNext { right: 0; }
+
   .projects {
     margin: 0;
   }
@@ -386,6 +448,18 @@
 }
 
 @media screen and (max-width: 600px) {
+  .carouselNavigation {
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .carouselArrow {
+    position: static;
+    flex: 0 0 44px;
+  }
+
+  .dots { margin-top: 0; }
+
   .projects {
     margin: 0 1rem;
     width: calc(100% - 2rem);
