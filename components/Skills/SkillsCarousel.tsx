@@ -27,7 +27,7 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
     handleMouseMove,
     handleMouseUp,
     handleMouseLeave,
-  } = useCarousel(items, { duration: 600, snapDuration: 300 });
+  } = useCarousel(items, { duration: 280, snapDuration: 300 });
 
   useEffect(() => {
     const handleMouseMoveGlobal = (e: Event) => {

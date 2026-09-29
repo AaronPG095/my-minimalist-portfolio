@@ -26,7 +26,7 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
     handleMouseMove,
     handleMouseUp,
     handleMouseLeave,
-  } = useCarousel(items, { duration: 600, snapDuration: 300 });
+  } = useCarousel(items, { duration: 380, snapDuration: 300 });
 
   useEffect(() => {
     const handleMouseMoveGlobal = (e: Event) => {
