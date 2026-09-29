@@ -37,9 +37,15 @@ The previously planned phases below are complete. New work is listed at the end 
 
 ## Next phase — card consistency
 
-- [ ] Give each skill card the same height within its carousel: approximately 930px on desktop (current height), 640px on tablets, and 580px on phones. Give each project card the same height within its carousel: approximately 624px on desktop/tablets and 544px on phones. These are minimums; cards in a carousel grow together if German copy or enlarged text needs more room. Preserve all content, styling, and interactions. Verify English/German, both themes, desktop/tablet/phone, and enlarged text; then make a separate local commit. Do not deploy as part of this phase.
+- [x] Give each skill card the same minimum height within its carousel: approximately 930px on desktop, 640px on tablets, and 580px on phones. Give each project card the same minimum height within its carousel: approximately 624px on desktop/tablets and 544px on phones. Cards in a carousel grow together if German copy or enlarged text needs more room. Correct the skill-card/slot width mismatch at 400px and below so cards do not overlap. Preserve content, styling, and interactions. Do not deploy as part of this phase.
+
+## Remaining approved layout and interaction phases
+
+- [ ] Hero spacing: give the summary 24px side spacing on phones. Make the Hero fill at least the visible viewport below the fixed header at every screen size, growing naturally for taller content, so About first appears after scrolling. Preserve its content and visual treatment. Commit separately.
+- [ ] Carousel response: approximately 380ms project arrow travel and 280ms skill arrow travel, with smooth easing. Repeated arrow presses immediately update the target during an ongoing movement. Preserve swipe, drag, snapping, dots, keyboard controls, and reduced-motion behavior. Commit separately.
+- [ ] Timeline starting zoom: 75% on phones up to 600px wide, 100% above that width. Preserve the 75–125% controls, horizontal scrolling, and a visitor's zoom choice after resizing. Commit separately.
+- [ ] Verify English and German in both themes at 320px and 390px phone, tablet, narrow desktop, and wide desktop widths, including enlarged text, carousel interactions, Hero/About visibility, and timeline zoom. Run TypeScript, ESLint, and the production build. Record outcomes without changing completed sections.
 
 ## Later discussion and pending decisions
 
-- [ ] Review the project carousel arrow speed and smoothness. Its current motion is slower than Aaron wants; agree on the new timing and behavior before changing it.
-- [ ] Discuss possible visual architecture and structure improvements. Present concrete options and get Aaron's approval before scheduling or implementing any design changes.
+- [ ] Discuss project-card internal alignment of image, description, tags, and actions. Present concrete options and get Aaron's approval before scheduling or implementing any design changes.

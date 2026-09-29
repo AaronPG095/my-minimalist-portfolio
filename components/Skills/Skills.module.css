@@ -48,6 +48,7 @@
 .desktopView {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
   gap: 2rem;
   justify-content: center;
   max-width: 55%;
@@ -67,6 +68,7 @@
   flex: 0 0 370px;
   width: 370px;
   max-width: 370px;
+  min-height: 930px;
   background: var(--color-bg-light);
   border-radius: var(--border-radius-md);
   border: var(--color-light-grey) 0.1rem solid;
@@ -381,7 +383,7 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .dots {
@@ -521,9 +523,10 @@
   }
   
   .skillCard {
-    flex: 0 0 280px;
-    width: 280px;
-    max-width: 280px;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 640px;
     padding: 1rem;
     padding-top: 2rem;
     box-sizing: border-box;
@@ -538,7 +541,7 @@
     max-width: 280px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
   .articleContainer {
@@ -651,9 +654,9 @@
   }
   
   .skillCard {
-    flex: 0 0 280px;
-    width: 280px;
-    max-width: 280px;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
     padding: 1rem;
     padding-top: 2rem;
     margin: 0 auto;
@@ -690,9 +693,10 @@
   }
   
   .skillCard {
-    flex: 0 0 280px;
-    width: 280px;
-    max-width: 280px;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 580px;
     padding: 0.875rem;
     padding-top: 2rem;
     margin: 0 auto;
