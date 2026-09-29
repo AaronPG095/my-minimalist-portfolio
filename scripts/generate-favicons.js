@@ -53,19 +53,30 @@ async function generateFavicons() {
       console.log(`✓ Generated ${name} (${size}x${size})`);
     }
     
-    // Generate favicon.ico (multi-size ICO file)
-    // Note: sharp doesn't support ICO directly, so we'll create a 32x32 PNG as favicon.ico
-    // Most modern browsers will accept PNG as favicon.ico
+    // ICO supports PNG-encoded entries. Include both standard tab-icon sizes.
     const icoPath = path.join(publicDir, 'favicon.ico');
-    await sharp(svgBuffer)
-      .resize(32, 32, {
-        fit: 'contain',
-        background: { r: 255, g: 255, b: 255, alpha: 0 }
-      })
-      .png()
-      .toFile(icoPath);
-    
-    console.log('✓ Generated favicon.ico (32x32)');
+    const icoSizes = [16, 32];
+    const icoImages = await Promise.all(icoSizes.map((size) =>
+      sharp(svgBuffer).resize(size, size).png().toBuffer()
+    ));
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(1, 2); // Icon type
+    header.writeUInt16LE(icoImages.length, 4);
+    let offset = header.length + icoImages.length * 16;
+    const entries = icoImages.map((png, index) => {
+      const entry = Buffer.alloc(16);
+      entry.writeUInt8(icoSizes[index], 0);
+      entry.writeUInt8(icoSizes[index], 1);
+      entry.writeUInt16LE(1, 4); // Color planes
+      entry.writeUInt16LE(32, 6); // Bits per pixel
+      entry.writeUInt32LE(png.length, 8);
+      entry.writeUInt32LE(offset, 12);
+      offset += png.length;
+      return entry;
+    });
+    fs.writeFileSync(icoPath, Buffer.concat([header, ...entries, ...icoImages]));
+
+    console.log('✓ Generated favicon.ico (16x16 and 32x32)');
     console.log('\n✅ All favicon files generated successfully!');
     
   } catch (error) {
