@@ -33,6 +33,7 @@ export default function VerticalTimeline() {
   const [hasOverflow, setHasOverflow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [zoom, setZoom] = useState(100);
+  const visitorChangedZoomRef = useRef(false);
 
   const lanesById = useMemo(
     () => new Map(careerTimelineLanes.map((lane) => [lane.id, lane])),
@@ -44,6 +45,17 @@ export default function VerticalTimeline() {
     if (!viewport) return;
 
     setHasOverflow(viewport.scrollWidth > viewport.clientWidth + 1);
+  }, []);
+
+  useLayoutEffect(() => {
+    const phoneWidth = window.matchMedia('(max-width: 600px)');
+    const setStartingZoom = () => {
+      if (!visitorChangedZoomRef.current) setZoom(phoneWidth.matches ? 75 : 100);
+    };
+
+    setStartingZoom();
+    phoneWidth.addEventListener('change', setStartingZoom);
+    return () => phoneWidth.removeEventListener('change', setStartingZoom);
   }, []);
 
   useEffect(() => {
@@ -73,6 +85,7 @@ export default function VerticalTimeline() {
   }, [zoom, updateOverflow]);
 
   const changeZoom = (nextZoom: number) => {
+    visitorChangedZoomRef.current = true;
     const viewport = viewportRef.current;
     if (viewport) {
       const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
