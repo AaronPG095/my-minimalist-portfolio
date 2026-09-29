@@ -28,6 +28,9 @@
         "heading": "Career Timeline & Professional Development",
         "subtitle": "Journey from Culinary Arts to Software Development",
         "dragHint": "Drag to explore",
+        "zoomControls": "Timeline zoom",
+        "zoomOut": "Zoom out timeline",
+        "zoomIn": "Zoom in timeline",
         "markers": {
           "startYear": "2022",
           "year2026": "2026",
@@ -233,6 +236,9 @@
         "heading": "Karriere-Timeline & Berufliche Entwicklung",
         "subtitle": "Weg von der Kochkunst zur Softwareentwicklung",
         "dragHint": "Zum Erkunden ziehen",
+        "zoomControls": "Timeline-Zoom",
+        "zoomOut": "Timeline verkleinern",
+        "zoomIn": "Timeline vergrößern",
         "markers": {
           "startYear": "2022",
           "year2026": "2026",
