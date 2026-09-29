@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useRef, useEffect, useCallback } from 'react';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { useCarousel } from '@/hooks/useCarousel';
+import { useLanguage } from '@/hooks/useLanguage';
 import styles from './Projects.module.css';
 
 interface ProjectsCarouselProps {
@@ -9,12 +11,14 @@ interface ProjectsCarouselProps {
 }
 
 export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
+  const { t } = useLanguage();
   // React.Children.toArray handles both single child and multiple children
   const items = React.Children.toArray(children);
   const {
     containerRef,
     currentIndex,
     scrollToIndex,
+    scroll,
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
@@ -97,9 +101,10 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
   }, [centerFirstProject]);
 
   return (
-    <>
+    <div className={styles.carouselShell}>
       <div className={styles.carouselWrapper}>
         <div
+          id="projects-carousel"
           ref={containerRef}
           className={styles.carouselContainer}
           onTouchStart={handleTouchStart}
@@ -119,20 +124,42 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
         </div>
       </div>
       {items.length > 1 && (
-        <div className={styles.dots} id="projects-carousel-dots" aria-label="Projects carousel navigation" role="tablist">
-          {items.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${index === currentIndex ? styles.active : ''}`}
-              onClick={() => scrollToIndex(index)}
-              aria-label={`Show project ${index + 1}`}
-              aria-selected={index === currentIndex}
-              tabIndex={index === currentIndex ? 0 : -1}
-              role="tab"
-            />
-          ))}
+        <div className={styles.carouselNavigation}>
+          <button
+            type="button"
+            className={`${styles.carouselArrow} ${styles.carouselArrowPrevious}`}
+            onClick={() => scroll('left')}
+            disabled={currentIndex === 0}
+            aria-label={t('projects.previousProject')}
+            aria-controls="projects-carousel"
+          >
+            <LuChevronLeft aria-hidden="true" />
+          </button>
+          <div className={styles.dots} id="projects-carousel-dots" aria-label="Projects carousel navigation" role="tablist">
+            {items.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.dot} ${index === currentIndex ? styles.active : ''}`}
+                onClick={() => scrollToIndex(index)}
+                aria-label={`Show project ${index + 1}`}
+                aria-selected={index === currentIndex}
+                tabIndex={index === currentIndex ? 0 : -1}
+                role="tab"
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className={`${styles.carouselArrow} ${styles.carouselArrowNext}`}
+            onClick={() => scroll('right')}
+            disabled={currentIndex === items.length - 1}
+            aria-label={t('projects.nextProject')}
+            aria-controls="projects-carousel"
+          >
+            <LuChevronRight aria-hidden="true" />
+          </button>
         </div>
       )}
-    </>
+    </div>
   );
 }

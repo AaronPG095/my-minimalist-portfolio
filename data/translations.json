@@ -184,7 +184,9 @@
       "visitWebsite": "Visit website",
       "viewProductPage": "View product page",
       "projectSummary": "Project Summary",
-      "technologies": "Technologies"
+      "technologies": "Technologies",
+      "previousProject": "Previous project",
+      "nextProject": "Next project"
     },
     "contact": {
       "subtitle": "Get in Touch",
@@ -385,7 +387,9 @@
       "visitWebsite": "Website besuchen",
       "viewProductPage": "Produktseite ansehen",
       "projectSummary": "Projektübersicht",
-      "technologies": "Technologien"
+      "technologies": "Technologien",
+      "previousProject": "Vorheriges Projekt",
+      "nextProject": "Nächstes Projekt"
     },
     "contact": {
       "subtitle": "Kontakt aufnehmen",
