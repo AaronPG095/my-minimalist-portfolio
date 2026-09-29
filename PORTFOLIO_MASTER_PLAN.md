@@ -17,7 +17,7 @@ Next phase order: English CV → timeline zoom review → remaining copy and acc
 
 ## Open work and approval gates
 
-- [ ] **Aaron to review the timeline zoom in the local browser.** Decide whether the 75–125% range, step size, legibility, and placement are adequate or need adjustment.
+- [x] **Aaron reviewed the timeline zoom in the local browser.** Keep the existing 75–125% range and controls.
 - [ ] Review exact English and German wording for Skills, contact, and page metadata before editing any copy.
 - [x] **Fix the English CV linked from “View CV”.** Aaron approved the one-page English render with the portrait and matching finished styling. The website PDF and master PDF now match that approved render; the wording and German PDF are unchanged. The English and German site buttons point to their language-specific filenames, the German PDF opens from Chrome, and the English PDF was rendered and its embedded links checked locally. Chrome's PDF viewer could not be inspected through browser automation, so Aaron's visual check of the English website PDF remains part of the final preview review.
 - [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
