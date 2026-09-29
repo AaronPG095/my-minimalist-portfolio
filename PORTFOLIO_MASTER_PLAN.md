@@ -17,9 +17,10 @@ Work in this repository. Preserve the existing visual style and existing content
 
 - [ ] **Aaron to review the timeline zoom in the local browser.** Decide whether the 75–125% range, step size, legibility, and placement are adequate or need adjustment.
 - [ ] Review exact English and German wording for Skills, contact, and page metadata before editing any copy.
-- [ ] Verify both technical CV links, downloaded filenames, language switching, and rendered PDFs. Retain the current PDF files unless a replacement is approved.
-- [ ] Verify all seven project cards, bilingual modals, and links.
-- [ ] Show several black-and-white APG tab-icon options at actual tab sizes; after Aaron chooses one, generate and verify SVG, ICO, PNG, and manifest assets.
+- [x] Verify both technical CV links, filenames, language switching, and rendered PDFs. Both one-page PDFs render correctly; the site opens the appropriate language file in a new tab.
+- [x] Verify all seven project cards, bilingual modals, and links. The four language-specific Fluent Studio/FluentOverlay pages and every existing GitHub/demo destination loaded in the browser.
+- [ ] Choose an APG tab icon from the prepared 16px and 32px previews; then generate and verify SVG, ICO, PNG, and manifest assets. Final asset replacement waits for Aaron's choice.
+- [ ] Review whether the FluentOverlay card should still say "currently in development" / "in Entwicklung" now that its product page presents a released version. Keep the existing copy until Aaron approves exact replacement text.
 - [ ] Finish timeline screen-reader, text-scaling, pointer-cursor, and unused-code review.
 - [ ] Compare desktop, tablet, and phone views in both languages and themes with the earlier visual design. Correct unintended changes.
 - [ ] Run TypeScript, ESLint, and a production build on the final local version; commit each completed change group.
