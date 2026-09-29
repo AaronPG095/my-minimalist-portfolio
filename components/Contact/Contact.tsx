@@ -5,10 +5,10 @@ import { useLanguage } from '@/hooks/useLanguage';
 import styles from './Contact.module.css';
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
-    <section id="contact" className={styles.contact} aria-label="Contact section">
+    <section id="contact" className={styles.contact} aria-label={language === 'de' ? 'Kontakt' : 'Contact'}>
       <p className={styles.subtitle}>{t('contact.subtitle')}</p>
       <h2 className={styles.title}>{t('contact.title')}</h2>
       <div className={styles.infoContainer}>
@@ -24,7 +24,7 @@ export default function Contact() {
             aria-hidden="true"
           />
           <p>
-            <a href="mailto:aaron.p.greyling@gmail.com" aria-label="Send email to aaron.p.greyling@gmail.com">
+            <a href="mailto:aaron.p.greyling@gmail.com" aria-label={language === 'de' ? 'E-Mail an aaron.p.greyling@gmail.com senden' : 'Send email to aaron.p.greyling@gmail.com'}>
               aaron.p.greyling@gmail.com
             </a>
           </p>
@@ -45,7 +45,7 @@ export default function Contact() {
               href="https://www.linkedin.com/in/aaron-paul-greyling-54a8a954/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visit LinkedIn profile"
+              aria-label={language === 'de' ? 'LinkedIn-Profil öffnen' : 'Visit LinkedIn profile'}
             >
               {t('contact.linkedin')}
             </a>
