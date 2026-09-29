@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { LuGrab } from 'react-icons/lu';
 import { useLanguage } from '@/hooks/useLanguage';
 import {
   careerTimelineEvents,
@@ -26,21 +27,20 @@ const laneClassNames: Record<CareerLaneId, string> = {
 export default function VerticalTimeline() {
   const { t } = useLanguage();
   const viewportRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  const dragRef = useRef<{ pointerId: number; startX: number; startScrollLeft: number; active: boolean } | null>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const lanesById = useMemo(
     () => new Map(careerTimelineLanes.map((lane) => [lane.id, lane])),
     [],
   );
 
-  const updateScrollIndicators = useCallback(() => {
+  const updateOverflow = useCallback(() => {
     const viewport = viewportRef.current;
     if (!viewport) return;
 
-    const maximumScroll = viewport.scrollWidth - viewport.clientWidth;
-    setCanScrollLeft(viewport.scrollLeft > 1);
-    setCanScrollRight(maximumScroll > 1 && viewport.scrollLeft < maximumScroll - 1);
+    setHasOverflow(viewport.scrollWidth > viewport.clientWidth + 1);
   }, []);
 
   useEffect(() => {
@@ -48,27 +48,94 @@ export default function VerticalTimeline() {
     if (!viewport) return;
 
     viewport.scrollLeft = 0;
-    updateScrollIndicators();
+    updateOverflow();
 
-    const resizeObserver = new ResizeObserver(updateScrollIndicators);
+    const resizeObserver = new ResizeObserver(updateOverflow);
     resizeObserver.observe(viewport);
-    window.addEventListener('resize', updateScrollIndicators);
+    if (viewport.firstElementChild) resizeObserver.observe(viewport.firstElementChild);
+    window.addEventListener('resize', updateOverflow);
 
     return () => {
       resizeObserver.disconnect();
-      window.removeEventListener('resize', updateScrollIndicators);
+      window.removeEventListener('resize', updateOverflow);
     };
-  }, [updateScrollIndicators]);
+  }, [updateOverflow]);
+
+  const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    setIsDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const startDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    dragRef.current = null;
+    if (!hasOverflow || !event.isPrimary || event.button !== 0 ||
+      (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) return;
+
+    const target = event.target;
+    if (!(target instanceof Element) || target.closest([
+      `.${styles.verticalEvent}`,
+      `.${styles.verticalYearMarker}`,
+      `.${styles.verticalLaneLabel}`,
+      'a', 'button', '[contenteditable]',
+    ].join(', '))) return;
+
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScrollLeft: event.currentTarget.scrollLeft,
+      active: false,
+    };
+  };
+
+  const moveDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    if (!(event.buttons & 1)) {
+      dragRef.current = null;
+      setIsDragging(false);
+      return;
+    }
+
+    const distance = event.clientX - drag.startX;
+    if (!drag.active && Math.abs(distance) < 5) return;
+
+    if (!drag.active) {
+      drag.active = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setIsDragging(true);
+    }
+    event.preventDefault();
+    event.currentTarget.scrollLeft = drag.startScrollLeft - distance;
+  };
+
+  const leaveDrag = () => {
+    if (!dragRef.current?.active) dragRef.current = null;
+  };
 
   return (
     <div className={styles.verticalTimelineShell}>
+      {hasOverflow && (
+        <div className={styles.timelineDragHint}>
+          <LuGrab aria-hidden="true" />
+          <span>{t('about.timeline.dragHint')}</span>
+        </div>
+      )}
       <div
         ref={viewportRef}
-        className={styles.verticalTimelineViewport}
+        className={`${styles.verticalTimelineViewport} ${hasOverflow ? styles.verticalTimelineDraggable : ''} ${isDragging ? styles.verticalTimelineDragging : ''}`}
         role="region"
         aria-label={t('about.timeline.heading')}
         tabIndex={0}
-        onScroll={updateScrollIndicators}
+        onPointerDown={startDrag}
+        onPointerMove={moveDrag}
+        onPointerLeave={leaveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onLostPointerCapture={endDrag}
       >
         <div className={styles.verticalTimeline}>
           <div className={styles.verticalTimelinePlot}>
@@ -194,23 +261,6 @@ export default function VerticalTimeline() {
           </div>
         </div>
       </div>
-
-      {canScrollLeft && (
-        <span
-          className={`${styles.timelineScrollHint} ${styles.timelineScrollHintLeft}`}
-          aria-hidden="true"
-        >
-          ‹
-        </span>
-      )}
-      {canScrollRight && (
-        <span
-          className={`${styles.timelineScrollHint} ${styles.timelineScrollHintRight}`}
-          aria-hidden="true"
-        >
-          ›
-        </span>
-      )}
     </div>
   );
 }
