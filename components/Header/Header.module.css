@@ -129,6 +129,26 @@
   transform-origin: 480px -440px;
 }
 
+@media screen and (min-width: 1201px) and (max-width: 1400px) {
+  .logo {
+    font-size: 1.75rem;
+    white-space: nowrap;
+  }
+
+  .navRight {
+    gap: 1rem;
+  }
+
+  .navLinks {
+    font-size: 1.25rem;
+    gap: 1rem;
+  }
+
+  .navLinks a {
+    white-space: nowrap;
+  }
+}
+
 .hamburgerIcon.open .line1 {
   transform: translateY(240px) rotate(45deg);
 }
