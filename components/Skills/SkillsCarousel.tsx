@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -23,31 +23,10 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
-    handleMouseDown,
-    handleMouseMove,
-    handleMouseUp,
-    handleMouseLeave,
+    handlePointerDown,
+    handleDragStart,
+    handleClickCapture,
   } = useCarousel(items, { duration: 280, snapDuration: 300 });
-
-  useEffect(() => {
-    const handleMouseMoveGlobal = (e: Event) => {
-      // DOM MouseEvent from addEventListener - handleMouseMove accepts both DOM and React events
-      if (e instanceof MouseEvent) {
-        handleMouseMove(e);
-      }
-    };
-    const handleMouseUpGlobal = () => handleMouseUp();
-
-    if (containerRef.current) {
-      document.addEventListener('mousemove', handleMouseMoveGlobal);
-      document.addEventListener('mouseup', handleMouseUpGlobal);
-    }
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMoveGlobal);
-      document.removeEventListener('mouseup', handleMouseUpGlobal);
-    };
-  }, [containerRef, handleMouseMove, handleMouseUp]);
 
   const getDotLabel = (index: number): string => {
     if (index === 0) return 'Frontend';
@@ -65,8 +44,9 @@ export default function SkillsCarousel({ children, dots }: SkillsCarouselProps) 
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
+          onPointerDown={handlePointerDown}
+          onDragStart={handleDragStart}
+          onClickCapture={handleClickCapture}
         >
           <div className={styles.containers}>
             {items.map((item, index) => (

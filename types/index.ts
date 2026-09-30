@@ -135,10 +135,9 @@ export interface CarouselReturn {
   handleTouchStart: (e: React.TouchEvent) => void;
   handleTouchMove: (e: React.TouchEvent) => void;
   handleTouchEnd: () => void;
-  handleMouseDown: (e: React.MouseEvent) => void;
-  handleMouseMove: (e: React.MouseEvent | MouseEvent) => void;
-  handleMouseUp: () => void;
-  handleMouseLeave: () => void;
+  handlePointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
+  handleDragStart: (e: React.DragEvent) => void;
+  handleClickCapture: (e: React.MouseEvent) => void;
   isAnimating: boolean;
   isDragging: boolean;
 }
