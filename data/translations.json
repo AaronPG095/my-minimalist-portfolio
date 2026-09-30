@@ -11,7 +11,8 @@
       "name": "Aaron Greyling",
       "title": "Software Developer",
       "downloadCV": "View CV",
-      "contactInfo": "Contact me"
+      "contactInfo": "Contact me",
+      "viewProjects": "View projects"
     },
     "about": {
       "subtitle": "Get To Know More",
@@ -158,33 +159,41 @@
       "title": "Projects",
       "project1": {
         "title": "Modern Minimalist Portfolio",
-        "description": "This bilingual portfolio presents my developer profile, skills and projects. It uses Next.js, React, TypeScript and CSS Modules, with language switching, theme support and responsive navigation."
+        "description": "I built this portfolio as a clear place to explore my work, skills and background in English or German. Visitors can switch languages and themes, browse projects in detail and navigate comfortably across screen sizes. It is built with Next.js, React, TypeScript and CSS Modules.",
+        "cardSummary": "Projects, skills and background in one bilingual place. I built this site to make my work easy to explore."
       },
       "project2": {
         "title": "Bohemian Kids Cafe",
-        "description": "The frontend of a team-built café platform with menus, news, an online shop, authentication, shopping-cart flows and user and administration areas."
+        "description": "Our team built a café platform that brings menus, news and an online shop into one place. I worked on the frontend, which includes a shopping cart, authentication and areas for customers and administrators.",
+        "cardSummary": "Menus, news and shopping in one café experience. I helped build the frontend that brings them together."
       },
       "project3": {
         "title": "ASK Online Store",
-        "description": "A DCI group project: a React online store that loads product data from a public API and uses hooks for product browsing and shopping-cart interactions."
+        "description": "For a DCI group project, we built an online store where visitors can browse products and manage a shopping cart. The React frontend loads product data from a public API and uses hooks to handle browsing and cart interactions.",
+        "cardSummary": "A simple place to browse products and fill a cart. We built this online store as a DCI team project."
       },
       "project4": {
         "title": "Brainwave",
-        "description": "A responsive AI product landing page built with React and Tailwind CSS. It uses reusable components for feature, collaboration, pricing and roadmap sections."
+        "description": "I built a responsive landing page that gives an AI product a clear path from its features to pricing and roadmap. Reusable React components organize the feature and collaboration sections, with Tailwind CSS handling the layout and styling.",
+        "cardSummary": "A clear route through an AI product’s features, pricing and plans. I built the responsive landing page."
       },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
-        "description": "A bilingual festival platform I developed for Kollektiv Spinnen, with an interactive timetable, filtering, administrative content management and a Supabase backend for festival data and ticketing."
+        "description": "I developed this bilingual platform for Kollektiv Spinnen so visitors can find their way through the festival program. An interactive timetable and filters make events easier to explore, while administrative content tools and a Supabase backend support festival data and ticketing.",
+        "cardSummary": "A festival program that’s easy to explore. I built Kollektiv Spinnen’s bilingual site and timetable."
       },
       "fluentStudio": {
         "title": "Fluent Studio",
-        "description": "I built and published the Fluent Studio website, connecting a Next.js interface to Supabase. I also manage the studio’s technical and organizational work, including architecture, implementation, deployment and ongoing maintenance. AI-assisted development with Codex, Claude Code and Cursor supports implementation, testing, refactoring, documentation and project workflows."
+        "description": "I built and published the Fluent Studio website as a home for the studio and its products, connecting the Next.js interface to Supabase. I also manage the studio’s architecture, implementation, deployment and ongoing maintenance. Codex, Claude Code and Cursor support my work on implementation, testing, refactoring, documentation and project workflows.",
+        "cardSummary": "A clear home for Fluent Studio and its products. I built and published the site that brings them together."
       },
       "fluentOverlay": {
         "title": "FluentOverlay",
-        "description": "FluentOverlay is a native Windows application for app-specific shortcuts and workflows. I am responsible for the Windows application development and product design. I use Codex, Claude Code and Cursor throughout implementation, testing, refactoring and documentation, alongside an integrated MCP server."
+        "description": "FluentOverlay brings app-specific shortcuts and workflows into a native Windows application. I design the product and build the Windows app, using Codex, Claude Code and Cursor for implementation, testing, refactoring and documentation. An integrated MCP server is part of the development workflow.",
+        "cardSummary": "Shortcuts for the app you’re using, close at hand. I’m designing and building FluentOverlay for Windows."
       },
-      "github": "Github",
+      "viewDetails": "View details",
+      "github": "GitHub",
       "liveDemo": "Live Demo",
       "visitWebsite": "Visit website",
       "viewProductPage": "View product page",
@@ -219,7 +228,8 @@
       "name": "Aaron Greyling",
       "title": "Softwareentwickler",
       "downloadCV": "Lebenslauf ansehen",
-      "contactInfo": "Kontakt aufnehmen"
+      "contactInfo": "Kontakt aufnehmen",
+      "viewProjects": "Projekte ansehen"
     },
     "about": {
       "subtitle": "Lerne mich besser kennen",
@@ -366,33 +376,41 @@
       "title": "Projekte",
       "project1": {
         "title": "Modern Minimalist Portfolio",
-        "description": "Dieses zweisprachige Portfolio präsentiert mein Entwicklerprofil, meine Fähigkeiten und Projekte. Es verwendet Next.js, React, TypeScript und CSS Modules sowie Sprachumschaltung, Theme-Unterstützung und responsive Navigation."
+        "description": "Ich habe dieses Portfolio als übersichtlichen Ort für meine Projekte, Fähigkeiten und meinen Werdegang gestaltet. Besucher können zwischen Deutsch und Englisch sowie hellem und dunklem Design wechseln, Projekte im Detail ansehen und die Seite auf verschiedenen Geräten bequem nutzen. Technisch basiert sie auf Next.js, React, TypeScript und CSS Modules.",
+        "cardSummary": "Projekte, Fähigkeiten und Werdegang an einem zweisprachigen Ort. Ich habe dieses Portfolio dafür gebaut."
       },
       "project2": {
         "title": "Bohemian Kids Cafe",
-        "description": "Das Frontend einer im Team entwickelten Café-Plattform mit Speisekarten, Neuigkeiten, Onlineshop, Authentifizierung, Warenkorb sowie Benutzer- und Verwaltungsbereichen."
+        "description": "Im Team haben wir eine Café-Plattform entwickelt, die Speisekarten, Neuigkeiten und Onlineshop an einem Ort vereint. Ich habe am Frontend mitgearbeitet, zu dem Warenkorb, Anmeldung sowie Bereiche für Gäste und Verwaltung gehören.",
+        "cardSummary": "Speisekarte, Neuigkeiten und Shop an einem Ort. Ich habe am Frontend der Café-Plattform mitgearbeitet."
       },
       "project3": {
         "title": "ASK Online Store",
-        "description": "Ein DCI-Gruppenprojekt: ein React-Onlineshop, der Produktdaten aus einer öffentlichen API lädt und Hooks für die Produktsuche und Warenkorbfunktionen verwendet."
+        "description": "Für ein DCI-Gruppenprojekt haben wir einen Onlineshop gebaut, in dem Besucher Produkte entdecken und einen Warenkorb zusammenstellen können. Das React-Frontend lädt Produktdaten aus einer öffentlichen API; Hooks steuern die Produktsuche und den Warenkorb.",
+        "cardSummary": "Produkte entdecken und in den Warenkorb legen. Diesen Onlineshop haben wir als DCI-Teamprojekt entwickelt."
       },
       "project4": {
         "title": "Brainwave",
-        "description": "Eine responsive Landingpage für ein KI-Produkt, entwickelt mit React und Tailwind CSS. Wiederverwendbare Komponenten strukturieren Funktionen, Zusammenarbeit, Preise und Roadmap."
+        "description": "Ich habe eine responsive Landingpage gebaut, die ein KI-Produkt von seinen Funktionen bis zu Preisen und Roadmap verständlich vorstellt. Wiederverwendbare React-Komponenten gliedern auch den Bereich zur Zusammenarbeit; Tailwind CSS sorgt für Layout und Gestaltung.",
+        "cardSummary": "Ein klarer Weg durch Funktionen, Preise und Pläne eines KI-Produkts. Dafür habe ich eine responsive Landingpage gebaut."
       },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
-        "description": "Eine zweisprachige Festivalplattform, die ich für Kollektiv Spinnen entwickelt habe, mit interaktivem Zeitplan, Filtern, administrativer Inhaltsverwaltung und einem Supabase-Backend für Festivaldaten und Ticketing."
+        "description": "Für Kollektiv Spinnen habe ich eine zweisprachige Plattform entwickelt, mit der sich Besucher leicht im Festivalprogramm zurechtfinden. Ein interaktiver Zeitplan und Filter erleichtern die Suche nach Veranstaltungen. Redaktionelle Werkzeuge und ein Supabase-Backend unterstützen Festivaldaten und Ticketing.",
+        "cardSummary": "Ein Festivalprogramm, in dem man sich leicht zurechtfindet. Dafür habe ich die zweisprachige Website mit Zeitplan entwickelt."
       },
       "fluentStudio": {
         "title": "Fluent Studio",
-        "description": "Ich habe die Website von Fluent Studio entwickelt und veröffentlicht und eine Next.js-Oberfläche mit Supabase verbunden. Außerdem verantworte ich die technische und organisatorische Arbeit des Studios, einschließlich Architektur, Implementierung, Deployment und laufender Pflege. KI-gestützte Entwicklung mit Codex, Claude Code und Cursor unterstützt Implementierung, Tests, Refactoring, Dokumentation und Projektabläufe."
+        "description": "Ich habe die Website von Fluent Studio als Zuhause für das Studio und seine Produkte entwickelt und veröffentlicht. Die Next.js-Oberfläche ist mit Supabase verbunden. Außerdem verantworte ich Architektur, Umsetzung, Deployment und laufende Pflege. Codex, Claude Code und Cursor unterstützen mich bei Entwicklung, Tests, Refactoring, Dokumentation und Projektabläufen.",
+        "cardSummary": "Ein klarer Online-Auftritt für Fluent Studio und seine Produkte. Ich habe die Website entwickelt und veröffentlicht."
       },
       "fluentOverlay": {
         "title": "FluentOverlay",
-        "description": "FluentOverlay ist eine native Windows-Anwendung für appbezogene Shortcuts und Workflows. Ich verantworte die Entwicklung der Windows-Anwendung und die Produktgestaltung. Ich nutze Codex, Claude Code und Cursor für Implementierung, Tests, Refactoring und Dokumentation sowie einen integrierten MCP-Server."
+        "description": "FluentOverlay bringt Shortcuts und Arbeitsabläufe für einzelne Programme in eine native Windows-Anwendung. Ich gestalte das Produkt und entwickle die App. Dabei nutze ich Codex, Claude Code und Cursor für Umsetzung, Tests, Refactoring und Dokumentation; ein integrierter MCP-Server gehört ebenfalls zum Entwicklungsablauf.",
+        "cardSummary": "Passende Shortcuts direkt bei der Arbeit mit Windows-Apps. Ich gestalte und entwickle FluentOverlay."
       },
-      "github": "Github",
+      "viewDetails": "Details ansehen",
+      "github": "GitHub",
       "liveDemo": "Live Demo",
       "visitWebsite": "Website besuchen",
       "viewProductPage": "Produktseite ansehen",

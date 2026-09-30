@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import { useLanguage } from '@/hooks/useLanguage';
 import ProjectsCarousel from './ProjectsCarousel';
@@ -15,8 +15,9 @@ const projects: Project[] = [
     image: '/assets/fluent-studio-hero-en.webp',
     imageDe: '/assets/fluent-studio-hero-de.webp',
     titleKey: 'projects.fluentStudio.title',
+    icon: '/assets/fluent-studio-brand-icon.png',
     descriptionKey: 'projects.fluentStudio.description',
-    modalDescriptionKey: 'projects.fluentStudio.description',
+    cardSummaryKey: 'projects.fluentStudio.cardSummary',
     liveDemo: 'https://www.fluent-studio.com/en',
     liveDemoDe: 'https://www.fluent-studio.com/de',
     liveDemoLabelKey: 'projects.visitWebsite',
@@ -38,8 +39,9 @@ const projects: Project[] = [
     id: 7,
     image: '/assets/fluentoverlay-project.png',
     titleKey: 'projects.fluentOverlay.title',
+    icon: '/assets/fluentoverlay-brand-icon.svg',
     descriptionKey: 'projects.fluentOverlay.description',
-    modalDescriptionKey: 'projects.fluentOverlay.description',
+    cardSummaryKey: 'projects.fluentOverlay.cardSummary',
     liveDemo: 'https://www.fluent-studio.com/en/fluentoverlay',
     liveDemoDe: 'https://www.fluent-studio.com/de/fluentoverlay',
     liveDemoLabelKey: 'projects.viewProductPage',
@@ -60,7 +62,7 @@ const projects: Project[] = [
     image: '/assets/Screenshot 2025-11-12 203334.png',
     titleKey: 'projects.project5.title',
     descriptionKey: 'projects.project5.description',
-    modalDescriptionKey: 'projects.project5.description',
+    cardSummaryKey: 'projects.project5.cardSummary',
     github: 'https://github.com/AaronPG095/kollektiv-spinnen-website',
     liveDemo: 'https://kollektiv-spinnen-festival.vercel.app/',
     technologies: ['React.js', 'TypeScript', 'Tailwind', 'Supabase', 'PostgreSQL'],
@@ -70,7 +72,7 @@ const projects: Project[] = [
     image: '/assets/Screenshot 2024-05-08 140820.png',
     titleKey: 'projects.project1.title',
     descriptionKey: 'projects.project1.description',
-    modalDescriptionKey: 'projects.project1.description',
+    cardSummaryKey: 'projects.project1.cardSummary',
     github: 'https://github.com/AaronPG095/my-minimalist-portfolio',
     liveDemo: 'https://aaronpaulgreyling.netlify.app/',
     technologies: ['Next.js', 'React.js', 'TypeScript', 'CSS'],
@@ -80,7 +82,7 @@ const projects: Project[] = [
     image: '/assets/Screenshot 2024-05-23 211320.png',
     titleKey: 'projects.project4.title',
     descriptionKey: 'projects.project4.description',
-    modalDescriptionKey: 'projects.project4.description',
+    cardSummaryKey: 'projects.project4.cardSummary',
     github: 'https://github.com/AaronPG095/brainwave',
     liveDemo: 'https://braynewave.netlify.app/',
     technologies: ['HTML', 'Tailwind', 'JavaScript', 'React.js'],
@@ -90,7 +92,7 @@ const projects: Project[] = [
     image: '/assets/project-2.png',
     titleKey: 'projects.project2.title',
     descriptionKey: 'projects.project2.description',
-    modalDescriptionKey: 'projects.project2.description',
+    cardSummaryKey: 'projects.project2.cardSummary',
     github: 'https://github.com/AaronPG095/BohemianKidsFrontEnd',
     technologies: ['SCSS', 'React.js', 'Node.js', 'MongoDB', 'Express.js'],
   },
@@ -99,7 +101,7 @@ const projects: Project[] = [
     image: '/assets/Screenshot 2024-05-08 152922.png',
     titleKey: 'projects.project3.title',
     descriptionKey: 'projects.project3.description',
-    modalDescriptionKey: 'projects.project3.description',
+    cardSummaryKey: 'projects.project3.cardSummary',
     github: 'https://github.com/AaronPG095/React-Ecommerce-Project?tab=readme-ov-file',
     liveDemo: 'https://sunnyeyles.github.io/React-Ecommerce-Project/',
     technologies: ['HTML', 'SCSS', 'JavaScript', 'React.js'],
@@ -110,47 +112,46 @@ export default function Projects() {
   const { language, t } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalOpenerRef = useRef<HTMLButtonElement | null>(null);
 
-  const openProjectLink = (url: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.stopPropagation();
-    }
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  };
-
-  const handleProjectClick = (project: Project) => {
+  const handleProjectClick = (project: Project, opener: HTMLButtonElement) => {
+    modalOpenerRef.current = opener;
     setSelectedProject(project);
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
-    // Small delay to allow animation to complete before clearing project
-    setTimeout(() => {
-      setSelectedProject(null);
-    }, 300);
-  };
+    setSelectedProject(null);
+    requestAnimationFrame(() => modalOpenerRef.current?.focus());
+  }, []);
+
+  const showAdjacentProject = useCallback((direction: -1 | 1) => {
+    setSelectedProject((current) => {
+      if (!current) return current;
+      const index = projects.findIndex((project) => project.id === current.id);
+      return projects[(index + direction + projects.length) % projects.length];
+    });
+  }, []);
+
+  const showPreviousProject = useCallback(() => showAdjacentProject(-1), [showAdjacentProject]);
+  const showNextProject = useCallback(() => showAdjacentProject(1), [showAdjacentProject]);
 
   const getProjectLink = (project: Project) =>
     language === 'de' && project.liveDemoDe ? project.liveDemoDe : project.liveDemo;
 
   const projectCards = projects.map((project) => (
-    <div 
+    <article
       key={project.id} 
       className={styles.projectCard}
-      onClick={() => handleProjectClick(project)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleProjectClick(project);
-        }
-      }}
-      aria-label={language === 'de' ? `Details zum Projekt ${t(project.titleKey)} anzeigen` : `View details for ${t(project.titleKey)} project`}
     >
+      <button
+        type="button"
+        data-project-card-action
+        className={styles.cardAction}
+        onClick={(event) => handleProjectClick(project, event.currentTarget)}
+        aria-label={`${t('projects.viewDetails')}: ${t(project.titleKey)}`}
+      />
       <div className={styles.articleContainer}>
         <OptimizedImage
           src={language === 'de' && project.imageDe ? project.imageDe : project.image}
@@ -162,7 +163,11 @@ export default function Projects() {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
         />
       </div>
-      <h2 className={styles.projectTitle}>{t(project.titleKey)}</h2>
+      <h2 className={styles.projectTitle}>
+        {project.icon && <OptimizedImage src={project.icon} alt="" className={styles.projectIcon} width={36} height={36} sizes="36px" />}
+        <span>{t(project.titleKey)}</span>
+      </h2>
+      <p className={styles.description}>{t(project.cardSummaryKey)}</p>
       {project.technologies && project.technologies.length > 0 && (
         <div className={styles.techTags}>
           {project.technologies.map((tech, index) => {
@@ -181,26 +186,32 @@ export default function Projects() {
         </div>
       )}
       <div className={styles.btnContainer}>
+        <div className={styles.externalLinks}>
         {project.github && (
-          <button
+          <a
             className={`${styles.btn} ${styles.projectBtn}`}
-            onClick={(e) => openProjectLink(project.github!, e)}
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={language === 'de' ? `Projekt ${t(project.titleKey)} auf GitHub ansehen` : `View ${t(project.titleKey)} project on GitHub`}
           >
             {t('projects.github')}
-          </button>
+          </a>
         )}
         {getProjectLink(project) && (
-          <button
+          <a
             className={`${styles.btn} ${styles.projectBtn}`}
-            onClick={(e) => openProjectLink(getProjectLink(project)!, e)}
+            href={getProjectLink(project)}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
           >
             {t(project.liveDemoLabelKey ?? 'projects.liveDemo')}
-          </button>
+          </a>
         )}
+        </div>
       </div>
-    </div>
+    </article>
   ));
 
   return (
@@ -216,6 +227,8 @@ export default function Projects() {
         project={selectedProject}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        onPrevious={showPreviousProject}
+        onNext={showNextProject}
       />
     </>
   );

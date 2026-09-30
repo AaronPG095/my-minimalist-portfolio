@@ -22,6 +22,7 @@ export interface Translations {
     title: string;
     downloadCV: string;
     contactInfo: string;
+    viewProjects: string;
   };
   about: {
     subtitle: string;
@@ -110,7 +111,8 @@ export interface Project {
   imageDe?: string;
   titleKey: string;
   descriptionKey: string;
-  modalDescriptionKey?: string;
+  cardSummaryKey: string;
+  icon?: string;
   github?: string;
   liveDemo?: string;
   liveDemoDe?: string;

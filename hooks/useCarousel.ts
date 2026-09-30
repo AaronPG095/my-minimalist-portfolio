@@ -197,7 +197,7 @@ export function useCarousel(
   // only after movement so an ordinary click can still open a project card.
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'touch' || !e.isPrimary || e.button !== 0) return;
-    if ((e.target as HTMLElement).closest('button, a')) return;
+    if ((e.target as HTMLElement).closest('button:not([data-project-card-action]), a')) return;
     const container = containerRef.current;
     if (!container) return;
 

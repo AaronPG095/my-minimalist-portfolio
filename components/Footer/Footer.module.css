@@ -57,13 +57,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: transform var(--transition-speed) var(--transition-ease),
-              opacity var(--transition-speed) var(--transition-ease);
+  transition: transform var(--transition-speed) var(--transition-ease);
 }
 
 .socialLink:hover {
   transform: translateY(-4px) scale(1.1);
-  opacity: 0.8;
 }
 
 /* Tooltip styling */
@@ -130,6 +128,10 @@
   transition: transform var(--transition-speed) var(--transition-ease), 
               opacity var(--transition-speed) var(--transition-ease), 
               filter var(--transition-speed) var(--transition-ease);
+}
+
+.fluentStudioIcon {
+  filter: brightness(0);
 }
 
 :global([data-theme="dark"]) .icon {
