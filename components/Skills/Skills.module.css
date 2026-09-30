@@ -65,6 +65,7 @@
 }
 
 .skillCard {
+  container-type: inline-size;
   flex: 0 0 370px;
   width: 370px;
   max-width: 370px;
@@ -799,6 +800,13 @@
     min-width: 140px;
     font-size: 0.7rem;
     padding: 0.35rem 0.5rem;
+  }
+}
+
+/* Keep enlarged text readable inside fixed-width carousel slots. */
+@container (max-width: 10em) {
+  .articleContainer {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
