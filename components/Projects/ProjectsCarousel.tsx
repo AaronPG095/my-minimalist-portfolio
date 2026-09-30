@@ -22,31 +22,10 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
-    handleMouseDown,
-    handleMouseMove,
-    handleMouseUp,
-    handleMouseLeave,
+    handlePointerDown,
+    handleDragStart,
+    handleClickCapture,
   } = useCarousel(items, { duration: 380, snapDuration: 300 });
-
-  useEffect(() => {
-    const handleMouseMoveGlobal = (e: Event) => {
-      // DOM MouseEvent from addEventListener - handleMouseMove accepts both DOM and React events
-      if (e instanceof MouseEvent) {
-        handleMouseMove(e);
-      }
-    };
-    const handleMouseUpGlobal = () => handleMouseUp();
-
-    if (containerRef.current) {
-      document.addEventListener('mousemove', handleMouseMoveGlobal);
-      document.addEventListener('mouseup', handleMouseUpGlobal);
-    }
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMoveGlobal);
-      document.removeEventListener('mouseup', handleMouseUpGlobal);
-    };
-  }, [containerRef, handleMouseMove, handleMouseUp]);
 
   // Function to center the first project
   const centerFirstProject = useCallback(() => {
@@ -110,8 +89,9 @@ export default function ProjectsCarousel({ children }: ProjectsCarouselProps) {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
+          onPointerDown={handlePointerDown}
+          onDragStart={handleDragStart}
+          onClickCapture={handleClickCapture}
           aria-live="polite"
         >
           <div className={styles.projectsContainer}>

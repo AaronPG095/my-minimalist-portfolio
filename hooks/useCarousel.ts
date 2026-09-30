@@ -26,8 +26,9 @@ export function useCarousel(
   
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
-  const dragStartX = useRef(0);
-  const scrollStartX = useRef(0);
+  const dragCleanupRef = useRef<(() => void) | null>(null);
+  const draggedClickRef = useRef(false);
+  const dragActiveRef = useRef(false);
 
   const getCurrentIndex = useCallback(() => {
     if (!containerRef.current || items.length === 0) return 0;
@@ -192,53 +193,96 @@ export function useCarousel(
     touchEndX.current = null;
   }, [scroll, snapToNearest, minSwipeDistance]);
 
-  // Mouse drag handlers
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
+  // Keep a mouse or pen gesture alive across the carousel boundary. Capture starts
+  // only after movement so an ordinary click can still open a project card.
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'touch' || !e.isPrimary || e.button !== 0) return;
+    if ((e.target as HTMLElement).closest('button, a')) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    dragCleanupRef.current?.();
+    draggedClickRef.current = false;
     cancelAnimation();
     targetIndexRef.current = getCurrentIndex();
-    
-    setIsDragging(true);
-    dragStartX.current = e.clientX;
-    scrollStartX.current = containerRef.current?.scrollLeft || 0;
-    if (containerRef.current) {
-      containerRef.current.style.cursor = 'grabbing';
-      containerRef.current.style.userSelect = 'none';
-    }
-    e.preventDefault();
-  }, [cancelAnimation, getCurrentIndex]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent | MouseEvent) => {
-    if (!isDragging || !containerRef.current) return;
-    
-    const clientX = e.clientX;
-    const deltaX = clientX - dragStartX.current;
-    containerRef.current.scrollLeft = scrollStartX.current - (deltaX * 1.5);
-    if (e instanceof MouseEvent || 'preventDefault' in e) {
-      e.preventDefault();
-    }
-  }, [isDragging]);
+    const pointerId = e.pointerId;
+    const startX = e.clientX;
+    const startScroll = container.scrollLeft;
+    const original = {
+      cursor: container.style.cursor,
+      userSelect: container.style.userSelect,
+      scrollBehavior: container.style.scrollBehavior,
+      scrollSnapType: container.style.scrollSnapType,
+    };
+    let started = false;
 
-  const handleMouseUp = useCallback(() => {
-    if (!isDragging) return;
-    
-    setIsDragging(false);
-    if (containerRef.current) {
-      containerRef.current.style.cursor = 'grab';
-      containerRef.current.style.userSelect = '';
-    }
-    snapToNearest();
-  }, [isDragging, snapToNearest]);
-
-  const handleMouseLeave = useCallback(() => {
-    if (isDragging) {
+    const cleanup = (snap: boolean) => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onCancel);
+      window.removeEventListener('blur', onBlur);
+      if (container.hasPointerCapture(pointerId)) container.releasePointerCapture(pointerId);
+      container.style.cursor = original.cursor;
+      container.style.userSelect = original.userSelect;
+      container.style.scrollBehavior = original.scrollBehavior;
+      container.style.scrollSnapType = original.scrollSnapType;
+      dragActiveRef.current = false;
+      dragCleanupRef.current = null;
       setIsDragging(false);
-      if (containerRef.current) {
-        containerRef.current.style.cursor = 'grab';
-        containerRef.current.style.userSelect = '';
+      if (started && snap) {
+        draggedClickRef.current = true;
+        snapToNearest();
+        window.setTimeout(() => { draggedClickRef.current = false; }, 0);
       }
-    }
-  }, [isDragging]);
+    };
+
+    const onMove = (event: PointerEvent) => {
+      if (event.pointerId !== pointerId) return;
+      if (!(event.buttons & 1)) {
+        cleanup(true);
+        return;
+      }
+      const delta = event.clientX - startX;
+      if (!started && Math.abs(delta) < 5) return;
+      if (!started) {
+        started = true;
+        dragActiveRef.current = true;
+        setIsDragging(true);
+        container.setPointerCapture(pointerId);
+        container.style.cursor = 'grabbing';
+        container.style.userSelect = 'none';
+        container.style.scrollBehavior = 'auto';
+        container.style.scrollSnapType = 'none';
+      }
+      event.preventDefault();
+      container.scrollLeft = startScroll - delta * 1.5;
+    };
+    const onUp = (event: PointerEvent) => {
+      if (event.pointerId === pointerId) cleanup(true);
+    };
+    const onCancel = (event: PointerEvent) => {
+      if (event.pointerId === pointerId) cleanup(true);
+    };
+    const onBlur = () => cleanup(true);
+
+    window.addEventListener('pointermove', onMove, { passive: false });
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onCancel);
+    window.addEventListener('blur', onBlur);
+    dragCleanupRef.current = () => cleanup(false);
+  }, [cancelAnimation, getCurrentIndex, snapToNearest]);
+
+  const handleDragStart = useCallback((e: React.DragEvent) => {
+    if (dragCleanupRef.current) e.preventDefault();
+  }, []);
+
+  const handleClickCapture = useCallback((e: React.MouseEvent) => {
+    if (!draggedClickRef.current) return;
+    e.preventDefault();
+    e.stopPropagation();
+    draggedClickRef.current = false;
+  }, []);
 
   // Update current index on scroll
   useEffect(() => {
@@ -246,7 +290,7 @@ export function useCarousel(
     if (!container) return;
     
     const updateIndex = () => {
-      if (!animationRef.current && !isDragging) {
+      if (!animationRef.current && !dragActiveRef.current) {
         const idx = getCurrentIndex();
         targetIndexRef.current = idx;
         setCurrentIndex(idx);
@@ -255,11 +299,12 @@ export function useCarousel(
     
     container.addEventListener('scroll', updateIndex);
     return () => container.removeEventListener('scroll', updateIndex);
-  }, [getCurrentIndex, isDragging]);
+  }, [getCurrentIndex]);
 
   useEffect(() => () => {
     const animation = animationRef.current;
     if (animation) cancelAnimationFrame(animation.frame);
+    dragCleanupRef.current?.();
   }, []);
 
   // Set initial cursor
@@ -278,10 +323,9 @@ export function useCarousel(
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
-    handleMouseDown,
-    handleMouseMove,
-    handleMouseUp,
-    handleMouseLeave,
+    handlePointerDown,
+    handleDragStart,
+    handleClickCapture,
     isAnimating,
     isDragging,
   };

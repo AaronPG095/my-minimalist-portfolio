@@ -56,4 +56,4 @@ The previously planned phases below are complete. New work is listed at the end 
 
 ## New interaction follow-up
 
-- [ ] Repair mouse dragging in both card carousels. Reproduce and verify direction changes, moving beyond the carousel boundary, and pointer release outside the carousel. Preserve touch swipe, arrows, dots, keyboard controls, and card click behavior. Commit separately; do not deploy.
+- [x] Repair mouse dragging in both card carousels. Keep the pointer gesture active across carousel boundaries, allow direction changes during the gesture, and finish on release or cancellation. Preserve touch swipe, arrows, dots, keyboard controls, and card click behavior. In the local browser, both carousels were dragged in both directions across their edges; the cards snapped and the cursor reset after release. Project arrow navigation and opening a project modal still worked after dragging. Browser automation could not carry a held pointer outside the browser viewport itself. Commit separately; do not deploy.
