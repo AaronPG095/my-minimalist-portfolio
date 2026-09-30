@@ -83,7 +83,7 @@
 
 [data-theme="dark"] .closeButton {
   border-color: var(--color-light-grey);
-  color: var(--color-white);
+  color: var(--text-color);
 }
 
 .closeButton:hover {
@@ -102,6 +102,40 @@
 
 .closeButton:active {
   transform: rotate(90deg) scale(0.95);
+}
+
+.modalNavigation {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navigationButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 50%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+}
+
+.navigationButton:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.navigationButton:focus-visible,
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 3px;
 }
 
 .modalContent {
@@ -154,11 +188,22 @@
 }
 
 .modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 2rem;
   font-weight: 700;
   color: var(--text-color);
   margin: 0;
   transition: color var(--transition-speed) var(--transition-ease);
+}
+
+.modalProjectIcon {
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  border-radius: 0.6rem;
 }
 
 .modalDescription {
@@ -359,6 +404,16 @@
   .closeButton {
     top: 0.75rem;
     right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .modalNavigation {
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+
+  .navigationButton {
     width: 2rem;
     height: 2rem;
   }

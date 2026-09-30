@@ -94,12 +94,12 @@ export default function Sidebar({ isOpen, onClose, activeSection = '' }: Sidebar
         <ul className={styles.links}>
           <li>
             <a
-              href="#about"
-              onClick={(e) => handleLinkClick(e, '#about')}
-              className={activeSection === 'about' ? 'active' : ''}
-              aria-current={activeSection === 'about' ? 'page' : undefined}
+              href="#projects"
+              onClick={(e) => handleLinkClick(e, '#projects')}
+              className={activeSection === 'projects' ? 'active' : ''}
+              aria-current={activeSection === 'projects' ? 'page' : undefined}
             >
-              {t('nav.about')}
+              {t('nav.projects')}
             </a>
           </li>
           <li>
@@ -114,12 +114,12 @@ export default function Sidebar({ isOpen, onClose, activeSection = '' }: Sidebar
           </li>
           <li>
             <a
-              href="#projects"
-              onClick={(e) => handleLinkClick(e, '#projects')}
-              className={activeSection === 'projects' ? 'active' : ''}
-              aria-current={activeSection === 'projects' ? 'page' : undefined}
+              href="#about"
+              onClick={(e) => handleLinkClick(e, '#about')}
+              className={activeSection === 'about' ? 'active' : ''}
+              aria-current={activeSection === 'about' ? 'page' : undefined}
             >
-              {t('nav.projects')}
+              {t('nav.about')}
             </a>
           </li>
           <li>

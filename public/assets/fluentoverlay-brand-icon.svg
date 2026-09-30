@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+  <!-- Design source: FluentOverlay docs/design/app-icon-glass-panes.svg -->
+  <defs>
+    <filter id="glass-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#001833" flood-opacity="0.65" />
+    </filter>
+
+    <linearGradient id="edge-highlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1.0" />
+      <stop offset="25%" stop-color="#aae6ff" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#0078D4" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.6" />
+    </linearGradient>
+
+    <linearGradient id="pane1-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66dcff" stop-opacity="0.65" />
+      <stop offset="100%" stop-color="#0078D4" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="pane2-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#33c4ff" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#0066c0" stop-opacity="0.2" />
+    </linearGradient>
+
+    <linearGradient id="pane3-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00abff" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#004d99" stop-opacity="0.15" />
+    </linearGradient>
+
+    <linearGradient id="extrusion-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00bfff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#003377" stop-opacity="0.95" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(64, 64)">
+    <g transform="translate(256, 332)" filter="url(#glass-shadow)">
+      <g transform="translate(0, 16)">
+        <g transform="scale(1, 0.58) rotate(-45)">
+          <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#extrusion-fill)" />
+        </g>
+      </g>
+      <g transform="scale(1, 0.58) rotate(-45)">
+        <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#pane3-fill)" stroke="url(#edge-highlight)" stroke-width="5" />
+      </g>
+    </g>
+
+    <g transform="translate(256, 236)" filter="url(#glass-shadow)">
+      <g transform="translate(0, 16)">
+        <g transform="scale(1, 0.58) rotate(-45)">
+          <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#extrusion-fill)" />
+        </g>
+      </g>
+      <g transform="scale(1, 0.58) rotate(-45)">
+        <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#pane2-fill)" stroke="url(#edge-highlight)" stroke-width="5" />
+      </g>
+    </g>
+
+    <g transform="translate(256, 140)" filter="url(#glass-shadow)">
+      <g transform="translate(0, 16)">
+        <g transform="scale(1, 0.58) rotate(-45)">
+          <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#extrusion-fill)" />
+        </g>
+      </g>
+      <g transform="scale(1, 0.58) rotate(-45)">
+        <rect x="-130" y="-190" width="260" height="380" rx="36" fill="url(#pane1-fill)" stroke="url(#edge-highlight)" stroke-width="6" />
+      </g>
+    </g>
+  </g>
+
+</svg>

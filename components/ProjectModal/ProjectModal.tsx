@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/hooks/useLanguage';
 import type { Project } from '@/types';
-import { FaTimes, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { getTechColor, getTechIcon } from '@/data/technology-icons';
 import styles from './ProjectModal.module.css';
 import projectStyles from '../Projects/Projects.module.css';
@@ -13,131 +13,60 @@ interface ProjectModalProps {
   project: Project | null;
   isOpen: boolean;
   onClose: () => void;
+  onPrevious: () => void;
+  onNext: () => void;
 }
 
-function extractGithubRepo(githubUrl: string | undefined): { owner: string; repo: string } | null {
-  if (!githubUrl) return null;
-  const match = githubUrl.match(/github\.com\/([^/]+)\/([^/?#]+)/);
-  if (!match) return null;
-  const [, owner, repo] = match;
-  return { owner, repo };
-}
-
-function extractSummaryFromReadme(content: string): string | null {
-  const normalized = content.replace(/\r\n/g, '\n');
-  const paragraphs = normalized
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-
-  if (!paragraphs.length) return null;
-
-  // Prefer the first real prose paragraph, skipping markdown headings and images
-  const firstProse =
-    paragraphs.find((p) => {
-      const trimmed = p.trim();
-      if (!trimmed) return false;
-      if (trimmed.startsWith('#')) return false; // headings like "# Title"
-      if (trimmed.startsWith('![')) return false; // images
-      return true;
-    }) ?? paragraphs[0];
-
-  if (!firstProse) return null;
-
-  const summary = firstProse.length > 500 ? `${firstProse.slice(0, 500)}…` : firstProse;
-  return summary;
-}
-
-export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+export default function ProjectModal({ project, isOpen, onClose, onPrevious, onNext }: ProjectModalProps) {
   const { language, t } = useLanguage();
   const modalRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [summary, setSummary] = useState<string | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle ESC key to close modal
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
         onClose();
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        onPrevious();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        onNext();
+      }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = Array.from(modalRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (!first || !last) return;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (!modalRef.current.contains(document.activeElement)) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-    }
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen, onClose]);
-
-  // Fetch project summary from GitHub README when modal opens
-  useEffect(() => {
-    setSummary(null);
-
-    if (!isOpen || !project?.github) {
-      return;
-    }
-
-    const controller = new AbortController();
-
-    async function fetchSummary(githubUrl: string) {
-      try {
-        const repoInfo = extractGithubRepo(githubUrl);
-        if (!repoInfo) {
-          return;
-        }
-
-        const { owner, repo } = repoInfo;
-
-        const res = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}/readme`,
-          {
-            headers: {
-              Accept: 'application/vnd.github.v3+json',
-            },
-            signal: controller.signal,
-          },
-        );
-
-        if (!res.ok) {
-          return;
-        }
-
-        const data = (await res.json()) as { content?: string };
-        if (!data.content) {
-          return;
-        }
-
-        const base64 = data.content.replace(/\s/g, '');
-        if (!base64) return;
-
-        let decoded = '';
-        try {
-          decoded = atob(base64);
-        } catch {
-          return;
-        }
-
-        const extracted = extractSummaryFromReadme(decoded);
-        if (extracted) {
-          setSummary(extracted);
-        }
-      } catch {
-        // Ignore errors – if README can't be fetched, we just omit the summary
-      }
-    }
-
-    // project.github is guaranteed to be defined here because of the early return above
-    fetchSummary(project.github);
-
-    return () => {
-      controller.abort();
-    };
-  }, [isOpen, project?.github]);
+  }, [isOpen, onClose, onPrevious, onNext]);
 
   // Handle click outside modal to close
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -150,19 +79,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     return null;
   }
 
-  const openLink = (url: string) => {
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  };
-
   const projectLink = language === 'de' && project.liveDemoDe
     ? project.liveDemoDe
     : project.liveDemo;
-
-  const modalSummary = project.modalDescriptionKey
-    ? t(project.modalDescriptionKey)
-    : summary;
 
   return (
     <div
@@ -175,12 +94,21 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     >
       <div ref={modalRef} className={styles.modal}>
         <button
+          ref={closeButtonRef}
           className={styles.closeButton}
           onClick={onClose}
           aria-label={language === 'de' ? 'Projektfenster schließen' : 'Close modal'}
         >
           <FaTimes aria-hidden="true" />
         </button>
+        <div className={styles.modalNavigation}>
+          <button type="button" className={styles.navigationButton} onClick={onPrevious} aria-label={t('projects.previousProject')}>
+            <FaChevronLeft aria-hidden="true" />
+          </button>
+          <button type="button" className={styles.navigationButton} onClick={onNext} aria-label={t('projects.nextProject')}>
+            <FaChevronRight aria-hidden="true" />
+          </button>
+        </div>
 
         <div className={styles.modalContent}>
           <div className={styles.imageSection}>
@@ -198,15 +126,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
           <div className={styles.contentSection}>
             <h2 id="modal-title" className={styles.modalTitle}>
-              {t(project.titleKey)}
+              {project.icon && <Image src={project.icon} alt="" className={styles.modalProjectIcon} width={44} height={44} />}
+              <span>{t(project.titleKey)}</span>
             </h2>
 
-            {modalSummary && (
-              <section className={styles.summarySection} aria-label={language === 'de' ? 'Projektbeschreibung' : 'Project summary'}>
-                <h3 className={styles.summaryTitle}>{t('projects.projectSummary')}</h3>
-                <p className={styles.summaryText}>{modalSummary}</p>
-              </section>
-            )}
+            <section className={styles.summarySection} aria-label={language === 'de' ? 'Projektbeschreibung' : 'Project summary'}>
+              <h3 className={styles.summaryTitle}>{t('projects.projectSummary')}</h3>
+              <p className={styles.summaryText}>{t(project.descriptionKey)}</p>
+            </section>
 
             {project.technologies && project.technologies.length > 0 && (
               <div className={styles.techSection}>
@@ -231,24 +158,28 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
             <div className={styles.linksSection}>
               {project.github && (
-                <button
+                <a
                   className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
-                  onClick={() => openLink(project.github!)}
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={language === 'de' ? `Projekt ${t(project.titleKey)} auf GitHub ansehen` : `View ${t(project.titleKey)} project on GitHub`}
                 >
                   <FaGithub aria-hidden="true" />
                   <span>{t('projects.github')}</span>
-                </button>
+                </a>
               )}
               {projectLink && (
-                <button
+                <a
                   className={`${projectStyles.btn} ${projectStyles.projectBtn} ${styles.linkButton}`}
-                  onClick={() => openLink(projectLink)}
+                  href={projectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
                 >
                   <FaExternalLinkAlt aria-hidden="true" />
                   <span>{t(project.liveDemoLabelKey ?? 'projects.liveDemo')}</span>
-                </button>
+                </a>
               )}
             </div>
           </div>

@@ -17,9 +17,9 @@ export default function DesktopNav({ activeSection = '' }: DesktopNavProps) {
   const scrollToSection = useScrollToSection();
 
   const navItems = [
-    { href: '#about', key: 'about', label: t('nav.about') },
-    { href: '#skills', key: 'skills', label: t('nav.skills') },
     { href: '#projects', key: 'projects', label: t('nav.projects') },
+    { href: '#skills', key: 'skills', label: t('nav.skills') },
+    { href: '#about', key: 'about', label: t('nav.about') },
     { href: '#contact', key: 'contact', label: t('nav.contact') },
   ];
 

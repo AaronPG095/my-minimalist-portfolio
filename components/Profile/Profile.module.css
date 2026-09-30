@@ -253,6 +253,10 @@
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   font-weight: 600;
   transition: all var(--transition-speed) var(--transition-ease);
   padding: 1rem 2rem;
@@ -264,6 +268,10 @@
   border: 2px solid var(--color-black);
   position: relative;
   overflow: hidden;
+}
+
+.btn:hover {
+  text-decoration: none;
 }
 
 /* Primary button (btnColor1) - filled style */

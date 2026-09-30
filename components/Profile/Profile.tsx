@@ -2,11 +2,13 @@
 
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { careerContent } from '@/data/career-content';
 import styles from './Profile.module.css';
 
 export default function Profile() {
   const { t, language } = useLanguage();
+  const scrollToSection = useScrollToSection();
   const nameText = t('profile.name');
   const titleText = t('profile.title');
   const cvFile = language === 'de' ? '/assets/Aaron_Greyling_CV_Technical_DE.pdf' : '/assets/Aaron_Greyling_CV_Technical_EN.pdf';
@@ -16,19 +18,6 @@ export default function Profile() {
   const fluentStudioLabel = language === 'de'
     ? 'Fluent Studio besuchen'
     : 'Visit Fluent Studio';
-
-  const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-      const targetPosition = contactSection.offsetTop - headerHeight;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <section id="profile" className={styles.profile} aria-label={language === 'de' ? 'Profil' : 'Profile'}>
@@ -50,12 +39,16 @@ export default function Profile() {
         <p className={styles.textP2}>{titleText}</p>
         <p className={styles.summary}>{careerContent[language].profileSummary}</p>
         <div className={styles.btnContainer}>
-          <button
+          <a
+            href="#projects"
             className={`${styles.btn} ${styles.btnColor1}`}
-            onClick={handleContactClick}
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToSection('#projects');
+            }}
           >
-            {t('profile.contactInfo')}
-          </button>
+            {t('profile.viewProjects')}
+          </a>
           <a className={`${styles.btn} ${styles.btnColor2}`} href={cvFile} target="_blank" rel="noopener noreferrer" aria-label={language === 'de' ? 'Technischen Lebenslauf auf Deutsch öffnen' : 'Open technical CV in English'}>
             {t('profile.downloadCV')}
           </a>

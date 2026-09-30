@@ -35,13 +35,13 @@ export default function Home() {
           <Profile />
         </ErrorBoundary>
         <ErrorBoundary>
-          <About />
+          <Projects />
         </ErrorBoundary>
         <ErrorBoundary>
           <Skills />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Projects />
+          <About />
         </ErrorBoundary>
         <ErrorBoundary>
           <Contact />
