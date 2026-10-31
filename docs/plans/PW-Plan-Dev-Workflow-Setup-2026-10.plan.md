@@ -1,8 +1,10 @@
 ---
 title: Plan - Process: Set up the shared AI development process
 ticket: https://app.notion.com/p/PW-Plan-Process-Set-up-the-shared-AI-development-process-40a0b9c6786f8138b928cb7a34cfda85
-status: planned
+status: in-progress
 agent: Codex
+branch: chore/dev-workflow
+worktree: dev-workflow
 ---
 # Portfolio Website: shared AI development process
 
@@ -21,33 +23,33 @@ Install FluentOverlay's shared development process in Portfolio Website. Use one
 
 ## Acceptance criteria
 
-- [ ] Create isolated setup branch and ignore worktrees and environment files.
-- [ ] Copy shared CLI, template, skills and workflows without replacing existing files.
-- [ ] Configure the repository prefix, existing Task source, Project and source folders.
-- [ ] Configure workflows for the protected branches.
-- [ ] Keep the two repository-specific workflow skill copies identical.
-- [ ] Append the authoritative development process while preserving existing instructions.
-- [ ] Make Claude import AGENTS.md without creating GEMINI.md.
-- [ ] Align existing ticket guidance with the CLI and preserve historical records.
-- [ ] Ensure the no-plan label exists with the documented scope.
-- [ ] Create the Codex ticket, commit the plan and start the work.
-- [ ] Verify CLI syntax, installed contracts and rejection of the unfinished template.
-- [ ] Prepare the completed PR description and preserve Aaron's merge authority.
+- [x] Create isolated setup branch and ignore worktrees and environment files. verified: git branch confirms chore/dev-workflow; git check-ignore matches .worktrees/probe and .env.
+- [x] Copy shared CLI, template, skills and workflows without replacing existing files. verified: shared CLI is byte-identical to the pinned source; all seven shared files are installed.
+- [x] Configure the repository prefix, existing Task source, Project and source folders. verified: JSON assertions confirm PW, the selected Project and source-folder limits; live Notion ticket creation succeeded.
+- [x] Configure workflows for the protected branches. verified: both workflow branch lists match main.
+- [x] Keep the two repository-specific workflow skill copies identical. verified: both SKILL.md copies are byte-identical and use this repo name and plan prefix.
+- [x] Append the authoritative development process while preserving existing instructions. verified: installed process text exactly matches the adapted source; pre-existing instructions remain above it.
+- [x] Make Claude import AGENTS.md without creating GEMINI.md. verified: CLAUDE.md begins with @AGENTS.md; no GEMINI.md was created.
+- [x] Align existing ticket guidance with the CLI and preserve historical records. verified: tracked instruction paths were inspected; no conflicting ticket lifecycle rules exist.
+- [x] Ensure the no-plan label exists with the documented scope. verified: GitHub label lookup confirmed no-plan exists; no label was added to this non-trivial PR.
+- [x] Create the Codex ticket, commit the plan and start the work. verified: create/start succeeded with --agent Codex; the initial plan commit exists and the plan records its ticket, branch and worktree.
+- [x] Verify CLI syntax, installed contracts and rejection of the unfinished template. verified: node --check passed; installation assertions passed; unfinished template failed with missing-ticket and open-item diagnostics.
+- [x] Prepare the completed PR description and preserve Aaron's merge authority. verified: the completed PR description is saved in workspace scratch; it names the plan, ticket, validation and no deferred work; no merge is requested or performed.
 
 ## Steps
 
-- [ ] Create isolated setup branch and ignore worktrees and environment files.
-- [ ] Copy shared CLI, template, skills and workflows without replacing existing files.
-- [ ] Configure the repository prefix, existing Task source, Project and source folders.
-- [ ] Configure workflows for the protected branches.
-- [ ] Keep the two repository-specific workflow skill copies identical.
-- [ ] Append the authoritative development process while preserving existing instructions.
-- [ ] Make Claude import AGENTS.md without creating GEMINI.md.
-- [ ] Align existing ticket guidance with the CLI and preserve historical records.
-- [ ] Ensure the no-plan label exists with the documented scope.
-- [ ] Create the Codex ticket, commit the plan and start the work.
-- [ ] Verify CLI syntax, installed contracts and rejection of the unfinished template.
-- [ ] Prepare the completed PR description and preserve Aaron's merge authority.
+- [x] Create isolated setup branch and ignore worktrees and environment files.
+- [x] Copy shared CLI, template, skills and workflows without replacing existing files.
+- [x] Configure the repository prefix, existing Task source, Project and source folders.
+- [x] Configure workflows for the protected branches.
+- [x] Keep the two repository-specific workflow skill copies identical.
+- [x] Append the authoritative development process while preserving existing instructions.
+- [x] Make Claude import AGENTS.md without creating GEMINI.md.
+- [x] Align existing ticket guidance with the CLI and preserve historical records.
+- [x] Ensure the no-plan label exists with the documented scope.
+- [x] Create the Codex ticket, commit the plan and start the work.
+- [x] Verify CLI syntax, installed contracts and rejection of the unfinished template.
+- [x] Prepare the completed PR description and preserve Aaron's merge authority.
 
 ## Risks
 
