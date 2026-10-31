@@ -1,0 +1,30 @@
+{
+  "prefix": "PW",
+  "dataSourceId": "1db0b9c6-786f-80b0-bb5c-000b965dee0a",
+  "projectPageId": "1dc0b9c6-786f-80a0-84a6-cda5d8ba0ff0",
+  "tag": "Work / Fluent Studio",
+  "plansDir": "docs/plans",
+  "protectedBranches": [
+    "main"
+  ],
+  "captureSources": [
+    "Claude",
+    "Codex",
+    "Gemini",
+    "ChatGPT",
+    "Notion AI",
+    "Other"
+  ],
+  "noPlan": {
+    "maxChangedLines": 40,
+    "noNewFilesUnder": [
+      "app",
+      "components",
+      "contexts",
+      "data",
+      "hooks",
+      "lib",
+      "types"
+    ]
+  }
+}
