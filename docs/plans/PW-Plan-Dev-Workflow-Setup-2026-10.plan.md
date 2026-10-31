@@ -1,10 +1,11 @@
 ---
 title: Plan - Process: Set up the shared AI development process
 ticket: https://app.notion.com/p/PW-Plan-Process-Set-up-the-shared-AI-development-process-40a0b9c6786f8138b928cb7a34cfda85
-status: in-progress
+status: shipped
 agent: Codex
 branch: chore/dev-workflow
 worktree: dev-workflow
+pr: https://github.com/AaronPG095/my-minimalist-portfolio/pull/1
 ---
 # Portfolio Website: shared AI development process
 
@@ -74,3 +75,4 @@ Product behavior changes, deployment, Notion schema changes, modification of exi
 ## Progress log
 
 <!-- One line per session, added with: node scripts/ticket.mjs log <plan> --agent <client> --message "<done>; next: <step>; open: <questions>" -->
+- 2026-10-31 14:56 UTC, Codex: Installed Portfolio process; approved Actions secret stored; template rejection, plan check and ci-check passed; PR #1 opened and linked via ship with no deferred items; next: Aaron reviews and merges; open: merge-triggered ticket completion is untested until merge
