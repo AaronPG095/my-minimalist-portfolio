@@ -1,0 +1,31 @@
+name: Plan check
+
+# Every non-trivial PR carries a plan under docs/plans/ with a Notion ticket, and every
+# checkbox in it is ticked or marked "deferred: <reason>". See "Development process" in AGENTS.md.
+# Trivial PRs: add the "no-plan" label.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+jobs:
+  plan-check:
+    name: Plan is closed out
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check changed plans
+        env:
+          NO_PLAN: ${{ contains(github.event.pull_request.labels.*.name, 'no-plan') && '1' || '' }}
+        run: node scripts/ticket.mjs ci-check --base ${{ github.event.pull_request.base.sha }} --head ${{ github.event.pull_request.head.sha }}
