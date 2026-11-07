@@ -1,6 +1,10 @@
 # Aaron Greyling portfolio
 
-Developer-focused portfolio for Aaron Greyling, built with Next.js 14, React 18, TypeScript and CSS Modules. The live site is [aaronpaulgreyling.netlify.app](https://aaronpaulgreyling.netlify.app/). Its source repository is [AaronPG095/my-minimalist-portfolio](https://github.com/AaronPG095/my-minimalist-portfolio), with Netlify deploying `main`.
+Personal developer portfolio for Aaron Greyling, built with Next.js, React, TypeScript and CSS Modules. It presents selected software projects, technical experience and an English/German CV.
+
+**[View the website](https://aaronpaulgreyling.netlify.app/)** · **[Fluent Studio](https://www.fluent-studio.com/en)**
+
+Netlify deploys the `main` branch.
 
 ## Run locally
 
@@ -16,7 +20,7 @@ Open `http://localhost:3000`. Run `npm run lint`, `npx tsc --noEmit --incrementa
 - `data/translations.json` holds the current English and German section copy and shared interface strings.
 - `components/Profile/Profile.tsx` holds the portrait and language-matched CV links.
 - `components/About/About.tsx`, `components/Skills/Skills.tsx`, and `components/Projects/Projects.tsx` render the original sections and retain their original styling.
-- `data/career-content.ts` contains draft content for a later approved revision; it is not rendered on the site.
+- `data/career-content.ts` contains the profile summary and career-oriented content. Confirm how each entry is used before editing either content source.
 
 The current portrait is `public/assets/aaron-greyling-portrait.jpg`. Keep descriptions grounded in confirmed work; distinguish a current project from a released product and planned study from completed education.
 
@@ -27,7 +31,7 @@ The download links in `components/Profile/Profile.tsx` point to:
 - `public/assets/Aaron_Greyling_CV_Technical_EN.pdf`
 - `public/assets/Aaron_Greyling_CV_Technical_DE.pdf`
 
-The editable CV sources and master PDFs are kept in `C:\Users\Aaron\Desktop\DOCS\CHATGPT\Bewerbungen\Lebensläufe`. Refresh both public PDFs whenever the corresponding CV content changes. The site uses the visitor's selected language to choose the PDF.
+Editable CV sources are maintained separately from this public repository. Refresh the public PDFs whenever the corresponding CV content changes. The site uses the visitor's selected language to choose the PDF.
 
 ## Language and metadata
 
