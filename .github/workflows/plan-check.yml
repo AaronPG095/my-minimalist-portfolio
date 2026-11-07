@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Test ticket CLI
+        run: node --test scripts/ticket.test.mjs
+
       - name: Check changed plans
         env:
           NO_PLAN: ${{ contains(github.event.pull_request.labels.*.name, 'no-plan') && '1' || '' }}

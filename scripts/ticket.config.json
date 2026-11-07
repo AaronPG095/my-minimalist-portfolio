@@ -3,6 +3,8 @@
   "dataSourceId": "1db0b9c6-786f-80b0-bb5c-000b965dee0a",
   "projectPageId": "1dc0b9c6-786f-80a0-84a6-cda5d8ba0ff0",
   "tag": "Work / Fluent Studio",
+  "lifeAreaPageId": "31e0b9c6-786f-803b-ab1f-e92dd3e12580",
+  "timeZone": "Europe/Berlin",
   "plansDir": "docs/plans",
   "protectedBranches": [
     "main"

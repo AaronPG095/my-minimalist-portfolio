@@ -2,7 +2,7 @@
 // Ticket workflow CLI shared by every AI client (Claude, Codex, Gemini/Antigravity, Cursor) and CI.
 // The process it enforces is described in AGENTS.md ("Development process").
 //
-//   node scripts/ticket.mjs create <plan> --agent <Claude|Codex|Gemini|Other>   Notion Task (To Do), URL written into the plan
+//   node scripts/ticket.mjs create <plan> --agent <Claude|Codex|Gemini|Other>   Development Task (To Do, stable key), URL written into the plan
 //   node scripts/ticket.mjs start  <plan>                                      Task -> Doing, branch + worktree recorded
 //   node scripts/ticket.mjs log    <plan> --agent <client> --message "<text>"  handoff line in the plan's Progress log
 //   node scripts/ticket.mjs check  <plan>                                      fails while any checkbox is open or a ticked
@@ -26,6 +26,16 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, '..');
 const config = JSON.parse(readFileSync(join(here, 'ticket.config.json'), 'utf8'));
 const NOTION_VERSION = '2025-09-03';
+
+// Title format from .cursor/rules/notion-workspaces.mdc: {PROJECT} - {MODE} - {TYPE}: {Title}. The script adds the project prefix.
+const MODES = config.titleModes || ['Plan', 'Debug', 'Ask'];
+const TITLE = new RegExp(`^(${MODES.join('|')}) - [^:]+: \\S`);
+// Optional plan frontmatter -> Task select properties (option names as they exist in the Tasks database).
+const OPTIONAL = {
+  priority: { property: 'Priority', values: { emergency: '‼️EMERGENCY‼️', critical: '🎯 Critical', high: '⭐ High', medium: '⚡Medium', low: '🚫 Low' } },
+  state: { property: 'State', values: { quick: '💥Quick', easy: '💚Easy', flow: '🌊Flow' } },
+};
+const today = () => new Date().toLocaleDateString('sv-SE', { timeZone: config.timeZone || 'Europe/Berlin' });
 
 const [command, ...rest] = process.argv.slice(2);
 const opts = { files: [] };
@@ -79,6 +89,12 @@ function section(body, heading) {
 function problems(plan, { requireTicket = true } = {}) {
   const found = [];
   if (!plan.meta.title || plan.meta.title.startsWith('<')) found.push('frontmatter has no title');
+  else if (!TITLE.test(plan.meta.title)) found.push(`title must read "<${MODES.join('|')}> - <Type>: <Title>", e.g. "Plan - Feature: Smart Shortcut Suggestions" (got "${plan.meta.title}")`);
+  for (const [key, { values }] of Object.entries(OPTIONAL)) {
+    const v = (plan.meta[key] || '').toLowerCase();
+    if (v && !Object.hasOwn(values, v)) found.push(`${key} must be one of ${Object.keys(values).join(', ')}, or empty (got "${plan.meta[key]}")`);
+  }
+  if (plan.meta.due && (!/^\d{4}-\d{2}-\d{2}$/.test(plan.meta.due) || !Number.isFinite(Date.parse(plan.meta.due)) || new Date(plan.meta.due).toISOString().slice(0, 10) !== plan.meta.due)) found.push(`due must be YYYY-MM-DD, or empty (got "${plan.meta.due}")`);
   if (requireTicket && !/^https:\/\//.test(plan.meta.ticket || '')) found.push(`no Notion ticket URL (run: node scripts/ticket.mjs create ${plan.rel} --agent <client>)`);
   if (!/^\s*- \[[ xX]\]/m.test(section(plan.body, 'Steps'))) found.push('Steps section has no checkboxes');
   if (!/^\s*- \[[ xX]\]/m.test(section(plan.body, 'Acceptance criteria'))) found.push('Acceptance criteria section has no checkboxes');
@@ -143,7 +159,7 @@ function token() {
 async function notion(method, path, body, { soft = false } = {}) {
   if (opts.dryRun) {
     console.log(`[dry-run] ${method} https://api.notion.com/v1/${path}\n${JSON.stringify(body, null, 2)}`);
-    return { url: 'https://www.notion.so/dry-run-00000000000000000000000000000000', id: 'dry-run' };
+    return { url: 'https://www.notion.so/dry-run-00000000000000000000000000000000', id: 'dry-run', results: [], has_more: false };
   }
   const auth = token();
   if (!auth) fail('NOTION_TOKEN is not set (environment or .env). Stop here and tell the user; do not create the ticket another way.');
@@ -161,14 +177,48 @@ async function notion(method, path, body, { soft = false } = {}) {
     const json = await res.json().catch(() => ({}));
     if (!res.ok) {
       const message = `Notion ${method} ${path} failed (${res.status}): ${json.message || res.statusText}`;
-      if (soft) throw new Error(message);
+      if (soft) throw Object.assign(new Error(message), { status: res.status, code: json.code });
       fail(message);
     }
     return json;
   }
 }
 
-const setStatus = (url, name) => notion('PATCH', `pages/${pageId(url)}`, { properties: { Status: { status: { name } } } });
+// Status changes through the API don't press the Doing/Done buttons, so the dates those buttons set are written here.
+async function startTicket(url) {
+  const id = pageId(url);
+  const page = await notion('GET', `pages/${id}`);
+  const started = page.properties?.['Started At']?.date?.start;
+  return notion('PATCH', `pages/${id}`, { properties: { Status: { status: { name: 'Doing' } }, ...(started ? {} : { 'Started At': { date: { start: today() } } }) } });
+}
+// Development tickets explicitly start To Do, independently of the general Life OS default.
+function ticketKey(plan) {
+  if (plan.meta.devTicketKey) return plan.meta.devTicketKey;
+  if (!plan.rel.startsWith(`${config.plansDir}/`)) fail('plan must be inside the configured plansDir');
+  return `${config.prefix}:${basename(plan.rel, '.plan.md')}`;
+}
+
+async function existingTicket(key) {
+  const page = await notion('POST', `data_sources/${config.dataSourceId}/query`, {
+    filter: { property: 'Dev Ticket Key', rich_text: { equals: key } }, page_size: 2,
+  });
+  if (!Array.isArray(page.results)) fail('Notion returned no query results; stop rather than risk creating a duplicate');
+  if (page.has_more || page.results.length > 1) fail(`multiple Tasks have Dev Ticket Key "${key}"; resolve the duplicate before continuing`);
+  return page.results?.[0];
+}
+
+function recordTicket(plan, page, key, { recovered = false, agent } = {}) {
+  if (!/^https:\/\//.test(page.url || '')) fail('Notion returned no canonical ticket URL; stop and inspect the Task before retrying');
+  plan.meta.ticket = page.url;
+  plan.meta.devTicketKey = key;
+  if (!recovered) {
+    plan.meta.status = 'planned';
+    plan.meta.agent = agent;
+  }
+  writePlan(plan);
+  console.log(`Ticket ${recovered ? 'recovered' : 'created (To Do)'}: ${page.url}\nPlan updated: ${plan.rel}`);
+}
+const closeTicket = (url) => notion('PATCH', `pages/${pageId(url)}`, { properties: { Status: { status: { name: 'Done' } }, 'Completed At': { date: { start: today() } } } });
 const text = (content) => [{ text: { content: content.slice(0, 1990) } }];
 
 // ---------- commands ----------
@@ -198,23 +248,38 @@ const commands = {
       `Acceptance criteria:\n${section(plan.body, 'Acceptance criteria')}`,
       `Plan: ${plan.rel}`,
     ].join('\n\n');
-    const page = await notion('POST', 'pages', {
-      parent: { type: 'data_source_id', data_source_id: config.dataSourceId },
-      properties: {
-        Name: { title: text(`${config.prefix} - ${plan.meta.title}`) },
-        Status: { status: { name: 'To Do' } },
-        Project: { relation: [{ id: config.projectPageId }] },
-        Tag: { select: { name: config.tag } },
-        Description: { rich_text: text(description) },
-        'Capture Source': { select: { name: agent } },
-        'Capture State': { select: { name: 'Pending' } },
-      },
-    });
-    plan.meta.ticket = page.url;
-    plan.meta.status = 'planned';
-    plan.meta.agent = agent;
-    writePlan(plan);
-    console.log(`Ticket created: ${page.url}\nPlan updated: ${plan.rel}`);
+    if (opts.status && opts.status !== 'To Do') fail('development tickets start To Do; use start after creation to begin work');
+    const key = ticketKey(plan);
+    const existing = await existingTicket(key);
+    if (existing) return recordTicket(plan, existing, key, { recovered: true });
+    const parent = { type: 'data_source_id', data_source_id: config.dataSourceId };
+    const properties = {
+      Name: { title: text(`${config.prefix} - ${plan.meta.title}`) },
+      Status: { status: { name: 'To Do' } },
+      'Task Lane': { select: { name: 'Development' } },
+      'Dev Ticket Key': { rich_text: text(key) },
+      Project: { relation: [{ id: config.projectPageId }] },
+      Tag: { select: { name: config.tag } },
+      Description: { rich_text: text(description) },
+      'Capture Source': { select: { name: agent } },
+      'Capture State': { select: { name: 'Pending' } },
+    };
+    for (const [key, { property, values }] of Object.entries(OPTIONAL)) {
+      const v = (plan.meta[key] || '').toLowerCase();
+      if (v) properties[property] = { select: { name: values[v] } };
+    }
+    if (plan.meta.due) properties['Due Date'] = { date: { start: plan.meta.due } };
+    let page;
+    if (config.lifeAreaPageId) {
+      try {
+        page = await notion('POST', 'pages', { parent, properties: { ...properties, 'Life Area': { relation: [{ id: config.lifeAreaPageId }] } } }, { soft: true });
+      } catch (e) {
+        if (!((e.status === 400 && e.code === 'validation_error' && /Life Area/i.test(e.message)) || (e.status === 404 && e.code === 'object_not_found'))) throw e;
+        console.warn(`ticket: creating the Task with Life Area failed (${e.message}); retrying without it. To fix, share the Life Areas database with the Notion connection.`);
+      }
+    }
+    if (!page) page = await notion('POST', 'pages', { parent, properties });
+    recordTicket(plan, page, key, { agent });
   },
 
   async start() {
@@ -222,7 +287,7 @@ const commands = {
     if (!/^https:\/\//.test(plan.meta.ticket || '')) fail(`${plan.rel} has no ticket yet; run create first.`);
     const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
     if ([...(config.protectedBranches || ['main', 'master', 'develop']), 'HEAD'].includes(branch)) fail(`you are on "${branch}". Create a branch for this plan first.`);
-    await setStatus(plan.meta.ticket, 'Doing');
+    await startTicket(plan.meta.ticket);
     plan.meta.status = 'in-progress';
     plan.meta.branch = branch;
     plan.meta.worktree = basename(git(['rev-parse', '--show-toplevel']));
@@ -271,7 +336,7 @@ const commands = {
   async done() {
     const plan = onePlan();
     if (!/^https:\/\//.test(plan.meta.ticket || '')) fail(`${plan.rel} has no ticket.`);
-    await setStatus(plan.meta.ticket, 'Done');
+    await closeTicket(plan.meta.ticket);
     console.log(`Ticket set to Done: ${plan.meta.ticket}`);
   },
 
@@ -313,7 +378,7 @@ const commands = {
     for (const f of changedPlans([`${opts.head}^1`, opts.head])) {
       const plan = readPlan(join(repoRoot, f));
       if (/^https:\/\//.test(plan.meta.ticket || '')) {
-        await setStatus(plan.meta.ticket, 'Done');
+        await closeTicket(plan.meta.ticket);
         console.log(`${f}: ticket set to Done.`);
       }
     }
