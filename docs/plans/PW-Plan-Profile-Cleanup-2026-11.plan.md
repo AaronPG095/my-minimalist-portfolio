@@ -1,10 +1,11 @@
 ---
 title: Plan - Content & UI: Portfolio Profile Cleanup (2026-11)
 ticket: https://app.notion.com/p/PW-Plan-Content-UI-Portfolio-Profile-Cleanup-2026-11-4220b9c6786f81948015fefb96aa4bb7
-status: in-progress
+status: shipped
 agent: Gemini
 branch: feat/profile-cleanup-2026-11
 worktree: my-minimalist-portfolio
+pr: https://github.com/AaronPG095/my-minimalist-portfolio/pull/2
 ---
 # Portfolio Profile Cleanup (2026-11)
 
