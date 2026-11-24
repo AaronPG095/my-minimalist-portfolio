@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-labelledby="fluenttimer-title">
+  <title id="fluenttimer-title">FluentTimer Windows Tray and Floating Pomodoro Widget</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b101b" />
+      <stop offset="100%" stop-color="#171f2e" />
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" rx="16" fill="url(#bg)" />
+
+  <!-- Floating Widget Card -->
+  <rect x="210" y="56" width="380" height="316" rx="20" fill="#111827" stroke="#293548" stroke-width="1.5" />
+  <text x="242" y="92" fill="#94a3b8" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">FluentTimer · Floating Widget</text>
+  <rect x="466" y="74" width="94" height="26" rx="13" fill="#0f172a" stroke="#334155" />
+  <text x="513" y="91" text-anchor="middle" fill="#38bdf8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="600">Set 2 / 4</text>
+
+  <!-- Progress Ring -->
+  <circle cx="400" cy="204" r="76" fill="none" stroke="#1e293b" stroke-width="10" />
+  <circle cx="400" cy="204" r="76" fill="none" stroke="url(#ring)" stroke-width="10" stroke-linecap="round" stroke-dasharray="360 480" transform="rotate(-90 400 204)" />
+  <text x="400" y="214" text-anchor="middle" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="40" font-weight="700">25:00</text>
+  <text x="400" y="240" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13">Focus Session</text>
+
+  <!-- Controls -->
+  <rect x="266" y="308" width="84" height="36" rx="10" fill="#38bdf8" />
+  <text x="308" y="331" text-anchor="middle" fill="#0b101b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="700">Pause</text>
+  <rect x="362" y="308" width="84" height="36" rx="10" fill="#1e293b" stroke="#334155" />
+  <text x="404" y="331" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">Reset</text>
+  <rect x="458" y="308" width="84" height="36" rx="10" fill="#1e293b" stroke="#334155" />
+  <text x="500" y="331" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">Skip</text>
+
+  <!-- Windows System Tray Bar -->
+  <rect x="56" y="408" width="688" height="48" rx="10" fill="#090d16" stroke="#1e293b" />
+  <text x="80" y="437" fill="#cbd5e1" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">Windows Tray · WPF · .NET 10</text>
+  <rect x="470" y="418" width="124" height="28" rx="6" fill="#111827" stroke="#334155" />
+  <text x="532" y="436" text-anchor="middle" fill="#10b981" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="600">SHA-256 Verified</text>
+  <rect x="606" y="418" width="116" height="28" rx="6" fill="#111827" stroke="#334155" />
+  <text x="664" y="436" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">xUnit Tested</text>
+</svg>

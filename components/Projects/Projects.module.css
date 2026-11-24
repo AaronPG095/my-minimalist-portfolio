@@ -70,8 +70,8 @@
   padding-left: calc(50% - 200px);
   padding-right: calc(50% - 200px);
   box-sizing: content-box;
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
   scroll-snap-type: x mandatory;
   touch-action: pan-x;
 }
@@ -529,6 +529,8 @@
   .carouselContainer {
     padding-left: calc(50% - 160px);
     padding-right: calc(50% - 160px);
+    mask-image: none;
+    -webkit-mask-image: none;
   }
   
   .projectsContainer {
