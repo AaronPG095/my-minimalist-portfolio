@@ -21,10 +21,10 @@
       "experienceYears": "Years Frontend",
       "experienceMonths": "Years Backend",
       "education": "Education",
-      "education1": "DCI (Digital Career Institue) Web Development Bootcamp",
+      "education1": "DCI (Digital Career Institute) Web Development Bootcamp",
       "education2": "BTEC HNC4 General Engineering",
       "description1": "I’m a software developer in Leipzig and founder of Fluent Studio. I develop web applications and native Windows software, including FluentOverlay. My work also covers AI-assisted development, testing and documentation.",
-      "description2": "After nine years working in professional kitchens, I completed DCI’s full-time web development program and a Laravel internship at ECommeleon. In 2025, I built the Kollektiv Spinnen festival platform. Since September 2026, I’ve attended the G-Kurs at Studienkolleg Sachsen, with a Digital Humanities B.Sc. planned afterward.",
+      "description2": "After 10 years working in professional kitchens (05/2016–09/2026 at Kaiserbad and Restaurant Zest), I completed DCI’s 14-month full-time web development program (03/2022–05/2023) and a Laravel internship at ECommeleon. In 2025, I built the Kollektiv Spinnen festival platform. Since September 2026, I’ve attended the G-Kurs at Studienkolleg Sachsen, with a Digital Humanities B.Sc. planned afterward.",
       "timeline": {
         "heading": "Career Timeline & Professional Development",
         "subtitle": "Journey from Culinary Arts to Software Development",
@@ -66,8 +66,8 @@
           "restaurantZestEnd": "Restaurant Zest ends · Sep 2026",
           "bootcampStart": "Bootcamp Start",
           "bootcampStartDescription": "(Major Transition)",
-          "dciBootcamp": "12-Month DCI Bootcamp",
-          "dciBootcampLine1": "12-Month DCI",
+          "dciBootcamp": "14-Month DCI Bootcamp",
+          "dciBootcampLine1": "14-Month DCI",
           "dciBootcampLine2": "Bootcamp",
           "dciBootcampDescription": "(Full-Stack Training)",
           "graduation": "Graduation",
@@ -145,6 +145,10 @@
         "Visual Studio": "Microsoft's integrated development environment for building applications. Experience with debugging, IntelliSense, and project management for .NET and other platforms.",
         "WinUI 3": "Windows UI Library 3 - Microsoft's native UI framework for building modern Windows applications. Creating fluent, native experiences with C# and XAML.",
         ".NET": "Microsoft's development platform, used with C# and WinUI 3 to build native Windows software.",
+        ".NET 10": "Microsoft's modern .NET 10 runtime and SDK used with C#, WPF, and WinUI 3 to build native Windows applications.",
+        "WPF": "Windows Presentation Foundation - Microsoft's desktop UI framework used with C# and .NET 10 for native Windows tools like TokenHUD and FluentTimer.",
+        "SQLite": "An embedded, zero-configuration relational database engine used for local-first storage and telemetry querying.",
+        "GitHub Actions": "CI/CD automation for running lint checks, builds, tests, and workflow validation on GitHub.",
         "PostgreSQL": "A relational database used for data modelling, queries and application backends.",
         "Supabase": "A PostgreSQL-based backend platform used for authentication, data storage and application integration.",
         "C#": "The primary language used with .NET and WinUI 3 to build native Windows software.",
@@ -162,21 +166,6 @@
         "description": "I built this portfolio as a clear place to explore my work, skills and background in English or German. Visitors can switch languages and themes, browse projects in detail and navigate comfortably across screen sizes. It is built with Next.js, React, TypeScript and CSS Modules.",
         "cardSummary": "Projects, skills and background in one bilingual place. I built this site to make my work easy to explore."
       },
-      "project2": {
-        "title": "Bohemian Kids Cafe",
-        "description": "Our team built a café platform that brings menus, news and an online shop into one place. I worked on the frontend, which includes a shopping cart, authentication and areas for customers and administrators.",
-        "cardSummary": "Menus, news and shopping in one café experience. I helped build the frontend that brings them together."
-      },
-      "project3": {
-        "title": "ASK Online Store",
-        "description": "For a DCI group project, we built an online store where visitors can browse products and manage a shopping cart. The React frontend loads product data from a public API and uses hooks to handle browsing and cart interactions.",
-        "cardSummary": "A simple place to browse products and fill a cart. We built this online store as a DCI team project."
-      },
-      "project4": {
-        "title": "Brainwave",
-        "description": "I built a responsive landing page that gives an AI product a clear path from its features to pricing and roadmap. Reusable React components organize the feature and collaboration sections, with Tailwind CSS handling the layout and styling.",
-        "cardSummary": "A clear route through an AI product’s features, pricing and plans. I built the responsive landing page."
-      },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
         "description": "I developed this bilingual platform for Kollektiv Spinnen so visitors can find their way through the festival program. An interactive timetable and filters make events easier to explore, while administrative content tools and a Supabase backend support festival data and ticketing.",
@@ -192,11 +181,27 @@
         "description": "FluentOverlay brings app-specific shortcuts and workflows into a native Windows application. I design the product and build the Windows app, using Codex, Claude Code and Cursor for implementation, testing, refactoring and documentation. An integrated MCP server is part of the development workflow.",
         "cardSummary": "Shortcuts for the app you’re using, close at hand. I’m designing and building FluentOverlay for Windows."
       },
+      "aiDevWorkflow": {
+        "title": "AI-Dev-Workflow",
+        "description": "A dependency-free Node.js multi-agent CI harness designed for reliable AI-assisted engineering. It provides zero-token session priming, structured review packets, adversarial review loops, and parallel git worktree waves.",
+        "cardSummary": "Dependency-free Node.js multi-agent CI harness with zero-token priming, review packets, and parallel worktree waves."
+      },
+      "tokenHud": {
+        "title": "TokenHUD",
+        "description": "A local-first Windows HUD built with C#, WPF, .NET 10, and SQLite that tracks AI context load, token velocity, and quota windows directly from local SQLite and JSONL session logs.",
+        "cardSummary": "Local-first Windows HUD tracking AI context load, token velocity, and quota windows from SQLite/JSONL logs."
+      },
+      "fluentTimer": {
+        "title": "FluentTimer",
+        "description": "A native Windows system-tray timer built with C#, WPF, and .NET 10 featuring a floating always-on-top widget, configurable Pomodoro sets, xUnit test coverage, and SHA-256 verified self-updates.",
+        "cardSummary": "Native Windows tray timer with floating widget, Pomodoro sets, xUnit tests, and SHA-256 self-updates."
+      },
       "viewDetails": "View details",
       "github": "GitHub",
       "liveDemo": "Live Demo",
       "visitWebsite": "Visit website",
       "viewProductPage": "View product page",
+      "latestRelease": "Latest Release",
       "projectSummary": "Project Summary",
       "technologies": "Technologies",
       "previousProject": "Previous project",
@@ -238,10 +243,10 @@
       "experienceYears": "Jahre Frontend",
       "experienceMonths": "Jahre Backend",
       "education": "Bildung",
-      "education1": "DCI (Digital Career Institue) Web Development Bootcamp",
+      "education1": "DCI (Digital Career Institute) Web Development Bootcamp",
       "education2": "BTEC HNC4 Allgemeines Ingenieurwesen",
       "description1": "Ich bin Softwareentwickler in Leipzig und Gründer von Fluent Studio. Ich entwickle Webanwendungen und native Windows-Software, darunter FluentOverlay. Zu meiner Arbeit gehören auch KI-gestützte Entwicklung, Tests und Dokumentation.",
-      "description2": "Nach neun Jahren in professionellen Küchen habe ich die Vollzeitausbildung in Webentwicklung am DCI und ein Laravel-Praktikum bei ECommeleon abgeschlossen. 2025 entwickelte ich die Festivalplattform für Kollektiv Spinnen. Seit September 2026 besuche ich den G-Kurs am Studienkolleg Sachsen; anschließend plane ich einen B.Sc. in Digital Humanities.",
+      "description2": "Nach 10 Jahren in professionellen Küchen (05/2016–09/2026 bei Kaiserbad und Restaurant Zest) habe ich das 14-monatige Vollzeitprogramm für Webentwicklung am DCI (03/2022–05/2023) und ein Laravel-Praktikum bei ECommeleon abgeschlossen. 2025 entwickelte ich die Festivalplattform für Kollektiv Spinnen. Seit September 2026 besuche ich den G-Kurs am Studienkolleg Sachsen; anschließend plane ich einen B.Sc. in Digital Humanities.",
       "timeline": {
         "heading": "Karriere-Timeline & Berufliche Entwicklung",
         "subtitle": "Weg von der Kochkunst zur Softwareentwicklung",
@@ -283,8 +288,8 @@
           "restaurantZestEnd": "Ende bei Restaurant Zest · Sep. 2026",
           "bootcampStart": "Bootcamp Start",
           "bootcampStartDescription": "(Großer Übergang)",
-          "dciBootcamp": "12-Monats DCI Bootcamp",
-          "dciBootcampLine1": "12-Monats DCI",
+          "dciBootcamp": "14-Monats DCI Bootcamp",
+          "dciBootcampLine1": "14-Monats DCI",
           "dciBootcampLine2": "Bootcamp",
           "dciBootcampDescription": "(Full-Stack Training)",
           "graduation": "Abschluss",
@@ -362,6 +367,10 @@
         "Visual Studio": "Microsofts integrierte Entwicklungsumgebung zum Erstellen von Anwendungen. Erfahrung mit Debugging, IntelliSense und Projektverwaltung für .NET und andere Plattformen.",
         "WinUI 3": "Windows UI Library 3 - Microsofts natives UI-Framework zum Erstellen moderner Windows-Anwendungen. Erstellen von flüssigen, nativen Benutzererlebnissen mit C# und XAML.",
         ".NET": "Microsofts Entwicklungsplattform für native Windows-Software mit C# und WinUI 3.",
+        ".NET 10": "Microsofts moderne .NET-10-Plattform für native Windows-Anwendungen mit C#, WPF und WinUI 3.",
+        "WPF": "Windows Presentation Foundation – Microsofts Desktop-UI-Framework für native Windows-Tools wie TokenHUD und FluentTimer mit C# und .NET 10.",
+        "SQLite": "Eine eingebettete, lokal laufende SQL-Datenbank-Engine für Local-First-Datenspeicherung und Log-Auswertungen.",
+        "GitHub Actions": "CI/CD-Automatisierung für Lint-Checks, Builds, Tests und Workflow-Validierung auf GitHub.",
         "PostgreSQL": "Eine relationale Datenbank für Datenmodellierung, Abfragen und Anwendungs-Backends.",
         "Supabase": "Eine PostgreSQL-basierte Backend-Plattform für Authentifizierung, Datenspeicherung und Anwendungsintegration.",
         "C#": "Die primäre Sprache für die Entwicklung nativer Windows-Software mit .NET und WinUI 3.",
@@ -379,21 +388,6 @@
         "description": "Ich habe dieses Portfolio als übersichtlichen Ort für meine Projekte, Fähigkeiten und meinen Werdegang gestaltet. Besucher können zwischen Deutsch und Englisch sowie hellem und dunklem Design wechseln, Projekte im Detail ansehen und die Seite auf verschiedenen Geräten bequem nutzen. Technisch basiert sie auf Next.js, React, TypeScript und CSS Modules.",
         "cardSummary": "Projekte, Fähigkeiten und Werdegang an einem zweisprachigen Ort. Ich habe dieses Portfolio dafür gebaut."
       },
-      "project2": {
-        "title": "Bohemian Kids Cafe",
-        "description": "Im Team haben wir eine Café-Plattform entwickelt, die Speisekarten, Neuigkeiten und Onlineshop an einem Ort vereint. Ich habe am Frontend mitgearbeitet, zu dem Warenkorb, Anmeldung sowie Bereiche für Gäste und Verwaltung gehören.",
-        "cardSummary": "Speisekarte, Neuigkeiten und Shop an einem Ort. Ich habe am Frontend der Café-Plattform mitgearbeitet."
-      },
-      "project3": {
-        "title": "ASK Online Store",
-        "description": "Für ein DCI-Gruppenprojekt haben wir einen Onlineshop gebaut, in dem Besucher Produkte entdecken und einen Warenkorb zusammenstellen können. Das React-Frontend lädt Produktdaten aus einer öffentlichen API; Hooks steuern die Produktsuche und den Warenkorb.",
-        "cardSummary": "Produkte entdecken und in den Warenkorb legen. Diesen Onlineshop haben wir als DCI-Teamprojekt entwickelt."
-      },
-      "project4": {
-        "title": "Brainwave",
-        "description": "Ich habe eine responsive Landingpage gebaut, die ein KI-Produkt von seinen Funktionen bis zu Preisen und Roadmap verständlich vorstellt. Wiederverwendbare React-Komponenten gliedern auch den Bereich zur Zusammenarbeit; Tailwind CSS sorgt für Layout und Gestaltung.",
-        "cardSummary": "Ein klarer Weg durch Funktionen, Preise und Pläne eines KI-Produkts. Dafür habe ich eine responsive Landingpage gebaut."
-      },
       "project5": {
         "title": "Kollektiv Spinnen Festival Website",
         "description": "Für Kollektiv Spinnen habe ich eine zweisprachige Plattform entwickelt, mit der sich Besucher leicht im Festivalprogramm zurechtfinden. Ein interaktiver Zeitplan und Filter erleichtern die Suche nach Veranstaltungen. Redaktionelle Werkzeuge und ein Supabase-Backend unterstützen Festivaldaten und Ticketing.",
@@ -409,11 +403,27 @@
         "description": "FluentOverlay bringt Shortcuts und Arbeitsabläufe für einzelne Programme in eine native Windows-Anwendung. Ich gestalte das Produkt und entwickle die App. Dabei nutze ich Codex, Claude Code und Cursor für Umsetzung, Tests, Refactoring und Dokumentation; ein integrierter MCP-Server gehört ebenfalls zum Entwicklungsablauf.",
         "cardSummary": "Passende Shortcuts direkt bei der Arbeit mit Windows-Apps. Ich gestalte und entwickle FluentOverlay."
       },
+      "aiDevWorkflow": {
+        "title": "AI-Dev-Workflow",
+        "description": "Ein abhängigkeitsfreier Node.js-Multi-Agent-CI-Harness für zuverlässige KI-gestützte Softwareentwicklung – mit Zero-Token-Session-Priming, strukturierten Review-Paketen, adversariellen Review-Schleifen und parallelen Git-Worktree-Waves.",
+        "cardSummary": "Abhängigkeitsfreier Node.js-Multi-Agent-CI-Harness mit Zero-Token-Priming, Review-Paketen und parallelen Worktree-Waves."
+      },
+      "tokenHud": {
+        "title": "TokenHUD",
+        "description": "Ein Local-First-Windows-HUD auf Basis von C#, WPF, .NET 10 und SQLite, das KI-Kontextauslastung, Token-Geschwindigkeit und Kontingentfenster direkt aus lokalen SQLite- und JSONL-Sitzungsprotokollen ausliest.",
+        "cardSummary": "Local-First-Windows-HUD zur Verfolgung von KI-Kontextlast, Token-Rate und Kontingenten aus SQLite/JSONL-Logs."
+      },
+      "fluentTimer": {
+        "title": "FluentTimer",
+        "description": "Ein nativer Windows-Tray-Timer mit C#, WPF und .NET 10 – inklusive schwebendem Widget, konfigurierbaren Pomodoro-Sets, xUnit-Tests und SHA-256-geprüften Selbst-Updates.",
+        "cardSummary": "Nativer Windows-Tray-Timer mit schwebendem Widget, Pomodoro-Sets, xUnit-Tests und SHA-256-Updates."
+      },
       "viewDetails": "Details ansehen",
       "github": "GitHub",
       "liveDemo": "Live Demo",
       "visitWebsite": "Website besuchen",
       "viewProductPage": "Produktseite ansehen",
+      "latestRelease": "Aktuelle Version",
       "projectSummary": "Projektübersicht",
       "technologies": "Technologien",
       "previousProject": "Vorheriges Projekt",

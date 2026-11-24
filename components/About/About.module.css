@@ -363,7 +363,8 @@
 .timelineSection {
   margin-top: 0;
   padding: 2rem 0;
-  max-width: 95%;
+  width: 100%;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -390,7 +391,7 @@
   display: flex;
   flex-direction: column;
   gap: 4rem;
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 1rem 0 2rem 0;
   min-height: 500px;
 }
 
@@ -504,9 +505,15 @@
   --lane-education: #3498db;
   --lane-experience: #2ecc71;
   width: 100%;
-  min-width: max(1100px, 68.75rem);
+  min-width: min(100%, 54rem);
   max-width: 1400px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 900px) {
+  .verticalTimeline {
+    min-width: 760px;
+  }
 }
 
 .verticalTimelinePlot {
@@ -527,7 +534,7 @@
 .verticalEventList,
 .verticalYearMarkers {
   position: absolute;
-  inset: 0 5rem 0 7.5rem;
+  inset: 0 3.5rem 0 6.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -650,7 +657,7 @@
   position: absolute;
   top: var(--lane-start);
   left: var(--lane-position);
-  width: 13.75rem;
+  width: 11.5rem;
   transform: translate(-50%, calc(-100% - 14px));
   display: flex;
   flex-direction: column;
