@@ -55,19 +55,27 @@ export interface Translations {
       title: string;
       description: string;
     };
-    project2: {
-      title: string;
-      description: string;
-    };
-    project3: {
-      title: string;
-      description: string;
-    };
-    project4: {
-      title: string;
-      description: string;
-    };
     project5: {
+      title: string;
+      description: string;
+    };
+    fluentStudio: {
+      title: string;
+      description: string;
+    };
+    fluentOverlay: {
+      title: string;
+      description: string;
+    };
+    aiDevWorkflow: {
+      title: string;
+      description: string;
+    };
+    tokenHud: {
+      title: string;
+      description: string;
+    };
+    fluentTimer: {
       title: string;
       description: string;
     };
@@ -95,13 +103,9 @@ export interface TranslationsData {
   de: Translations;
 }
 
-// Skill level type
-export type SkillLevel = 'experienced' | 'intermediate' | 'basic';
-
 // Skill interface
 export interface Skill {
   name: string;
-  level: SkillLevel;
 }
 
 // Project interface

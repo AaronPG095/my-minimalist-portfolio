@@ -69,24 +69,24 @@
   flex: 0 0 370px;
   width: 370px;
   max-width: 370px;
-  min-height: 930px;
   background: var(--color-bg-light);
   border-radius: var(--border-radius-md);
   border: var(--color-light-grey) 0.1rem solid;
   text-align: center;
-  cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
               background-color var(--transition-speed) var(--transition-ease),
               border-color var(--transition-speed) var(--transition-ease),
               z-index 0s;
   padding: 1.5rem;
-  padding-top: 2.5rem;
+  padding-top: 2rem;
   overflow: visible;
   position: relative;
   z-index: 0;
   will-change: transform, box-shadow;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 [data-theme="dark"] .skillCard {
@@ -114,58 +114,76 @@
   transition: transform 0.1s ease;
 }
 
-/* Elevate the entire card when any tooltip inside it is active */
-.skillCard:has(.skillArticle[data-tooltip]:hover) {
-  z-index: 9997;
-  position: relative;
-}
-
 .subTitle {
   color: var(--color-medium-grey);
   font-weight: 600;
   font-size: 1.75rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   transition: color var(--transition-speed) var(--transition-ease);
 }
 
 .articleContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  justify-content: flex-start;
+  align-content: flex-start;
   text-align: initial;
-  gap: 1.395rem;
-  justify-items: stretch;
-  align-items: stretch;
   overflow: visible;
   position: relative;
   z-index: 0;
-  padding-top: 1rem;
-  margin-top: 1rem;
+  padding-top: 0.5rem;
 }
 
-.articleContainer :global(article),
-.skillArticle {
-  display: flex;
-  width: 100%;
-  gap: 0.6975rem;
-  align-items: flex-start;
-  padding: 0.93rem;
-  border-radius: var(--border-radius-sm);
-  transition: background-color var(--transition-speed) var(--transition-ease), z-index 0s;
-  min-height: 3.72rem;
-  position: relative;
+.skillChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-light-grey);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
   cursor: help;
-  overflow: visible;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease),
+              border-color var(--transition-speed) var(--transition-ease),
+              transform 0.15s ease;
+  position: relative;
   z-index: 1;
 }
 
-.articleContainer :global(article:hover),
-.skillArticle:hover {
-  background-color: var(--color-bg-light);
+.skillChip:hover,
+.skillChipActive {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  transform: translateY(-1px);
 }
 
-[data-theme="dark"] .articleContainer :global(article:hover),
-[data-theme="dark"] .skillArticle:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+.skillChip:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+:global([data-theme="dark"]) .skillChip {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-light-grey);
+}
+
+:global([data-theme="dark"]) .skillChip:hover,
+:global([data-theme="dark"]) .skillChipActive {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.skillName {
+  white-space: nowrap;
 }
 
 
@@ -212,11 +230,9 @@
 @keyframes tooltipFadeIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -233,22 +249,11 @@
 
 /* Old tooltip styles removed - using fixed positioning now */
 
-.skillContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6975rem;
-  min-width: 0;
-  width: 100%;
-  position: relative;
-  z-index: 0;
-}
-
 .icon {
-  cursor: default;
+  cursor: inherit;
   flex-shrink: 0;
-  height: 1.395rem;
-  width: 1.395rem;
+  height: 1.125rem;
+  width: 1.125rem;
   transition: color var(--transition-speed) var(--transition-ease);
 }
 
@@ -264,59 +269,6 @@
 }
 :global([data-theme="dark"]) .iconDark {
   display: inline-block;
-}
-
-.articleContainer :global(article h3),
-.skillContent h3 {
-  font-weight: 600;
-  color: var(--text-color);
-  margin: 0;
-  transition: color var(--transition-speed) var(--transition-ease);
-  font-size: 0.93rem;
-  line-height: 1.2;
-  position: relative;
-  z-index: 0;
-}
-
-.articleContainer :global(article p) {
-  font-size: 0.9rem;
-  color: var(--color-medium-grey);
-}
-
-/* Progress Bar Styles */
-.progressContainer {
-  width: 74.4px;
-  height: 7.44px;
-  background-color: var(--color-light-grey);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-}
-
-[data-theme="dark"] .progressContainer {
-  background-color: rgba(59, 59, 59, 1);
-  border: 1px solid rgba(0, 0, 0, 1);
-  color: rgba(255, 255, 255, 1);
-  border-image: none;
-}
-
-.progressBar {
-  height: 100%;
-  background-color: var(--color-black);
-  border-radius: 4px;
-  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: width;
-}
-
-[data-theme="dark"] .progressBar {
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
-}
-
-.progressBarAnimated {
-  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carouselWrapper {
@@ -527,9 +479,8 @@
     flex: 1 1 auto;
     width: 100%;
     max-width: 100%;
-    min-height: 640px;
     padding: 1rem;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     box-sizing: border-box;
     overflow: visible;
     margin: 0 auto;
@@ -546,80 +497,27 @@
   }
 
   .articleContainer {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    justify-items: stretch;
-    align-items: start;
+    gap: 0.5rem;
     width: 100%;
     box-sizing: border-box;
-    padding-top: 1rem;
-    margin-top: 0.5rem;
+    padding-top: 0.5rem;
     overflow: visible;
   }
 
-  .articleContainer :global(article),
-  .skillArticle {
-    max-width: none;
-    padding: 0.5rem;
-    gap: 0.4rem;
-    min-height: auto;
-    width: 100%;
-    box-sizing: border-box;
-    align-items: flex-start;
-  }
-  
-  .skillContent {
-    gap: 0.5rem;
-    min-width: 0;
-    overflow: hidden;
+  .skillChip {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.78rem;
   }
   
   .icon {
-    height: 1.25rem;
-    width: 1.25rem;
+    height: 1rem;
+    width: 1rem;
     flex-shrink: 0;
   }
   
   .subTitle {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .articleContainer :global(article h3),
-  .skillContent h3 {
-    font-size: 0.75rem;
-    margin: 0;
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-  }
-  
-  .articleContainer :global(article p) {
-    font-size: 0.65rem;
-  }
-
-  .progressContainer {
-    height: 6px;
-    width: 70px;
-    flex-shrink: 0;
-  }
-
-  /* Mobile tooltip adjustments */
-  .skillArticle[data-tooltip]:hover::before {
-    max-width: 200px;
-    min-width: 150px;
-    font-size: 0.75rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  /* On mobile, center all tooltips */
-  .skillArticle[data-tooltip]:hover::before {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .skillArticle[data-tooltip]:hover::after {
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: 1.1rem;
+    margin-bottom: 0.875rem;
   }
 }
 
@@ -693,30 +591,13 @@
     flex: 1 1 auto;
     width: 100%;
     max-width: 100%;
-    min-height: 580px;
     padding: 0.875rem;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     margin: 0 auto;
   }
 
   .articleContainer {
-    gap: 0.6rem;
-  }
-
-  .articleContainer :global(article),
-  .skillArticle {
-    padding: 0.45rem;
-    gap: 0.35rem;
-  }
-
-  .articleContainer :global(article h3),
-  .skillContent h3 {
-    font-size: 0.7rem;
-  }
-
-  .progressContainer {
-    height: 6px;
-    width: 65px;
+    gap: 0.45rem;
   }
 }
 
@@ -748,65 +629,29 @@
   }
   
   .subTitle {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     margin-bottom: 0.75rem;
   }
 
   .articleContainer {
-    gap: 0.5rem;
-  }
-  
-  .articleContainer :global(article),
-  .skillArticle {
-    padding: 0.4rem;
-    gap: 0.3rem;
-  }
-
-  .skillContent {
     gap: 0.4rem;
   }
-  
-  .articleContainer :global(article h3),
-  .skillContent h3 {
-    font-size: 0.65rem;
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-  }
-  
-  .articleContainer :global(article p) {
-    font-size: 0.6rem;
+
+  .skillChip {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.72rem;
+    gap: 0.35rem;
   }
   
   .icon {
-    height: 1rem;
-    width: 1rem;
+    height: 0.9rem;
+    width: 0.9rem;
     flex-shrink: 0;
   }
   
   .dot {
     width: 8px;
     height: 8px;
-  }
-
-  .progressContainer {
-    height: 5px;
-    width: 60px;
-    flex-shrink: 0;
-  }
-
-  /* Small mobile tooltip adjustments */
-  .skillArticle[data-tooltip]:hover::before {
-    max-width: 180px;
-    min-width: 140px;
-    font-size: 0.7rem;
-    padding: 0.35rem 0.5rem;
-  }
-}
-
-/* Keep enlarged text readable inside fixed-width carousel slots. */
-@container (max-width: 10em) {
-  .articleContainer {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 
