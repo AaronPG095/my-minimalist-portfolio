@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useCounterAnimation } from '@/hooks/useCounterAnimation';
 import VerticalTimeline from './VerticalTimeline';
 import styles from './About.module.css';
 
@@ -81,21 +80,6 @@ export default function About() {
   const frontendYears = calculateYears(frontendStartDate);
   const backendYears = calculateYears(backendStartDate);
 
-  // Counter animations for experience numbers
-  const frontendCounter = useCounterAnimation(frontendYears, {
-    duration: 2000,
-    delay: 200,
-    easing: 'easeOut',
-    start: hasExperienceIntersected,
-  });
-
-  const backendCounter = useCounterAnimation(backendYears, {
-    duration: 2000,
-    delay: 400,
-    easing: 'easeOut',
-    start: hasExperienceIntersected,
-  });
-
   return (
     <section id="about" className={styles.about} aria-label={language === 'de' ? 'Über mich' : 'About section'}>
       <div className={styles.titleContainer}>
@@ -124,14 +108,14 @@ export default function About() {
             <p className={styles.counterText}>
               <span>{yearsData.category} </span>
               <span className={styles.counterNumber} aria-label={`${frontendYears} ${yearsData.timeUnit} ${yearsData.category}`}>
-                {Math.round(frontendCounter.value)}
+                {frontendYears}
               </span>
               <span> {yearsData.timeUnit}</span>
             </p>
             <p className={styles.counterText}>
               <span>{monthsData.category} </span>
               <span className={styles.counterNumber} aria-label={`${backendYears} ${monthsData.timeUnit} ${monthsData.category}`}>
-                {Math.round(backendCounter.value)}
+                {backendYears}
               </span>
               <span> {monthsData.timeUnit}</span>
             </p>
@@ -153,7 +137,7 @@ export default function About() {
             <h3>{t('about.education')}</h3>
             <p>
               <a
-                href="https://start.digitalcareerinstitute.org/web-developer-weiterbildung/?utm_feeditemid=&utm_device=c&utm_campaign_id=23197762765&utm_adgroup_id=190164558840&utm_ad_id=781039568826&utm_asset_set_id=190164558840&utm_asset_id=781039568826&utm_term=dci%20web%20development&utm_source=google&utm_medium=ppc&utm_campaign=DE_SEM_Generic_overall&utm_content=190164558840&hsa_cam=23197762765&hsa_mt=p&hsa_src=g&hsa_acc=9628643656&hsa_net=adwords&hsa_kw=dci%20web%20development&hsa_tgt=kwd-1027333770361&hsa_ver=3&hsa_grp=190164558840&hsa_ad=781039568826&gad_source=1&gad_campaignid=23197762765&gbraid=0AAAAAC_FL9G14YQARMG2h8iF7jTnyug0E&gclid=CjwKCAiA55rJBhByEiwAFkY1QC-TDKIiANMVNKhvTQa1x1OXbHk8mSrMpjli4Y2NlxEHloOqbRD3OxoCljkQAvD_BwE"
+                href="https://digitalcareerinstitute.org/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={language === 'de' ? 'Website des DCI-Bootcamps öffnen' : 'Visit DCI Bootcamp website'}

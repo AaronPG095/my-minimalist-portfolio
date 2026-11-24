@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import SkillsCarousel from './SkillsCarousel';
-import SkillProgress from './SkillProgress';
 import SkillIcon from './SkillIcon';
 import styles from './Skills.module.css';
 import type { Skill } from '@/types';
@@ -29,9 +28,11 @@ import {
   SiDocker,
   SiDotnet,
   SiPostgresql,
+  SiSqlite,
   SiSupabase,
   SiVitest,
   SiGithub,
+  SiGithubactions,
   SiClaude,
   SiOpenai,
   SiSharp,
@@ -40,216 +41,240 @@ import { FaCode, FaProjectDiagram } from 'react-icons/fa';
 import { TbBrandVisualStudio, TbBrandWindows, TbPlugConnected } from 'react-icons/tb';
 
 const frontendSkills: Skill[] = [
-  { name: 'HTML', level: 'experienced' },
-  { name: 'CSS', level: 'experienced' },
-  { name: 'JavaScript', level: 'experienced' },
-  { name: 'SASS', level: 'intermediate' },
-  { name: 'React.js', level: 'experienced' },
-  { name: 'Tailwind', level: 'intermediate' },
-  { name: 'Framer', level: 'basic' },
-  { name: 'TypeScript', level: 'intermediate' },
-  { name: 'Next.js', level: 'intermediate' },
+  { name: 'HTML' },
+  { name: 'CSS' },
+  { name: 'JavaScript' },
+  { name: 'TypeScript' },
+  { name: 'React.js' },
+  { name: 'Next.js' },
+  { name: 'Tailwind' },
+  { name: 'SASS' },
+  { name: 'Framer' },
 ];
 
 const backendSkills: Skill[] = [
-  { name: 'MongoDB', level: 'basic' },
-  { name: 'Node.js', level: 'basic' },
-  { name: 'Express.js', level: 'basic' },
-  { name: 'PHP', level: 'basic' },
-  { name: 'Laravel', level: 'basic' },
-  { name: 'MySQL', level: 'basic' },
-  { name: 'APIs', level: 'intermediate' },
-  { name: 'PostgreSQL', level: 'basic' },
-  { name: 'Supabase', level: 'intermediate' },
+  { name: 'Node.js' },
+  { name: 'Express.js' },
+  { name: 'PostgreSQL' },
+  { name: 'SQLite' },
+  { name: 'Supabase' },
+  { name: 'MySQL' },
+  { name: 'MongoDB' },
+  { name: 'APIs' },
+  { name: 'PHP' },
+  { name: 'Laravel' },
 ];
 
 const toolsSkills: Skill[] = [
-  { name: 'Cursor', level: 'experienced' },
-  { name: 'Codex', level: 'experienced' },
-  { name: 'Claude Code', level: 'experienced' },
-  { name: 'MCP', level: 'intermediate' },
-  { name: 'Prompt Engineering', level: 'intermediate' },
-  { name: 'SPRINT', level: 'experienced' },
-  { name: 'Project Management', level: 'intermediate' },
-  { name: 'Docker', level: 'basic' },
-  { name: 'Git', level: 'intermediate' },
-  { name: 'Visual Studio', level: 'basic' },
-  { name: 'WinUI 3', level: 'basic' },
-  { name: '.NET', level: 'basic' },
-  { name: 'C#', level: 'basic' },
-  { name: 'Vitest', level: 'basic' },
-  { name: 'GitHub', level: 'intermediate' },
+  { name: 'C#' },
+  { name: '.NET 10' },
+  { name: 'WPF' },
+  { name: 'WinUI 3' },
+  { name: 'Visual Studio' },
+  { name: 'Git' },
+  { name: 'GitHub' },
+  { name: 'GitHub Actions' },
+  { name: 'Docker' },
+  { name: 'Vitest' },
+  { name: 'MCP' },
+  { name: 'Claude Code' },
+  { name: 'Codex' },
+  { name: 'Cursor' },
+  { name: 'Prompt Engineering' },
+  { name: 'SPRINT' },
+  { name: 'Project Management' },
 ];
 
-// Icon mapping for skills - react-icons components
 const skillIconMap: Record<string, IconType> = {
-  // Frontend
-  'HTML': SiHtml5,
-  'CSS': SiCss3,
-  'JavaScript': SiJavascript,
-  'SASS': SiSass,
+  HTML: SiHtml5,
+  CSS: SiCss3,
+  JavaScript: SiJavascript,
+  SASS: SiSass,
   'React.js': SiReact,
-  'Tailwind': SiTailwindcss,
-  'Framer': SiFramer,
-  'TypeScript': SiTypescript,
+  Tailwind: SiTailwindcss,
+  Framer: SiFramer,
+  TypeScript: SiTypescript,
   'Next.js': SiNextdotjs,
-  'PHP': SiPhp,
-  'Laravel': SiLaravel,
-  // Backend
-  'MongoDB': SiMongodb,
+  PHP: SiPhp,
+  Laravel: SiLaravel,
+  MongoDB: SiMongodb,
   'Node.js': SiNodedotjs,
   'Express.js': SiExpress,
-  'Git': SiGit,
-  'MySQL': SiMysql,
-  'APIs': FaCode,
-  'PostgreSQL': SiPostgresql,
-  'Supabase': SiSupabase,
-  // Tools
-  'Docker': SiDocker,
-  'MCP': TbPlugConnected,
+  Git: SiGit,
+  MySQL: SiMysql,
+  APIs: FaCode,
+  PostgreSQL: SiPostgresql,
+  SQLite: SiSqlite,
+  Supabase: SiSupabase,
+  Docker: SiDocker,
+  MCP: TbPlugConnected,
   'Prompt Engineering': FaCode,
-  'SPRINT': FaProjectDiagram,
+  SPRINT: FaProjectDiagram,
   'Project Management': FaProjectDiagram,
   'Visual Studio': TbBrandVisualStudio,
+  WPF: TbBrandWindows,
   'WinUI 3': TbBrandWindows,
-  '.NET': SiDotnet,
+  '.NET 10': SiDotnet,
   'C#': SiSharp,
-  'Vitest': SiVitest,
-  'GitHub': SiGithub,
+  Vitest: SiVitest,
+  GitHub: SiGithub,
+  'GitHub Actions': SiGithubactions,
   'Claude Code': SiClaude,
-  'Codex': SiOpenai,
+  Codex: SiOpenai,
 };
 
-// Custom inline SVG icon keys for skills without react-icons
 const skillCustomIconMap: Record<string, string> = {
-  'Cursor': 'cursor',
+  Cursor: 'cursor',
 };
 
-// Dark mode colors for custom SVG icons
 const skillDarkColorMap: Record<string, string> = {
-  'Cursor': '#FFFFFF',
+  Cursor: '#FFFFFF',
 };
 
-// Color mapping for skill icons
 const skillColorMap: Record<string, string> = {
-  // Frontend
-  'HTML': '#E34F26',
-  'CSS': '#1572B6',
-  'Javascript': '#F7DF1E',
-  'JavaScript': '#F7DF1E',
-  'SASS': '#CC6699',
+  HTML: '#E34F26',
+  CSS: '#1572B6',
+  JavaScript: '#F7DF1E',
+  SASS: '#CC6699',
   'React.js': '#61DAFB',
-  'Tailwind': '#38BDF8',
-  'Framer': '#E11D48',
-  'Typescript': '#3178C6',
-  'TypeScript': '#3178C6',
+  Tailwind: '#38BDF8',
+  Framer: '#E11D48',
+  TypeScript: '#3178C6',
   'Next.js': '#000000',
-  'PHP': '#777BB4',
-  'Laravel': '#FF2D20',
-  // Backend
-  'MongoDB': '#47A248',
+  PHP: '#777BB4',
+  Laravel: '#FF2D20',
+  MongoDB: '#47A248',
   'Node.js': '#339933',
   'Express.js': '#000000',
-  'Git': '#F05032',
-  'MySQL': '#00758F',
-  'APIs': '#6366F1',
-  'PostgreSQL': '#4169E1',
-  'Supabase': '#3ECF8E',
-  // Tools / Other
-  'Docker': '#0DB7ED',
-  'Cursor': '#000000',
-  'MCP': '#22C55E',
+  Git: '#F05032',
+  MySQL: '#00758F',
+  APIs: '#6366F1',
+  PostgreSQL: '#4169E1',
+  SQLite: '#003B57',
+  Supabase: '#3ECF8E',
+  Docker: '#0DB7ED',
+  Cursor: '#000000',
+  MCP: '#22C55E',
   'Prompt Engineering': '#A855F7',
-  'SPRINT': '#EC4899',
+  SPRINT: '#EC4899',
   'Project Management': '#F97316',
   'Visual Studio': '#5C2D91',
+  WPF: '#0078D4',
   'WinUI 3': '#0078D4',
-  '.NET': '#512BD4',
+  '.NET 10': '#512BD4',
   'C#': '#512BD4',
-  'Vitest': '#6E9F18',
-  'GitHub': '#181717',
+  Vitest: '#6E9F18',
+  GitHub: '#181717',
+  'GitHub Actions': '#2088FF',
   'Claude Code': '#D97757',
-  'Codex': '#10A37F',
+  Codex: '#10A37F',
 };
 
-// Helper to get icon component for a skill (or undefined if using custom SVG)
 function getSkillIconComponent(skillName: string): IconType | undefined {
   if (skillName in skillIconMap) return skillIconMap[skillName];
   if (skillName in skillCustomIconMap) return undefined;
   return FaCode;
 }
 
-// Helper to get custom icon key for a skill
 function getSkillCustomIcon(skillName: string): string | undefined {
   return skillCustomIconMap[skillName];
 }
 
-// Helper function to get color for a skill icon
 function getSkillColor(skillName: string): string {
   return skillColorMap[skillName] || 'var(--color-accent, #6366f1)';
 }
 
-// Helper function to get dark mode color for CDN icons
 function getSkillDarkColor(skillName: string): string | undefined {
   return skillDarkColorMap[skillName];
+}
+
+interface TooltipState {
+  skillName: string;
+  text: string;
+  x: number;
+  y: number;
+  pinned: boolean;
 }
 
 interface SkillCardProps {
   title: string;
   skills: Skill[];
-  onTooltipShow?: (text: string, x: number, y: number) => void;
-  onTooltipHide?: () => void;
+  activeSkillName: string | null;
+  onTooltipShow: (skillName: string, text: string, x: number, y: number, pinned: boolean) => void;
+  onTooltipHide: (force?: boolean) => void;
 }
 
-function SkillCard({ title, skills, onTooltipShow, onTooltipHide }: SkillCardProps) {
-  const { t, translations, language } = useLanguage();
-  const articleRefs = useRef<Map<number, HTMLElement>>(new Map());
+function SkillCard({
+  title,
+  skills,
+  activeSkillName,
+  onTooltipShow,
+  onTooltipHide,
+}: SkillCardProps) {
+  const { translations, language } = useLanguage();
+  const chipRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
-  const handleShowTooltip = (index: number, tooltipText: string) => {
-    if (!tooltipText || !onTooltipShow) return;
-    const element = articleRefs.current.get(index);
-    if (element) {
-      const rect = element.getBoundingClientRect();
-      // Position the tooltip above the skill, slightly offset so it doesn't cover the label.
-      // For the left column, shift it 50% to the right within the card; otherwise, center it.
-      const isLeftColumn = index % 2 === 0;
-      const tooltipX = isLeftColumn ? rect.left + rect.width * 0.5 : rect.left + rect.width / 2;
-      const tooltipY = rect.top - 16; // offset upwards so it clears the h3 text
-      onTooltipShow(tooltipText, tooltipX, tooltipY);
-    }
+  const getTooltipPosition = (skillName: string) => {
+    const element = chipRefs.current.get(skillName);
+    if (!element) return null;
+    const rect = element.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top - 10,
+    };
   };
 
-  const handleMouseLeave = () => {
-    if (onTooltipHide) onTooltipHide();
-  };
-  
+  const currentLangTranslations = translations?.[language];
+  const descriptions = (currentLangTranslations as Record<string, any>)?.skills?.descriptions as
+    | Record<string, string>
+    | undefined;
+
   return (
     <div className={styles.skillCard}>
       <h2 className={styles.subTitle}>{title}</h2>
       <div className={styles.articleContainer}>
-        {skills.map((skill, index) => {
+        {skills.map((skill) => {
           const iconComponent = getSkillIconComponent(skill.name);
           const customIcon = getSkillCustomIcon(skill.name);
           const fallbackComponent = !iconComponent && !customIcon ? FaCode : undefined;
-          // Access descriptions directly to handle keys with dots (e.g., "React.js")
-          const currentLangTranslations = translations?.[language];
-          const descriptions = (currentLangTranslations as any)?.skills?.descriptions;
-          const tooltipText = descriptions && typeof descriptions === 'object' && skill.name in descriptions
-            ? (descriptions as Record<string, string>)[skill.name]
-            : '';
+          const tooltipText =
+            descriptions && typeof descriptions === 'object' && skill.name in descriptions
+              ? descriptions[skill.name]
+              : '';
+          const isActive = activeSkillName === skill.name;
+
           return (
-            <article 
-              key={index} 
+            <button
+              key={skill.name}
+              type="button"
               ref={(el) => {
-                if (el) articleRefs.current.set(index, el);
-                else articleRefs.current.delete(index);
+                if (el) chipRefs.current.set(skill.name, el);
+                else chipRefs.current.delete(skill.name);
               }}
-              className={styles.skillArticle}
-              tabIndex={0}
-              onMouseEnter={() => handleShowTooltip(index, tooltipText)}
-              onMouseLeave={handleMouseLeave}
-              onFocus={() => handleShowTooltip(index, tooltipText)}
-              onBlur={handleMouseLeave}
+              className={`${styles.skillChip} ${isActive ? styles.skillChipActive : ''}`}
+              aria-pressed={isActive}
+              onMouseEnter={() => {
+                if (!tooltipText) return;
+                const pos = getTooltipPosition(skill.name);
+                if (pos) onTooltipShow(skill.name, tooltipText, pos.x, pos.y, false);
+              }}
+              onMouseLeave={() => onTooltipHide(false)}
+              onFocus={() => {
+                if (!tooltipText) return;
+                const pos = getTooltipPosition(skill.name);
+                if (pos) onTooltipShow(skill.name, tooltipText, pos.x, pos.y, false);
+              }}
+              onBlur={() => onTooltipHide(false)}
+              onClick={(event) => {
+                event.stopPropagation();
+                if (!tooltipText) return;
+                if (isActive) {
+                  onTooltipHide(true);
+                  return;
+                }
+                const pos = getTooltipPosition(skill.name);
+                if (pos) onTooltipShow(skill.name, tooltipText, pos.x, pos.y, true);
+              }}
             >
               <SkillIcon
                 skillName={skill.name}
@@ -258,11 +283,8 @@ function SkillCard({ title, skills, onTooltipShow, onTooltipHide }: SkillCardPro
                 color={getSkillColor(skill.name)}
                 darkColor={getSkillDarkColor(skill.name)}
               />
-              <div className={styles.skillContent}>
-                <h3>{skill.name}</h3>
-                <SkillProgress level={skill.level} skillName={skill.name} />
-              </div>
-            </article>
+              <span className={styles.skillName}>{skill.name}</span>
+            </button>
           );
         })}
       </div>
@@ -272,55 +294,144 @@ function SkillCard({ title, skills, onTooltipShow, onTooltipHide }: SkillCardPro
 
 export default function Skills() {
   const { language, t } = useLanguage();
-  const [hoveredTooltip, setHoveredTooltip] = useState<{ text: string; x: number; y: number } | null>(null);
+  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleTooltipShow = (text: string, x: number, y: number) => {
-    setHoveredTooltip({ text, x, y });
-  };
+  const handleTooltipShow = useCallback(
+    (skillName: string, text: string, x: number, y: number, pinned: boolean) => {
+      setTooltip((prev) => {
+        if (!pinned && prev?.pinned && prev.skillName !== skillName) {
+          return prev;
+        }
+        return { skillName, text, x, y, pinned };
+      });
+    },
+    []
+  );
 
-  const handleTooltipHide = () => {
-    setHoveredTooltip(null);
-  };
+  const handleTooltipHide = useCallback((force = false) => {
+    setTooltip((prev) => {
+      if (!prev) return null;
+      if (prev.pinned && !force) return prev;
+      return null;
+    });
+  }, []);
 
-  const frontendCard = <SkillCard title={t('skills.frontend')} skills={frontendSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />;
-  const backendCard = <SkillCard title={t('skills.backend')} skills={backendSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />;
-  const toolsCard = <SkillCard title={t('skills.tools')} skills={toolsSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />;
+  useEffect(() => {
+    if (!tooltip) return;
+    const dismiss = () => setTooltip(null);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') dismiss();
+    };
+    window.addEventListener('click', dismiss);
+    window.addEventListener('scroll', dismiss, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('click', dismiss);
+      window.removeEventListener('scroll', dismiss);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [tooltip]);
 
-  const tooltipElement = hoveredTooltip && mounted ? (
-    <div
-      className={styles.fixedTooltip}
-      style={{
-        left: `${hoveredTooltip.x}px`,
-        top: `${hoveredTooltip.y}px`,
-        transform: hoveredTooltip.x < 300 ? 'translate(0, -100%)' : 'translate(-50%, -100%)',
-      }}
-    >
-      {hoveredTooltip.text}
-      <div 
-        className={styles.fixedTooltipArrow}
+  const activeSkillName = tooltip?.skillName ?? null;
+
+  const frontendCard = (
+    <SkillCard
+      title={t('skills.frontend')}
+      skills={frontendSkills}
+      activeSkillName={activeSkillName}
+      onTooltipShow={handleTooltipShow}
+      onTooltipHide={handleTooltipHide}
+    />
+  );
+  const backendCard = (
+    <SkillCard
+      title={t('skills.backend')}
+      skills={backendSkills}
+      activeSkillName={activeSkillName}
+      onTooltipShow={handleTooltipShow}
+      onTooltipHide={handleTooltipHide}
+    />
+  );
+  const toolsCard = (
+    <SkillCard
+      title={t('skills.tools')}
+      skills={toolsSkills}
+      activeSkillName={activeSkillName}
+      onTooltipShow={handleTooltipShow}
+      onTooltipHide={handleTooltipHide}
+    />
+  );
+
+  const tooltipPosition = (() => {
+    if (!tooltip || !mounted) return null;
+    const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const halfTooltip = 148;
+    const minCenter = Math.min(halfTooltip, viewportWidth / 2);
+    const maxCenter = Math.max(minCenter, viewportWidth - halfTooltip);
+    const clampedX = Math.min(Math.max(tooltip.x, minCenter), maxCenter);
+    const arrowOffsetPx = tooltip.x - clampedX;
+    return { clampedX, arrowOffsetPx };
+  })();
+
+  const tooltipElement =
+    tooltip && tooltipPosition && mounted ? (
+      <div
+        className={styles.fixedTooltip}
+        role="tooltip"
         style={{
-          left: hoveredTooltip.x < 300 ? '1rem' : '50%',
-          transform: hoveredTooltip.x < 300 ? 'translateX(0)' : 'translateX(-50%)',
+          left: `${tooltipPosition.clampedX}px`,
+          top: `${tooltip.y}px`,
+          transform: 'translate(-50%, -100%)',
         }}
-      />
-    </div>
-  ) : null;
+      >
+        {tooltip.text}
+        <div
+          className={styles.fixedTooltipArrow}
+          style={{
+            left: `calc(50% + ${tooltipPosition.arrowOffsetPx}px)`,
+            transform: 'translateX(-50%)',
+          }}
+        />
+      </div>
+    ) : null;
 
   return (
     <>
-      <section id="skills" className={styles.skills} aria-label={language === 'de' ? 'Fähigkeiten' : 'Skills section'}>
+      <section
+        id="skills"
+        className={styles.skills}
+        aria-label={language === 'de' ? 'Fähigkeiten' : 'Skills section'}
+      >
         <p className={styles.subtitle}>{t('skills.subtitle')}</p>
         <h1 className={styles.title}>{t('skills.title')}</h1>
         <div className={styles.detailsContainer}>
           <div className={styles.desktopView}>
-            <SkillCard title={t('skills.frontend')} skills={frontendSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />
-            <SkillCard title={t('skills.backend')} skills={backendSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />
-            <SkillCard title={t('skills.tools')} skills={toolsSkills} onTooltipShow={handleTooltipShow} onTooltipHide={handleTooltipHide} />
+            <SkillCard
+              title={t('skills.frontend')}
+              skills={frontendSkills}
+              activeSkillName={activeSkillName}
+              onTooltipShow={handleTooltipShow}
+              onTooltipHide={handleTooltipHide}
+            />
+            <SkillCard
+              title={t('skills.backend')}
+              skills={backendSkills}
+              activeSkillName={activeSkillName}
+              onTooltipShow={handleTooltipShow}
+              onTooltipHide={handleTooltipHide}
+            />
+            <SkillCard
+              title={t('skills.tools')}
+              skills={toolsSkills}
+              activeSkillName={activeSkillName}
+              onTooltipShow={handleTooltipShow}
+              onTooltipHide={handleTooltipHide}
+            />
           </div>
           <div className={styles.mobileView}>
             <SkillsCarousel dots={[0, 1, 2]}>
