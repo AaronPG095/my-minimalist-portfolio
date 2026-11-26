@@ -37,7 +37,7 @@ import {
   SiOpenai,
   SiSharp,
 } from 'react-icons/si';
-import { FaCode, FaProjectDiagram } from 'react-icons/fa';
+import { FaCode, FaProjectDiagram, FaRocket, FaSitemap } from 'react-icons/fa';
 import { TbBrandVisualStudio, TbBrandWindows, TbPlugConnected } from 'react-icons/tb';
 
 const frontendSkills: Skill[] = [
@@ -80,9 +80,11 @@ const toolsSkills: Skill[] = [
   { name: 'Claude Code' },
   { name: 'Codex' },
   { name: 'Cursor' },
+  { name: 'Antigravity' },
   { name: 'Prompt Engineering' },
   { name: 'SPRINT' },
   { name: 'Project Management' },
+  { name: 'Systems Thinking' },
 ];
 
 const skillIconMap: Record<string, IconType> = {
@@ -121,6 +123,8 @@ const skillIconMap: Record<string, IconType> = {
   'GitHub Actions': SiGithubactions,
   'Claude Code': SiClaude,
   Codex: SiOpenai,
+  Antigravity: FaRocket,
+  'Systems Thinking': FaSitemap,
 };
 
 const skillCustomIconMap: Record<string, string> = {
@@ -168,6 +172,8 @@ const skillColorMap: Record<string, string> = {
   'GitHub Actions': '#2088FF',
   'Claude Code': '#D97757',
   Codex: '#10A37F',
+  Antigravity: '#4285F4',
+  'Systems Thinking': '#0EA5E9',
 };
 
 function getSkillIconComponent(skillName: string): IconType | undefined {
