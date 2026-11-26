@@ -155,7 +155,9 @@
         "Vitest": "A test framework used for automated unit and component testing in TypeScript and JavaScript applications.",
         "GitHub": "A platform used for Git repositories, issues, pull requests and collaborative development workflows.",
         "Claude Code": "An agentic development tool used for implementation, testing, refactoring and documentation workflows.",
-        "Codex": "An agentic development tool used for implementation, testing, refactoring and documentation workflows."
+        "Codex": "An agentic development tool used for implementation, testing, refactoring and documentation workflows.",
+        "Antigravity": "Google's agentic IDE and multi-agent development environment used for planning, implementation, verification, and MCP-integrated workflows.",
+        "Systems Thinking": "Designing software, workflows, and architectures as interconnected systems—focusing on reliability, feedback loops, failure modes, and maintainability."
       }
     },
     "projects": {
@@ -404,7 +406,9 @@
         "Vitest": "Ein Test-Framework für automatisierte Unit- und Komponententests in TypeScript- und JavaScript-Anwendungen.",
         "GitHub": "Eine Plattform für Git-Repositories, Issues, Pull Requests und kollaborative Entwicklungsabläufe.",
         "Claude Code": "Ein agentisches Entwicklungswerkzeug für Implementierung, Tests, Refactoring und Dokumentationsabläufe.",
-        "Codex": "Ein agentisches Entwicklungswerkzeug für Implementierung, Tests, Refactoring und Dokumentationsabläufe."
+        "Codex": "Ein agentisches Entwicklungswerkzeug für Implementierung, Tests, Refactoring und Dokumentationsabläufe.",
+        "Antigravity": "Googles agentische IDE und Multi-Agent-Entwicklungsumgebung für Planung, Implementierung, Verifikation und MCP-integrierte Workflows.",
+        "Systems Thinking": "Entwurf von Software, Workflows und Architekturen als vernetzte Systeme – mit Fokus auf Zuverlässigkeit, Feedback-Schleifen, Fehlerbilder und Wartbarkeit."
       }
     },
     "projects": {
