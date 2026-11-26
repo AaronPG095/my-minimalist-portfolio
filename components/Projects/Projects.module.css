@@ -1,7 +1,8 @@
 .projects {
   position: relative;
   padding-top: 4vh;
-  height: 96vh;
+  padding-bottom: 4rem;
+  height: auto;
   margin: 0 10rem;
   min-height: fit-content;
   scroll-margin-top: 17vh;
@@ -38,6 +39,106 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.categoryTabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 auto 2rem;
+}
+
+.categoryTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-light-grey);
+  background: var(--color-bg-light);
+  color: var(--color-medium-grey);
+  font-family: var(--font-family);
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease),
+              border-color var(--transition-speed) var(--transition-ease),
+              transform 0.15s ease;
+}
+
+.categoryTab:hover {
+  color: var(--text-color);
+  border-color: var(--color-medium-grey);
+  transform: translateY(-1px);
+}
+
+.categoryTab:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 3px;
+}
+
+.categoryTabActive {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.categoryTabActive:hover {
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+:global([data-theme="dark"]) .categoryTabActive {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+:global([data-theme="dark"]) .categoryTabActive:hover {
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.categoryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+}
+
+:global([data-theme="dark"]) .categoryCount {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.categoryTabActive .categoryCount {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+:global([data-theme="dark"]) .categoryTabActive .categoryCount {
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.desktopProjectsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 1rem auto 0;
+  align-items: stretch;
+}
+
+.mobileProjectsCarousel {
+  display: none;
 }
 
 .carouselShell {
@@ -492,9 +593,25 @@
   .projects {
     margin: 0;
   }
+
+  .desktopProjectsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
   
   .projectsContainer {
     justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .desktopProjectsGrid {
+    display: none;
+  }
+
+  .mobileProjectsCarousel {
+    display: block;
   }
 }
 

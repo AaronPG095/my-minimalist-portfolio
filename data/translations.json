@@ -196,6 +196,33 @@
         "description": "A native Windows system-tray timer built with C#, WPF, and .NET 10 featuring a floating always-on-top widget, configurable Pomodoro sets, xUnit test coverage, and SHA-256 verified self-updates.",
         "cardSummary": "Native Windows tray timer with floating widget, Pomodoro sets, xUnit tests, and SHA-256 self-updates."
       },
+      "contextGatekeeper": {
+        "title": "Context-Gatekeeper-MCP",
+        "description": "A local-first MCP server and CLI proxy that compresses verbose build, test, and diff outputs into a SQLite FTS5 index while providing AST symbol navigation (repo_map, symbol_outline, read_symbol, find_references) to keep coding-agent context lean.",
+        "cardSummary": "Local-first MCP server & CLI proxy compressing verbose tool outputs into SQLite FTS5 with AST symbol navigation."
+      },
+      "durableWorkflowEngine": {
+        "title": "Durable-Workflow-Engine",
+        "description": "A PostgreSQL-backed durable distributed task queue and checkpointed workflow engine written in Go, supporting idempotent task enqueuing, lease-based worker pools, retries, and crash-safe state recovery.",
+        "cardSummary": "PostgreSQL-backed durable distributed task queue and checkpointed workflow engine in Go."
+      },
+      "localLlmRouterProxy": {
+        "title": "Local-LLM-Router-Proxy",
+        "description": "A standalone, local-first Smart Model Router and Semantic Cache Proxy written in Go that intercepts OpenAI-compatible requests, serves semantic cache hits with zero token cost, and routes misses across fast or reasoning model tiers.",
+        "cardSummary": "Standalone, local-first Smart Model Router & Semantic Cache Proxy in Go."
+      },
+      "mcpAudit": {
+        "title": "mcp-audit",
+        "description": "A fast, read-only, zero-dependency MCP Security and Permission Auditor CLI in TypeScript that scans MCP server configurations for broad permission scopes, unpinned secrets, and prompt/command injection risks.",
+        "cardSummary": "Fast, read-only, zero-dependency MCP Security & Permission Auditor CLI."
+      },
+      "categories": {
+        "filterLabel": "Filter projects by category",
+        "featured": "Featured",
+        "aiSystems": "AI & Systems",
+        "windows": "Windows Apps",
+        "web": "Web"
+      },
       "viewDetails": "View details",
       "github": "GitHub",
       "liveDemo": "Live Demo",
@@ -417,6 +444,33 @@
         "title": "FluentTimer",
         "description": "Ein nativer Windows-Tray-Timer mit C#, WPF und .NET 10 – inklusive schwebendem Widget, konfigurierbaren Pomodoro-Sets, xUnit-Tests und SHA-256-geprüften Selbst-Updates.",
         "cardSummary": "Nativer Windows-Tray-Timer mit schwebendem Widget, Pomodoro-Sets, xUnit-Tests und SHA-256-Updates."
+      },
+      "contextGatekeeper": {
+        "title": "Context-Gatekeeper-MCP",
+        "description": "Ein Local-First-MCP-Server und CLI-Proxy, der lange Build-, Test- und Diff-Ausgaben in einen SQLite-FTS5-Index komprimiert und AST-Symbolnavigation (repo_map, symbol_outline, read_symbol, find_references) für schlanken Agent-Kontext bereitstellt.",
+        "cardSummary": "Local-First-MCP-Server & CLI-Proxy mit SQLite-FTS5-Komprimierung und AST-Symbolnavigation."
+      },
+      "durableWorkflowEngine": {
+        "title": "Durable-Workflow-Engine",
+        "description": "Eine PostgreSQL-gestützte, fehlertolerante verteilte Task-Queue und Workflow-Engine mit Checkpoints in Go – inklusive idempotenter Aufgabenplanung, Lease-basierten Worker-Pools, Retries und absturzsicherer Zustandswiederherstellung.",
+        "cardSummary": "PostgreSQL-gestützte verteilte Task-Queue und Workflow-Engine mit Checkpoints in Go."
+      },
+      "localLlmRouterProxy": {
+        "title": "Local-LLM-Router-Proxy",
+        "description": "Ein eigenständiger, Local-First Smart Model Router und Semantic Cache Proxy in Go für OpenAI-kompatible Anfragen: Cache-Treffer werden sofort ohne Token-Kosten bedient, Cache-Misses gezielt an Fast- oder Reasoning-Modelle geroutet.",
+        "cardSummary": "Eigenständiger Local-First Smart Model Router & Semantic Cache Proxy in Go."
+      },
+      "mcpAudit": {
+        "title": "mcp-audit",
+        "description": "Ein schnelles, schreibgeschütztes und abhängigkeitsfreies MCP-Sicherheits- und Berechtigungs-Audit-CLI in TypeScript, das MCP-Konfigurationen auf überbreite Berechtigungen, ungeschützte Secrets und Injection-Risiken prüft.",
+        "cardSummary": "Schnelles, schreibgeschütztes, abhängigkeitsfreies MCP Security & Permission Auditor CLI."
+      },
+      "categories": {
+        "filterLabel": "Projekte nach Kategorie filtern",
+        "featured": "Ausgewählt",
+        "aiSystems": "KI & Systeme",
+        "windows": "Windows-Apps",
+        "web": "Web"
       },
       "viewDetails": "Details ansehen",
       "github": "GitHub",

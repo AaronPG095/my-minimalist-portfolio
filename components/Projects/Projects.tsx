@@ -1,17 +1,19 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import { useLanguage } from '@/hooks/useLanguage';
 import ProjectsCarousel from './ProjectsCarousel';
 import ProjectModal from '../ProjectModal/ProjectModal';
 import styles from './Projects.module.css';
-import type { Project } from '@/types';
+import type { Project, ProjectFilter } from '@/types';
 import { getTechColor, getTechIcon } from '@/data/technology-icons';
 
 const projects: Project[] = [
   {
     id: 7,
+    category: 'windows',
+    featured: true,
     image: '/assets/fluentoverlay-project.png',
     titleKey: 'projects.fluentOverlay.title',
     icon: '/assets/fluentoverlay-brand-icon.svg',
@@ -33,7 +35,42 @@ const projects: Project[] = [
     ],
   },
   {
+    id: 11,
+    category: 'ai-systems',
+    featured: true,
+    image: '/assets/context-gatekeeper-project.svg',
+    titleKey: 'projects.contextGatekeeper.title',
+    descriptionKey: 'projects.contextGatekeeper.description',
+    cardSummaryKey: 'projects.contextGatekeeper.cardSummary',
+    github: 'https://github.com/AaronPG095/Context-Gatekeeper-MCP',
+    technologies: ['TypeScript', 'Node.js', 'MCP', 'SQLite'],
+  },
+  {
+    id: 12,
+    category: 'ai-systems',
+    featured: true,
+    image: '/assets/durable-workflow-engine-project.svg',
+    titleKey: 'projects.durableWorkflowEngine.title',
+    descriptionKey: 'projects.durableWorkflowEngine.description',
+    cardSummaryKey: 'projects.durableWorkflowEngine.cardSummary',
+    github: 'https://github.com/AaronPG095/Durable-Workflow-Engine',
+    technologies: ['Go', 'PostgreSQL', 'Docker'],
+  },
+  {
+    id: 13,
+    category: 'ai-systems',
+    featured: true,
+    image: '/assets/local-llm-router-proxy-project.svg',
+    titleKey: 'projects.localLlmRouterProxy.title',
+    descriptionKey: 'projects.localLlmRouterProxy.description',
+    cardSummaryKey: 'projects.localLlmRouterProxy.cardSummary',
+    github: 'https://github.com/AaronPG095/Local-LLM-Router-Proxy',
+    technologies: ['Go', 'APIs'],
+  },
+  {
     id: 8,
+    category: 'ai-systems',
+    featured: true,
     image: '/assets/ai-dev-workflow-project.svg',
     titleKey: 'projects.aiDevWorkflow.title',
     descriptionKey: 'projects.aiDevWorkflow.description',
@@ -43,6 +80,8 @@ const projects: Project[] = [
   },
   {
     id: 9,
+    category: 'windows',
+    featured: true,
     image: '/assets/tokenhud.png',
     titleKey: 'projects.tokenHud.title',
     descriptionKey: 'projects.tokenHud.description',
@@ -51,7 +90,20 @@ const projects: Project[] = [
     technologies: ['C#', 'WPF', '.NET 10', 'SQLite', 'XAML'],
   },
   {
+    id: 14,
+    category: 'ai-systems',
+    featured: false,
+    image: '/assets/mcp-audit-project.svg',
+    titleKey: 'projects.mcpAudit.title',
+    descriptionKey: 'projects.mcpAudit.description',
+    cardSummaryKey: 'projects.mcpAudit.cardSummary',
+    github: 'https://github.com/AaronPG095/mcp-audit',
+    technologies: ['TypeScript', 'Node.js', 'MCP'],
+  },
+  {
     id: 6,
+    category: 'web',
+    featured: false,
     image: '/assets/fluent-studio-hero-en.webp',
     imageDe: '/assets/fluent-studio-hero-de.webp',
     titleKey: 'projects.fluentStudio.title',
@@ -77,6 +129,8 @@ const projects: Project[] = [
   },
   {
     id: 10,
+    category: 'windows',
+    featured: false,
     image: '/assets/fluenttimer-project.svg',
     titleKey: 'projects.fluentTimer.title',
     descriptionKey: 'projects.fluentTimer.description',
@@ -88,6 +142,8 @@ const projects: Project[] = [
   },
   {
     id: 5,
+    category: 'web',
+    featured: false,
     image: '/assets/Screenshot 2025-11-12 203334.png',
     titleKey: 'projects.project5.title',
     descriptionKey: 'projects.project5.description',
@@ -98,6 +154,8 @@ const projects: Project[] = [
   },
   {
     id: 1,
+    category: 'web',
+    featured: false,
     image: '/assets/Screenshot 2024-05-08 140820.png',
     titleKey: 'projects.project1.title',
     descriptionKey: 'projects.project1.description',
@@ -108,11 +166,37 @@ const projects: Project[] = [
   },
 ];
 
+const categoryFilters: { id: ProjectFilter; labelKey: string }[] = [
+  { id: 'featured', labelKey: 'projects.categories.featured' },
+  { id: 'ai-systems', labelKey: 'projects.categories.aiSystems' },
+  { id: 'windows', labelKey: 'projects.categories.windows' },
+  { id: 'web', labelKey: 'projects.categories.web' },
+];
+
 export default function Projects() {
   const { language, t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState<ProjectFilter>('featured');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalOpenerRef = useRef<HTMLButtonElement | null>(null);
+
+  const filterCounts = useMemo<Record<ProjectFilter, number>>(
+    () => ({
+      featured: projects.filter((p) => p.featured).length,
+      'ai-systems': projects.filter((p) => p.category === 'ai-systems').length,
+      windows: projects.filter((p) => p.category === 'windows').length,
+      web: projects.filter((p) => p.category === 'web').length,
+    }),
+    [],
+  );
+
+  const filteredProjects = useMemo(
+    () =>
+      activeFilter === 'featured'
+        ? projects.filter((project) => project.featured)
+        : projects.filter((project) => project.category === activeFilter),
+    [activeFilter],
+  );
 
   const handleProjectClick = (project: Project, opener: HTMLButtonElement) => {
     modalOpenerRef.current = opener;
@@ -126,13 +210,17 @@ export default function Projects() {
     requestAnimationFrame(() => modalOpenerRef.current?.focus());
   }, []);
 
-  const showAdjacentProject = useCallback((direction: -1 | 1) => {
-    setSelectedProject((current) => {
-      if (!current) return current;
-      const index = projects.findIndex((project) => project.id === current.id);
-      return projects[(index + direction + projects.length) % projects.length];
-    });
-  }, []);
+  const showAdjacentProject = useCallback(
+    (direction: -1 | 1) => {
+      setSelectedProject((current) => {
+        if (!current || filteredProjects.length === 0) return current;
+        const index = filteredProjects.findIndex((project) => project.id === current.id);
+        const safeIndex = index === -1 ? 0 : index;
+        return filteredProjects[(safeIndex + direction + filteredProjects.length) % filteredProjects.length];
+      });
+    },
+    [filteredProjects],
+  );
 
   const showPreviousProject = useCallback(() => showAdjacentProject(-1), [showAdjacentProject]);
   const showNextProject = useCallback(() => showAdjacentProject(1), [showAdjacentProject]);
@@ -140,11 +228,8 @@ export default function Projects() {
   const getProjectLink = (project: Project) =>
     language === 'de' && project.liveDemoDe ? project.liveDemoDe : project.liveDemo;
 
-  const projectCards = projects.map((project) => (
-    <article
-      key={project.id} 
-      className={styles.projectCard}
-    >
+  const projectCards = filteredProjects.map((project) => (
+    <article key={project.id} className={styles.projectCard}>
       <button
         type="button"
         data-project-card-action
@@ -155,16 +240,29 @@ export default function Projects() {
       <div className={styles.articleContainer}>
         <OptimizedImage
           src={language === 'de' && project.imageDe ? project.imageDe : project.image}
-          alt={language === 'de' ? `Screenshot des Projekts ${t(project.titleKey)}` : `${t(project.titleKey)} project screenshot`}
+          alt={
+            language === 'de'
+              ? `Screenshot des Projekts ${t(project.titleKey)}`
+              : `${t(project.titleKey)} project screenshot`
+          }
           className={styles.projectImg}
           width={500}
           height={400}
           quality={85}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
         />
       </div>
       <h2 className={styles.projectTitle}>
-        {project.icon && <OptimizedImage src={project.icon} alt="" className={styles.projectIcon} width={36} height={36} sizes="36px" />}
+        {project.icon && (
+          <OptimizedImage
+            src={project.icon}
+            alt=""
+            className={styles.projectIcon}
+            width={36}
+            height={36}
+            sizes="36px"
+          />
+        )}
         <span>{t(project.titleKey)}</span>
       </h2>
       <p className={styles.description}>{t(project.cardSummaryKey)}</p>
@@ -187,28 +285,32 @@ export default function Projects() {
       )}
       <div className={styles.btnContainer}>
         <div className={styles.externalLinks}>
-        {project.github && (
-          <a
-            className={`${styles.btn} ${styles.projectBtn}`}
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={language === 'de' ? `Projekt ${t(project.titleKey)} auf GitHub ansehen` : `View ${t(project.titleKey)} project on GitHub`}
-          >
-            {t('projects.github')}
-          </a>
-        )}
-        {getProjectLink(project) && (
-          <a
-            className={`${styles.btn} ${styles.projectBtn}`}
-            href={getProjectLink(project)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
-          >
-            {t(project.liveDemoLabelKey ?? 'projects.liveDemo')}
-          </a>
-        )}
+          {project.github && (
+            <a
+              className={`${styles.btn} ${styles.projectBtn}`}
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={
+                language === 'de'
+                  ? `Projekt ${t(project.titleKey)} auf GitHub ansehen`
+                  : `View ${t(project.titleKey)} project on GitHub`
+              }
+            >
+              {t('projects.github')}
+            </a>
+          )}
+          {getProjectLink(project) && (
+            <a
+              className={`${styles.btn} ${styles.projectBtn}`}
+              href={getProjectLink(project)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${t(project.liveDemoLabelKey ?? 'projects.liveDemo')}: ${t(project.titleKey)}`}
+            >
+              {t(project.liveDemoLabelKey ?? 'projects.liveDemo')}
+            </a>
+          )}
         </div>
       </div>
     </article>
@@ -216,11 +318,40 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className={styles.projects} aria-label={language === 'de' ? 'Projekte' : 'Projects section'}>
+      <section
+        id="projects"
+        className={styles.projects}
+        aria-label={language === 'de' ? 'Projekte' : 'Projects section'}
+      >
         <p className={styles.subtitle}>{t('projects.subtitle')}</p>
         <h1 className={styles.title}>{t('projects.title')}</h1>
+        <div
+          className={styles.categoryTabs}
+          role="tablist"
+          aria-label={t('projects.categories.filterLabel')}
+        >
+          {categoryFilters.map((filter) => {
+            const isActive = activeFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ''}`}
+                onClick={() => setActiveFilter(filter.id)}
+              >
+                <span>{t(filter.labelKey)}</span>
+                <span className={styles.categoryCount}>{filterCounts[filter.id]}</span>
+              </button>
+            );
+          })}
+        </div>
         <div className={styles.detailsContainer}>
-          <ProjectsCarousel>{projectCards}</ProjectsCarousel>
+          <div className={styles.desktopProjectsGrid}>{projectCards}</div>
+          <div className={styles.mobileProjectsCarousel}>
+            <ProjectsCarousel key={activeFilter}>{projectCards}</ProjectsCarousel>
+          </div>
         </div>
       </section>
       <ProjectModal
