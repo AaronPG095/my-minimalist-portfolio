@@ -1,6 +1,6 @@
 ---
 title: Plan - Process: Set up the shared AI development process
-ticket: https://app.notion.com/p/PW-Plan-Process-Set-up-the-shared-AI-development-process-40a0b9c6786f8138b928cb7a34cfda85
+ticket: (redacted)
 status: shipped
 agent: Codex
 branch: chore/dev-workflow
@@ -64,7 +64,7 @@ Product behavior changes, deployment, Notion schema changes, modification of exi
 
 - Aaron approved the shared setup guide: "Let's set up this process for the various repos that we're working in." Scope confirmation: "Please do it for the portfolio website Fluent Studio Automations. Fluent Studio Company" followed by the named repo list in chat.
 - FluentOverlay source: origin/chore/ai-dev-process at 5f763ff2869eb630f800a0cc2dcfed64c8903bbf; PR #27 was observed open.
-- Project: https://app.notion.com/p/1dc0b9c6786f80a084a6cda5d8ba0ff0. Ticket prefix: PW.
+- Project: (redacted) Ticket prefix: PW.
 - Existing checkouts are preserved; this PR uses an isolated worktree.
 - Setup bootstraps the CLI before creating its own ticket, as the setup guide specifies.
 - Close-out check, ci-check, PR publication and ship run after the implementation checklist is complete; their results are recorded in Notes and the Progress log. No checklist item requires its own future check result.

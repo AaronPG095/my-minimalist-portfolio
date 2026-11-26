@@ -1,6 +1,6 @@
 ---
 title: Plan - Content & UI: Portfolio Profile Cleanup (2026-11)
-ticket: https://app.notion.com/p/PW-Plan-Content-UI-Portfolio-Profile-Cleanup-2026-11-4220b9c6786f81948015fefb96aa4bb7
+ticket: (redacted)
 status: shipped
 agent: Gemini
 branch: feat/profile-cleanup-2026-11
