@@ -1,6 +1,6 @@
 ---
 title: Plan - Feature: Categorized Projects & 4 New AI/Systems Repos
-ticket: https://app.notion.com/p/PW-Plan-Feature-Categorized-Projects-4-New-AI-Systems-Repos-4240b9c6786f81bc9802cc0ade0278ac
+ticket: (redacted)
 status: shipped
 agent: Gemini
 branch: feat/projects-categories-2026-11
