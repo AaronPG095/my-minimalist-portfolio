@@ -79,6 +79,29 @@ export interface Translations {
       title: string;
       description: string;
     };
+    contextGatekeeper: {
+      title: string;
+      description: string;
+    };
+    durableWorkflowEngine: {
+      title: string;
+      description: string;
+    };
+    localLlmRouterProxy: {
+      title: string;
+      description: string;
+    };
+    mcpAudit: {
+      title: string;
+      description: string;
+    };
+    categories: {
+      filterLabel: string;
+      featured: string;
+      aiSystems: string;
+      windows: string;
+      web: string;
+    };
     github: string;
     liveDemo: string;
   };
@@ -108,9 +131,14 @@ export interface Skill {
   name: string;
 }
 
+export type ProjectCategory = 'ai-systems' | 'windows' | 'web';
+export type ProjectFilter = 'featured' | ProjectCategory;
+
 // Project interface
 export interface Project {
   id: number;
+  category: ProjectCategory;
+  featured?: boolean;
   image: string;
   imageDe?: string;
   titleKey: string;

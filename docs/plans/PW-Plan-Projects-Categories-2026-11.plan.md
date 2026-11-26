@@ -1,8 +1,10 @@
 ---
 title: Plan - Feature: Categorized Projects & 4 New AI/Systems Repos
 ticket: https://app.notion.com/p/PW-Plan-Feature-Categorized-Projects-4-New-AI-Systems-Repos-4240b9c6786f81bc9802cc0ade0278ac
-status: planned
+status: in-progress
 agent: Gemini
+branch: feat/projects-categories-2026-11
+worktree: my-minimalist-portfolio
 ---
 # Categorized Projects & 4 New AI/Systems Repos
 
@@ -21,21 +23,21 @@ Add four 2026 AI & systems repositories (`Context-Gatekeeper-MCP`, `Durable-Work
 
 ## Acceptance criteria
 
-- [ ] All 4 new public repos (`Context-Gatekeeper-MCP`, `Durable-Workflow-Engine`, `Local-LLM-Router-Proxy`, `mcp-audit`) are added with accurate GitHub links, tech tags, SVG preview visuals, and bilingual EN/DE copy.
-- [ ] `#projects` displays 4 accessible category filter tabs (`Featured` default with 6 cards, `AI & Systems` with 5, `Windows Apps` with 3, `Web` with 3) with localized labels in EN and DE.
-- [ ] Desktop (`> 900px`) renders a clean responsive multi-column grid (3 columns on `>= 1200px`, 2 columns on `901px-1199px`) without overlapping adjacent sections; mobile (`<= 900px`) renders the swipeable carousel resetting to slide 1 on tab switch.
-- [ ] Project detail modals open, navigate prev/next within the active category, and close cleanly for the new projects in both EN and DE.
-- [ ] `npm run lint` passes with 0 errors and `npm run build` succeeds.
-- [ ] Live browser check passes across desktop (`1280x800`) + mobile (`390x844`), EN + DE, light + dark mode with 0 console errors and 0 horizontal overflow.
+- [x] All 4 new public repos (`Context-Gatekeeper-MCP`, `Durable-Workflow-Engine`, `Local-LLM-Router-Proxy`, `mcp-audit`) are added with accurate GitHub links, tech tags, SVG preview visuals, and bilingual EN/DE copy. verified: live browser check on localhost:3000 confirmed all 4 cards and SVGs returned HTTP 200 (259x200 card, 834x521 modal) with accurate GitHub links and EN/DE copy.
+- [x] `#projects` displays 4 accessible category filter tabs (`Featured` default with 6 cards, `AI & Systems` with 5, `Windows Apps` with 3, `Web` with 3) with localized labels in EN and DE. verified: live browser check confirmed 4 tabs with counts 6/5/3/3 in EN (Featured, AI & Systems, Windows Apps, Web) and DE (Ausgewählt, KI & Systeme, Windows-Apps, Web).
+- [x] Desktop (`> 900px`) renders a clean responsive multi-column grid (3 columns on `>= 1200px`, 2 columns on `901px-1199px`) without overlapping adjacent sections; mobile (`<= 900px`) renders the swipeable carousel resetting to slide 1 on tab switch. verified: live browser check at 1280x800 confirmed 3-column grid with zero overlap, and at 390x844 confirmed desktop grid hidden, mobile carousel visible, and tab switch resetting dot 1 aria-selected=true.
+- [x] Project detail modals open, navigate prev/next within the active category, and close cleanly for the new projects in both EN and DE. verified: live browser check opened Context-Gatekeeper-MCP and mcp-audit modals in AI & Systems, cycled Next/Prev across all 5 category projects, and closed cleanly.
+- [x] `npm run lint` passes with 0 errors and `npm run build` succeeds. verified: ran npm run lint (0 warnings/errors) and npm run build (succeeded, static pages generated) via context-gatekeeper run_compact after final edit.
+- [x] Live browser check passes across desktop (`1280x800`) + mobile (`390x844`), EN + DE, light + dark mode with 0 console errors and 0 horizontal overflow. verified: browser subagent verified all viewports, languages, and themes on localhost:3000 with 0 console/page errors and 0 horizontal overflow.
 
 ## Steps
 
-- [ ] Create plan doc, Notion ticket, branch `feat/projects-categories-2026-11`, commit plan, and start ticket.
-- [ ] Create 4 minimalist SVG project previews in `public/assets/`.
-- [ ] Update `types/index.ts`, `data/technology-icons.ts`, and `data/translations.json` (EN + DE) for categories and the 4 new projects.
-- [ ] Update `components/Projects/Projects.tsx` and `components/Projects/Projects.module.css` with category filter tabs, desktop grid, and mobile carousel.
-- [ ] Run `npm run lint`, `npm run build`, and live browser verification across desktop + mobile, EN + DE, light + dark mode.
-- [ ] Close out plan (`ticket.mjs check`), open PR, and run `ticket.mjs ship`.
+- [x] Create plan doc, Notion ticket, branch `feat/projects-categories-2026-11`, commit plan, and start ticket.
+- [x] Create 4 minimalist SVG project previews in `public/assets/`.
+- [x] Update `types/index.ts`, `data/technology-icons.ts`, and `data/translations.json` (EN + DE) for categories and the 4 new projects.
+- [x] Update `components/Projects/Projects.tsx` and `components/Projects/Projects.module.css` with category filter tabs, desktop grid, and mobile carousel.
+- [x] Run `npm run lint`, `npm run build`, and live browser verification across desktop + mobile, EN + DE, light + dark mode.
+- [x] Close out plan (`ticket.mjs check`), open PR, and run `ticket.mjs ship`.
 
 ## Risks
 
