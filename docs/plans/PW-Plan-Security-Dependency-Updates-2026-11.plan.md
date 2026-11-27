@@ -1,7 +1,7 @@
 ---
 title: Plan - Chore: Security-Dependency-Updates
 ticket: https://app.notion.com/p/PW-Plan-Chore-Security-Dependency-Updates-4250b9c6786f81c1a2b6fcf00b136c4c
-status: planned
+status: in-progress
 priority: high
 state: 
 due: 
@@ -11,6 +11,8 @@ impact:
 dependsOn: 
 devTicketKey: PW:PW-Plan-Security-Dependency-Updates-2026-11
 agent: Gemini
+branch: chore/security-dependency-updates
+worktree: my-minimalist-portfolio
 ---
 # Security-Dependency-Updates
 
@@ -29,13 +31,13 @@ None
 
 ## Acceptance criteria
 
-- [ ] AC1: `package.json` and `package-lock.json` are updated to patched versions (`next@^15.5.29`, `sharp@^0.35.5`, and `npm audit fix` resolutions).
-- [ ] AC2: `npm run build` and `npm run lint` pass with zero errors.
+- [x] AC1: `package.json` and `package-lock.json` are updated to patched versions (`next@^15.5.29`, `sharp@^0.35.5`, and `npm audit fix` resolutions). verified: Updated next@^15.5.29, eslint-config-next@^15.5.29, sharp@^0.35.5, and ran npm audit fix
+- [x] AC2: `npm run build` and `npm run lint` pass with zero errors. verified: npm run build (6/6 static pages) and npm run lint passed with 0 errors
 
 ## Steps
 
-- [ ] Run `npm audit fix` and update `next`, `eslint-config-next`, and `sharp` to patched versions (AC1)
-- [ ] Verify `npm run build` and `npm run lint` succeed (AC2)
+- [x] Run `npm audit fix` and update `next`, `eslint-config-next`, and `sharp` to patched versions (AC1)
+- [x] Verify `npm run build` and `npm run lint` succeed (AC2)
 
 ## Risks
 
